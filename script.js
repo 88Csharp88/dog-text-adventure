@@ -29,7 +29,7 @@ async function checkDOGBalance() {
             // Loop through each token detail to find the specific rune
             data.data.detail.forEach(token => {
                 // Match using runeid or spacedRune or any identifier unique to the $DOG rune
-                if (token.runeid === '2584327:44' || token.spacedRune === 'DOG•GO•TO•THE•MOON') {
+                if (token.runeid === '840000:3' || token.spacedRune === 'DOG•GO•TO•THE•MOON') {
                     dogBalance += parseInt(token.amount, 10); // Convert amount to an integer
                 }
             });
