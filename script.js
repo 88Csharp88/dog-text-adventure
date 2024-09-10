@@ -2,82 +2,43 @@ async function checkDOGBalance() {
     const address = document.getElementById('walletAddress').value;
     const outputElement = document.getElementById('output');
 
-    console.log('Function checkDOGBalance called');
-    console.log('Wallet address entered:', address);
-
-    outputElement.innerText = 'Fetching transactions...';
+    // Clear previous output
+    outputElement.innerText = 'Fetching $DOG balance...';
 
     try {
-        console.log(`Fetching transactions from: https://blockstream.info/api/address/${address}/txs`);
-        const response = await fetch(`https://blockstream.info/api/address/${address}/txs`);
+        // Fetch balance data from UniSat API
+        const response = await fetch(`https://open-api.unisat.io/v1/indexer/address/${address}/runes/balance-list`, {
+            method: 'GET',
+            headers: {},
+        });
 
         if (!response.ok) {
-            console.error('Failed to fetch transactions:', response.status, response.statusText);
-            outputElement.innerText = 'Failed to fetch transactions. Please check the wallet address.';
+            console.error('Failed to fetch balance:', response.status, response.statusText);
+            outputElement.innerText = 'Failed to fetch balance. Please check the wallet address.';
             return;
         }
 
-        const transactions = await response.json();
-        console.log('Fetched transactions:', transactions);
+        const data = await response.json();
+        console.log('Fetched balance data:', data);
 
+        // Initialize $DOG balance
         let dogBalance = 0;
 
-        transactions.forEach(tx => {
-            tx.vout.forEach(output => {
-                if (output.scriptpubkey_type === 'op_return') {
-                    console.log('OP_RETURN scriptpubkey:', output.scriptpubkey);
-
-                    const runeData = parseRuneData(output.scriptpubkey);
-                    console.log('Parsed Rune Data:', runeData);
-
-                    if (runeData.token === 'DOG•GO•TO•THE•MOON') {
-                        dogBalance += runeData.amount;
-                    }
+        // Check if data.detail exists and is an array
+        if (data.data && Array.isArray(data.data.detail)) {
+            // Find the specific Rune "DOG•GO•TO•THE•MOON" and get the balance
+            data.data.detail.forEach(token => {
+                if (token.spacedRune === 'DOG•GO•TO•THE•MOON') {
+                    dogBalance = parseInt(token.amount, 10); // Convert amount to an integer
                 }
             });
-        });
+        }
 
-        console.log('$DOG Balance calculated:', dogBalance);
+        // Display the balance
         outputElement.innerText = `$DOG Balance: ${dogBalance}`;
+        console.log('$DOG Balance calculated:', dogBalance);
     } catch (error) {
-        console.error('Error fetching transactions:', error);
-        outputElement.innerText = 'Failed to fetch transactions. Please try again.';
+        console.error('Error fetching balance:', error);
+        outputElement.innerText = 'Failed to fetch balance. Please try again.';
     }
-}
-
-// Function to parse Rune data and look specifically for DOG•GO•TO•THE•MOON
-function parseRuneData(scriptpubkey) {
-    const decodedData = hexToAscii(scriptpubkey);
-    console.log('Decoded OP_RETURN data:', decodedData);
-
-    // Look for the specific Rune name
-    if (decodedData.includes('DOG•GO•TO•THE•MOON')) {
-        const amount = extractAmount(decodedData);
-        console.log('Extracted amount:', amount);
-        return {
-            token: 'DOG•GO•TO•THE•MOON',
-            amount: amount
-        };
-    }
-
-    return {
-        token: '',
-        amount: 0
-    };
-}
-
-// Helper function to convert hex to ASCII
-function hexToAscii(hex) {
-    let str = '';
-    for (let i = 0; i < hex.length; i += 2) {
-        str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
-    }
-    return str;
-}
-
-// Hypothetical function to extract amount from the decoded data
-function extractAmount(data) {
-    // Adjust based on the encoding format of the Rune; here we use a simple pattern match
-    const amountMatch = data.match(/amount:(\d+)/); // Replace with the actual pattern if needed
-    return amountMatch ? parseInt(amountMatch[1], 10) : 0;
 }
