@@ -26,10 +26,11 @@ async function checkDOGBalance() {
 
         // Check if data.detail exists and is an array
         if (data.data && Array.isArray(data.data.detail)) {
-            // Find the specific Rune "DOG•GO•TO•THE•MOON" and get the balance
+            // Loop through each token detail to find the specific rune
             data.data.detail.forEach(token => {
-                if (token.spacedRune === 'DOG•GO•TO•THE•MOON') {
-                    dogBalance = parseInt(token.amount, 10); // Convert amount to an integer
+                // Match using runeid or spacedRune or any identifier unique to the $DOG rune
+                if (token.runeid === '2584327:44' || token.spacedRune === 'DOG•GO•TO•THE•MOON') {
+                    dogBalance += parseInt(token.amount, 10); // Convert amount to an integer
                 }
             });
         }
