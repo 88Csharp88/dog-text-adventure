@@ -9,7 +9,11 @@ async function checkDOGBalance() {
         // Fetch balance data from UniSat API
         const response = await fetch(`https://open-api.unisat.io/v1/indexer/address/${address}/runes/balance-list`, {
             method: 'GET',
-            headers: {},
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': '27d72bfbe4aadbfe692a706949e97c88fb14607ebfccccb5e70945acdfa89b24' // Replace 'YOUR_API_KEY' with your actual API key
+          
+            },
         });
 
         if (!response.ok) {
