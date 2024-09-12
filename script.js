@@ -5,7 +5,7 @@ document.getElementById('address-form').addEventListener('submit', async (event)
 
     try {
         // Replace the URL with the appropriate endpoint from the Unisat API documentation
-        const response = await fetch(`https://unisat.io/api/address/${address}/runes`);
+        const response = await fetch(`https://unisat.io/api/address/${address}/runes/balance-list?start=0&limit=16`);
         const data = await response.json();
 
         if (response.ok) {
