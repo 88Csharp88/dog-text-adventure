@@ -18,7 +18,7 @@ document.getElementById('address-form').addEventListener('submit', async (event)
         method: 'GET',
         headers: {},
         });
-const data = await response.json();
+        //const data = await response.json();
         // Log the response status
         console.log(`Response status: ${response.status}`);
 
