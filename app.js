@@ -16,7 +16,7 @@ document.getElementById('address-form').addEventListener('submit', async (event)
         
         // Replace the URL with the correct Unisat API endpoint as per the documentation
         //const response = await fetch(`https://unisat.io/api/address/${address}/runes`);
-        const response = await fetch('https://open-api.unisat.io/v1/indexer/address/{address}/runes/balance-list', {
+        const response = await fetch('https://open-api.unisat.io/v1/indexer/address/${address}/runes/balance-list', {
         method: 'GET',
         headers: {
                 'Accept': 'application/json',
