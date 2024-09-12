@@ -1,6 +1,6 @@
 document.getElementById('address-form').addEventListener('submit', async (event) => {
     event.preventDefault();
-    const address = document.getElementById('unisat-address').value;
+    const address = document.getElementById('unisat-address').value.trim;
     const resultDiv = document.getElementById('result');
 
     // Clear previous result
