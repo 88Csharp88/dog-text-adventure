@@ -3,17 +3,33 @@ document.getElementById('address-form').addEventListener('submit', async (event)
     const address = document.getElementById('unisat-address').value;
     const resultDiv = document.getElementById('result');
 
+    // Clear previous result
+    resultDiv.innerHTML = "Loading...";
+
     try {
-        // Replace the URL with the appropriate endpoint from the Unisat API documentation
-        const response = await fetch(`https://unisat.io/api/address/${address}/runes/balance-list?start=0&limit=16`);
+        // Log the address being used in the request
+        console.log(`Fetching rune balance for address: ${address}`);
+        
+        // Replace the URL with the correct Unisat API endpoint as per the documentation
+        const response = await fetch(`https://unisat.io/api/address/${address}/runes`);
+
+        // Log the response status
+        console.log(`Response status: ${response.status}`);
+
+        // Parse the response data
         const data = await response.json();
 
+        // Check if the response was successful
         if (response.ok) {
+            console.log('Data received:', data);
             resultDiv.innerHTML = `Rune Balance: ${JSON.stringify(data)}`;
         } else {
-            resultDiv.innerHTML = `Error: ${data.message}`;
+            console.error('Error response:', data);
+            resultDiv.innerHTML = `Error: ${data.message || 'Unable to fetch rune balance'}`;
         }
     } catch (error) {
+        // Log any errors that occur during the fetch process
+        console.error('Fetch error:', error);
         resultDiv.innerHTML = `Error: ${error.message}`;
     }
 });
