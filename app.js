@@ -5,7 +5,8 @@ document.getElementById('address-form').addEventListener('submit', async (event)
 
     // Clear previous result
     resultDiv.innerHTML = "Loading...";
-
+    console.log("Loading...");
+    
     try {
         // Log the address being used in the request
         console.log(`Fetching rune balance for address: ${address}`);
