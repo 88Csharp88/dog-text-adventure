@@ -5,7 +5,7 @@ document.getElementById('address-form').addEventListener('submit', async (event)
 
     // Clear previous result
     resultDiv.innerHTML = "Loading...";
-    console.log("Loading...");
+    //console.log("Loading...");
     //console.log('Address entered:', address);
     
     try {
