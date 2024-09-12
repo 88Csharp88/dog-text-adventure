@@ -4,9 +4,13 @@ document.getElementById('address-form').addEventListener('submit', async (event)
     const resultDiv = document.getElementById('result');
 
     // Clear previous result
-    resultDiv.innerHTML = "Loading...";
+    //resultDiv.innerHTML = "Loading...";
     //console.log("Loading...");
     //console.log('Address entered:', address);
+    // Display the address captured from the input
+    console.log(`Address entered: ${address}`);
+    resultDiv.innerHTML = `Loading data for address: ${address}...`; // Display entered address on the page
+
     
     try {
         // Log the address being used in the request
