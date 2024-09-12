@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Check $DOG Balance</title>
+    <title>Rune Balance Checker</title>
 </head>
 <body>
-    <h1>Check Your $DOG Balance</h1>
-    <input type="text" id="walletAddress" placeholder="Enter your Bitcoin wallet address">
-    <button onclick="checkDOGBalance()">Check Balance</button>
-    <p id="output"></p>
+    <h1>Check Rune Balance</h1>
+    <form id="address-form">
+        <input type="text" id="unisat-address" placeholder="Enter Unisat Address" required>
+        <button type="submit">Check Balance</button>
+    </form>
+    <div id="result"></div>
 
-    <script src="script.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
