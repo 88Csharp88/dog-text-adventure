@@ -11,12 +11,17 @@ document.getElementById('address-form').addEventListener('submit', async (event)
     try {
         // Log the address being used in the request
         console.log(`Fetching rune balance for address: ${address}`);
+
+        const apiKey = '27d72bfbe4aadbfe692a706949e97c88fb14607ebfccccb5e70945acdfa89b24'; // Put your API key here
         
         // Replace the URL with the correct Unisat API endpoint as per the documentation
         //const response = await fetch(`https://unisat.io/api/address/${address}/runes`);
         const response = await fetch('https://open-api.unisat.io/v1/indexer/address/{address}/runes/balance-list', {
         method: 'GET',
-        headers: {},
+        headers: {
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${apiKey}` // Include your API key here
+        },
         });
         //const data = await response.json();
         // Log the response status
