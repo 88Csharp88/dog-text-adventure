@@ -9,6 +9,7 @@ document.getElementById('address-form').addEventListener('submit', async (event)
     //console.log('Address entered:', address);
     // Display the address captured from the input
     console.log(`Address entered: ${address}`);
+    console.log(address.length);
     resultDiv.innerHTML = `Loading data for address: ${address}...`; // Display entered address on the page
 
     
