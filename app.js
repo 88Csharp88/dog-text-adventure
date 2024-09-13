@@ -35,6 +35,14 @@ document.getElementById('address-form').addEventListener('submit', async (event)
         // Check if the response was successful
         if (response.ok) {
             console.log('Data received:', data);
+
+            // Extract DOG and LOBO balances
+            const dogBalance = getBalance(data, 'DOGGOTOTHEMOON');
+            const loboBalance = getBalance(data, 'LOBOTHEWOLFPUP');
+
+            // Pass the balances to the game
+            startGame(dogBalance, loboBalance);
+            
             resultDiv.innerHTML = `Rune Balance: ${JSON.stringify(data)}`;
         } else {
             console.error('Error response:', data);
@@ -46,3 +54,15 @@ document.getElementById('address-form').addEventListener('submit', async (event)
         resultDiv.innerHTML = `Error: ${error.message}`;
     }
 });
+
+// Helper function to extract the balance for a specific rune
+function getBalance(data, runeName) {
+    const rune = data.data.detail.find(r => r.rune === runeName);
+    return rune ? parseInt(rune.amount, 10) : 0; // Parse the amount as an integer
+}
+
+// Function to start the game with the fetched balances
+function startGame(dogBalance, loboBalance) {
+    // This function will be defined in game.js
+    window.startGame(dogBalance, loboBalance); // Ensure this matches the function in game.js
+}
