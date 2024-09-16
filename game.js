@@ -94,7 +94,7 @@ window.handleChoice = function(choice) {
 
 function handleCaveDecision(level, choice) {
     if (choice === 'yes') {
-        updateGameOutput('You log onto X and immediately encounter a FUDer!');
+        updateGameOutput('You log onto X and immediately encounter a CAT-NIP FUDer!');
 
         // Add the FUDer image
         const fuderImage = `
