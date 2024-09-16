@@ -43,7 +43,7 @@ document.getElementById('address-form').addEventListener('submit', async (event)
             // Pass the balances to the game
             startGame(dogBalance, loboBalance);
             
-            resultDiv.innerHTML = `Rune Balance: ${JSON.stringify(data)}`;
+            //resultDiv.innerHTML = `Rune Balance: ${JSON.stringify(data)}`;
         } else {
             console.error('Error response:', data);
             resultDiv.innerHTML = `Error: ${data.message || 'Unable to fetch rune balance'}`;
