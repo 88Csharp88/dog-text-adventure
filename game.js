@@ -99,7 +99,7 @@ function handleCaveDecision(level, choice) {
         // Present attack options before simulating the fight
         presentAttackOptions(level);
     } else {
-        updateGameOutput('You decide not to log onto X. The adventure continues...');
+        updateGameOutput('You decide not to log onto X. Go back to bed a gather your strength...');
     }
 }
 
