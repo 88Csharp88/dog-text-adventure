@@ -1,24 +1,28 @@
 // game.js
 window.startGame = function(dogBalance, loboBalance) {
-    const outputDiv = document.getElementById('game-output'); // Get the div to display output
-    outputDiv.innerHTML = ''; // Clear previous content
+    const gameOutput = document.getElementById('game-output');
 
-    // Determine player's level based on DOG balance
+    // Clear the output box for a fresh start
+    gameOutput.innerHTML = '';
+
     const level = calculateLevel(dogBalance);
     const hasLobo = loboBalance > 1;
 
-    // Display player's level
-    //outputDiv.innerHTML += `<p>Player Level: ${level}</p>`;
+    // Display initial game information
+    updateGameOutput(`Starting game with DOG balance: ${dogBalance} and LOBO balance: ${loboBalance}`);
+    updateGameOutput(`Player Level: ${level}`);
+    
     //if (hasLobo) {
-    //    outputDiv.innerHTML += '<p>You have a Lobo companion to help you fight!</p>';
+      //  updateGameOutput('You have a Lobo companion to help you fight!');
     //} else {
-    //    outputDiv.innerHTML += '<p>You do not have a Lobo companion.</p>';
-   // }
+      //  updateGameOutput('You do not have a Lobo companion.');
+    //}
 
-    // Start the text adventure game based on level and companion status
-    startAdventure(level, hasLobo, outputDiv);
+    // Start the text adventure
+    startAdventure(level, hasLobo);
 };
 
+// Function to calculate player's level
 function calculateLevel(dogBalance) {
     if (dogBalance >= 1000000) return 3;
     if (dogBalance >= 50000) return 2;
@@ -26,16 +30,75 @@ function calculateLevel(dogBalance) {
     return 0; // Not enough DOG balance for level 1
 }
 
-function startAdventure(level, hasLobo, outputDiv) {
-    // Add text adventure game logic here
+// Function to update the game output box
+function updateGameOutput(text) {
+    const gameOutput = document.getElementById('game-output');
+    gameOutput.innerHTML += `<p>${text}</p>`;
+}
+
+// Adventure logic with choices
+function startAdventure(level, hasLobo) {
+    const gameOutput = document.getElementById('game-output');
+
     if (level > 0) {
-        outputDiv.innerHTML += `<p>You begin your journey at Level ${level}!</p>`;
+        updateGameOutput(`You begin your journey as Level ${level}!`);
         if (hasLobo) {
-            outputDiv.innerHTML += '<p>Your Lobo companion joins you, ready to fight!</p>';
+            updateGameOutput('Your Lobo companion joins you, ready to fight!');
         } else {
-            outputDiv.innerHTML += '<p>You venture alone, but determined.</p>';
+            updateGameOutput('You venture alone, but determined.');
         }
+
+        // Simulate a simple choice for the user (this could later be a button click)
+        presentChoice('Do you want to enter the cave? (yes/no)', handleCaveDecision);
     } else {
-        outputDiv.innerHTML += '<p>You do not have enough DOG to start the adventure. Gather more to level up!</p>';
+        updateGameOutput('You do not have enough DOG to start the adventure. Gather more to level up!');
+    }
+}
+
+// Function to present a choice and wait for user's response
+function presentChoice(question, callback) {
+    const gameOutput = document.getElementById('game-output');
+    const inputForm = `
+        <div>
+            <p>${question}</p>
+            <button onclick="handleChoice('yes', ${callback.name})">Yes</button>
+            <button onclick="handleChoice('no', ${callback.name})">No</button>
+        </div>
+    `;
+    gameOutput.innerHTML += inputForm;
+}
+
+// Function to handle the user's decision
+window.handleChoice = function(choice, callback) {
+    // Clear the buttons after making a choice
+    const gameOutput = document.getElementById('game-output');
+    gameOutput.innerHTML = '';
+
+    updateGameOutput(`You chose: ${choice}`);
+    callback(choice);
+};
+
+// Handle cave decision
+function handleCaveDecision(choice) {
+    if (choice === 'yes') {
+        updateGameOutput('You enter the cave and encounter a wild creature!');
+        // Simulate a fight
+        simulateFight();
+    } else {
+        updateGameOutput('You decide not to enter the cave. The adventure continues...');
+    }
+}
+
+// Simulate a fight (with simple dice rolls)
+function simulateFight() {
+    const playerRoll = Math.floor(Math.random() * 20) + 1;
+    const enemyRoll = Math.floor(Math.random() * 20) + 1;
+
+    updateGameOutput(`You roll a ${playerRoll}. The enemy rolls a ${enemyRoll}.`);
+
+    if (playerRoll > enemyRoll) {
+        updateGameOutput('You win the fight!');
+    } else {
+        updateGameOutput('You lose the fight...');
     }
 }
