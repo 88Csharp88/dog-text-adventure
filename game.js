@@ -125,7 +125,7 @@ function simulateFight(level, attackModifier, hasLobo) {
         
         // Check if the player has a LOBO companion and give a second chance
         if (hasLobo) {
-            updateGameOutput('But wait! Your LOBO companion interferes, giving you another chance!');
+            updateGameOutput('But wait! Your LOBO companion bites the FUDer, giving you another chance!');
             
             // Simulate a second fight with the same attack method
             const secondPlayerRoll = Math.floor(Math.random() * 20) + 1 + level + attackModifier;
