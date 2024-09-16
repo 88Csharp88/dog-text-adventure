@@ -112,7 +112,7 @@ function handleCaveDecision(level, choice) {
     }
 }
 
-function simulateFight(level, attackModifier) {
+function simulateFight(level, attackModifier, hasLobo) {
     const playerRoll = Math.floor(Math.random() * 20) + 1 + level + attackModifier; // Modify based on the chosen attack
     const enemyRoll = Math.floor(Math.random() * 20) + 1;
 
@@ -122,8 +122,26 @@ function simulateFight(level, attackModifier) {
         updateGameOutput('You win the fight!');
     } else {
         updateGameOutput('You lose the fight...');
+        
+        // Check if the player has a LOBO companion and give a second chance
+        if (hasLobo) {
+            updateGameOutput('But wait! Your LOBO companion interferes, giving you another chance!');
+            
+            // Simulate a second fight with the same attack method
+            const secondPlayerRoll = Math.floor(Math.random() * 20) + 1 + level + attackModifier;
+            const secondEnemyRoll = Math.floor(Math.random() * 20) + 1;
+
+            updateGameOutput(`You roll a ${secondPlayerRoll} with LOBO’s help. The FUDer rolls a ${secondEnemyRoll}.`);
+
+            if (secondPlayerRoll > secondEnemyRoll) {
+                updateGameOutput('With LOBO’s help, you win the fight!');
+            } else {
+                updateGameOutput('Even with LOBO’s interference, you still lose the fight...');
+            }
+        }
     }
 }
+
 
 function presentAttackOptions(level) {
     const gameOutput = document.getElementById('game-output');
@@ -158,6 +176,6 @@ window.handleAttackChoice = function(attackType, level) {
     const gameOutput = document.getElementById('game-output');
     gameOutput.innerHTML = '';
 
-    simulateFight(level, attackModifier);
+    simulateFight(level, attackModifier, hasLobo);
 };
 
