@@ -8,12 +8,12 @@ window.startGame = function(dogBalance, loboBalance) {
     const hasLobo = loboBalance > 1;
 
     // Display player's level
-    outputDiv.innerHTML += `<p>Player Level: ${level}</p>`;
-    if (hasLobo) {
-        outputDiv.innerHTML += '<p>You have a Lobo companion to help you fight!</p>';
-    } else {
-        outputDiv.innerHTML += '<p>You do not have a Lobo companion.</p>';
-    }
+    //outputDiv.innerHTML += `<p>Player Level: ${level}</p>`;
+    //if (hasLobo) {
+    //    outputDiv.innerHTML += '<p>You have a Lobo companion to help you fight!</p>';
+    //} else {
+    //    outputDiv.innerHTML += '<p>You do not have a Lobo companion.</p>';
+   // }
 
     // Start the text adventure game based on level and companion status
     startAdventure(level, hasLobo, outputDiv);
@@ -29,7 +29,7 @@ function calculateLevel(dogBalance) {
 function startAdventure(level, hasLobo, outputDiv) {
     // Add text adventure game logic here
     if (level > 0) {
-        outputDiv.innerHTML += `<p>Welcome to Level ${level} of your adventure!</p>`;
+        outputDiv.innerHTML += `<p>You begin your journey at Level ${level}!</p>`;
         if (hasLobo) {
             outputDiv.innerHTML += '<p>Your Lobo companion joins you, ready to fight!</p>';
         } else {
