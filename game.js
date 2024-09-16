@@ -56,7 +56,9 @@ function startAdventure(level, hasLobo) {
         }
 
         // Simulate a simple choice for the user (this could later be a button click)
-        presentChoice('Do you want to log onto X and shill some $DOG? (yes/no)', handleCaveDecision.bind(null, level)); // Pass level to decision);
+        //presentChoice('Do you want to log onto X and shill some $DOG? (yes/no)', handleCaveDecision.bind(null, level)); // Pass level to decision);
+        presentChoice('Do you want to log onto X and shill some $DOG? (yes/no)', handleCaveDecision.bind(null, level));
+
     } else {
         updateGameOutput('You do not have enough DOG to start the adventure. Gather more to level up!');
     }
@@ -68,8 +70,8 @@ function presentChoice(question, callback) {
     const inputForm = `
         <div>
             <p>${question}</p>
-            <button onclick="handleChoice('yes', ${callback.name})">Yes</button>
-            <button onclick="handleChoice('no', ${callback.name})">No</button>
+            <button onclick="handleChoice('yes', ${callback})">Yes</button>
+            <button onclick="handleChoice('no', ${callback})">No</button>
         </div>
     `;
     gameOutput.innerHTML += inputForm;
@@ -82,7 +84,7 @@ window.handleChoice = function(choice, callback) {
     gameOutput.innerHTML = '';
 
     updateGameOutput(`You chose: ${choice}`);
-    callback(choice);
+    callback(choice); // Call the callback directly with the choice
 };
 
 // Handle cave decision
