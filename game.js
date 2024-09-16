@@ -92,7 +92,7 @@ window.handleChoice = function(choice) {
     }
 };
 
-function handleCaveDecision(level, choice, hasLobo) {
+function handleCaveDecision(level, hasLobo, choice) {
     if (choice === 'yes') {
         updateGameOutput('You log onto X and immediately encounter a CAT-NIP FUDer!');
 
