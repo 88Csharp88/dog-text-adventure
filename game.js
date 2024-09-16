@@ -56,7 +56,7 @@ function startAdventure(level, hasLobo) {
         }
 
         // Simulate a simple choice for the user (this could later be a button click)
-        presentChoice('Do you want to enter the cave? (yes/no)', handleCaveDecision);
+        presentChoice('Do you want to log onto X and shill some $DOG? (yes/no)', handleCaveDecision);
     } else {
         updateGameOutput('You do not have enough DOG to start the adventure. Gather more to level up!');
     }
@@ -88,11 +88,11 @@ window.handleChoice = function(choice, callback) {
 // Handle cave decision
 function handleCaveDecision(choice) {
     if (choice === 'yes') {
-        updateGameOutput('You enter the cave and encounter a wild creature!');
+        updateGameOutput('You log onto X and immediately encounter a FUDer!');
         // Simulate a fight
         simulateFight();
     } else {
-        updateGameOutput('You decide not to enter the cave. The adventure continues...');
+        updateGameOutput('You decide not to log onto X. The adventure continues...');
     }
 }
 
@@ -101,7 +101,7 @@ function simulateFight() {
     const playerRoll = Math.floor(Math.random() * 20) + 1;
     const enemyRoll = Math.floor(Math.random() * 20) + 1;
 
-    updateGameOutput(`You roll a ${playerRoll}. The enemy rolls a ${enemyRoll}.`);
+    updateGameOutput(`You roll a ${playerRoll}. The FUDer rolls a ${enemyRoll}.`);
 
     if (playerRoll > enemyRoll) {
         updateGameOutput('You win the fight!');
