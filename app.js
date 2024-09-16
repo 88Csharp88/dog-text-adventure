@@ -56,9 +56,24 @@ document.getElementById('address-form').addEventListener('submit', async (event)
 });
 
 // Helper function to extract the balance for a specific rune
+//function getBalance(data, runeName) {
+    //const rune = data.data.detail.find(r => r.rune === runeName);
+    //return rune ? parseInt(rune.amount, 10) : 0; // Parse the amount as an integer
+//}
+// Helper function to extract and adjust the balance for a specific rune
 function getBalance(data, runeName) {
     const rune = data.data.detail.find(r => r.rune === runeName);
-    return rune ? parseInt(rune.amount, 10) : 0; // Parse the amount as an integer
+    
+    if (rune) {
+        let balance = parseInt(rune.amount, 10);
+        if (runeName === 'DOGGOTOTHEMOON') {
+            balance = balance / 1e5; // Adjust DOG balance (5 extra digits)
+        } else if (runeName === 'LOBOTHEWOLFPUP') {
+            balance = balance / 1e8; // Adjust LOBO balance (8 extra digits)
+        }
+        return balance;
+    }
+    return 0; // Return 0 if no rune balance is found
 }
 
 // Function to start the game with the fetched balances
