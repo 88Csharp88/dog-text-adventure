@@ -148,9 +148,9 @@ function presentAttackOptions(level, hasLobo) {
     const inputForm = `
         <div>
             <p>Choose your attack method:</p>
-            <button onclick="handleAttackChoice('bite', ${level})">Bite (small bonus)</button>
-            <button onclick="handleAttackChoice('scratch', ${level})">Scratch (medium bonus)</button>
-            <button onclick="handleAttackChoice('pee on them', ${level})">Pee on them (high risk, high reward!)</button>
+            <button onclick="handleAttackChoice('bite', ${level}, ${hasLobo})">Bite (small bonus)</button>
+            <button onclick="handleAttackChoice('scratch', ${level}, ${hasLobo})">Scratch (medium bonus)</button>
+            <button onclick="handleAttackChoice('pee on them', ${level}, ${hasLobo})">Pee on them (high risk, high reward!)</button>
         </div>
     `;
     gameOutput.innerHTML += inputForm;
