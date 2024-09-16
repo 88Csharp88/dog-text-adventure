@@ -95,10 +95,20 @@ window.handleChoice = function(choice) {
 function handleCaveDecision(level, choice) {
     if (choice === 'yes') {
         updateGameOutput('You log onto X and immediately encounter a FUDer!');
+
+        // Add the FUDer image
+        const fuderImage = `
+            <div>
+                <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/FUDer.png?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
+            </div>
+        `;
+        const gameOutput = document.getElementById('game-output');
+        gameOutput.innerHTML += fuderImage; // Add the image to the game output
+
         // Present attack options before simulating the fight
         presentAttackOptions(level);
     } else {
-        updateGameOutput('You decide not to log onto X. Go back to bed a gather your strength...');
+        updateGameOutput('You decide not to log onto X. Go back to bed and gather your strength...');
     }
 }
 
