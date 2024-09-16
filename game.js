@@ -56,7 +56,7 @@ function startAdventure(level, hasLobo) {
         }
 
         // Simulate a simple choice for the user (this could later be a button click)
-        presentChoice('Do you want to log onto X and shill some $DOG? (yes/no)', handleCaveDecision.bind(null, level));
+        presentChoice('Do you want to log onto X and shill some $DOG? (yes/no)', handleCaveDecision.bind(null, level, hasLobo));
 
     } else {
         updateGameOutput('You do not have enough DOG to start the adventure. Gather more to level up!');
@@ -92,7 +92,7 @@ window.handleChoice = function(choice) {
     }
 };
 
-function handleCaveDecision(level, choice) {
+function handleCaveDecision(level, choice, hasLobo) {
     if (choice === 'yes') {
         updateGameOutput('You log onto X and immediately encounter a CAT-NIP FUDer!');
 
@@ -106,7 +106,7 @@ function handleCaveDecision(level, choice) {
         gameOutput.innerHTML += fuderImage; // Add the image to the game output
 
         // Present attack options before simulating the fight
-        presentAttackOptions(level);
+        presentAttackOptions(level, hasLobo);
     } else {
         updateGameOutput('You decide not to log onto X. Go back to bed and gather your strength...');
     }
@@ -143,7 +143,7 @@ function simulateFight(level, attackModifier, hasLobo) {
 }
 
 
-function presentAttackOptions(level) {
+function presentAttackOptions(level, hasLobo) {
     const gameOutput = document.getElementById('game-output');
     const inputForm = `
         <div>
@@ -157,7 +157,7 @@ function presentAttackOptions(level) {
 }
 
 // Handle the attack choice
-window.handleAttackChoice = function(attackType, level) {
+window.handleAttackChoice = function(attackType, level, hasLobo) {
     let attackModifier = 0;
 
     // Apply different bonuses based on the attack type
