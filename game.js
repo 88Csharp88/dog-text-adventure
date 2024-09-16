@@ -70,21 +70,27 @@ function presentChoice(question, callback) {
     const inputForm = `
         <div>
             <p>${question}</p>
-            <button onclick="handleChoice('yes', ${callback})">Yes</button>
-            <button onclick="handleChoice('no', ${callback})">No</button>
+            <button onclick="handleChoice('yes')">Yes</button>
+            <button onclick="handleChoice('no')">No</button>
         </div>
     `;
     gameOutput.innerHTML += inputForm;
+
+    // Store the callback to be used later in handleChoice
+    window.currentCallback = callback;
 }
 
 // Function to handle the user's decision
-window.handleChoice = function(choice, callback) {
-    // Clear the buttons after making a choice
+window.handleChoice = function(choice) {
     const gameOutput = document.getElementById('game-output');
-    gameOutput.innerHTML = '';
+    gameOutput.innerHTML = ''; // Clear the buttons after making a choice
 
     updateGameOutput(`You chose: ${choice}`);
-    callback(choice); // Call the callback directly with the choice
+    
+    // Call the stored callback function
+    if (window.currentCallback) {
+        window.currentCallback(choice);
+    }
 };
 
 // Handle cave decision
@@ -103,7 +109,7 @@ function simulateFight(level) {
     const playerRoll = Math.floor(Math.random() * 20) + 1 + level;
     const enemyRoll = Math.floor(Math.random() * 20) + 1;
 
-    updateGameOutput(`You roll a ${playerRoll} (including your level bonus). The FUDer rolls a ${enemyRoll}.`);
+    updateGameOutput(`You roll a ${playerRoll} including your level bonus. The FUDer rolls a ${enemyRoll}.`);
 
     if (playerRoll > enemyRoll) {
         updateGameOutput('You win the fight!');
