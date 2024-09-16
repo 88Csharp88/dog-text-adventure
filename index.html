@@ -4,20 +4,75 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>$DOG text adventure</title>
+    <title>Rune Balance Checker</title>
+
+    <!-- Link to Google Fonts for retro game-style font -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f7931a; /* Bitcoin Orange */
+            color: black;
+            font-family: 'Press Start 2P', cursive; /* Retro game-style font */
+            text-align: center;
+            padding: 50px;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+        }
+
+        form {
+            margin: 0 auto;
+            width: 300px;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            font-size: 16px;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        button {
+            background-color: black;
+            color: #f7931a;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #333;
+        }
+
+        #result {
+            margin-top: 20px;
+        }
+
+        img {
+            margin-top: 20px;
+            width: 200px;
+            height: auto;
+        }
+    </style>
 </head>
 <body>
-    <h1>$DOG text adventure</h1>
+    <h1>Check Rune Balance</h1>
+    
+    <!-- Dog image placeholder, replace with actual mascot -->
+    <img src="https://via.placeholder.com/200x200.png?text=Dog+Mascot" alt="Dog Mascot">
+
     <form id="address-form">
-        <input type="text" id="unisat-address" placeholder="Enter Unisat Public Address" required>
-        <button type="submit">Start Your Adventure</button>
+        <input type="text" id="unisat-address" placeholder="Enter Unisat Address" required>
+        <button type="submit">Check Balance</button>
     </form>
+
     <div id="result"></div>
 
-    <!-- Load app.js first -->
     <script src="app.js"></script>
-    <!-- Load game.js after app.js to ensure functions in game.js are available -->
     <script src="game.js"></script>
 </body>
 </html>
+
 
