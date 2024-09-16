@@ -123,7 +123,7 @@ function presentAttackOptions(level) {
             <p>Choose your attack method:</p>
             <button onclick="handleAttackChoice('bite', ${level})">Bite (small bonus)</button>
             <button onclick="handleAttackChoice('scratch', ${level})">Scratch (medium bonus)</button>
-            <button onclick="handleAttackChoice('pee', ${level})">Pee (high risk, high reward!)</button>
+            <button onclick="handleAttackChoice('pee on them', ${level})">Pee (high risk, high reward!)</button>
         </div>
     `;
     gameOutput.innerHTML += inputForm;
@@ -140,9 +140,9 @@ window.handleAttackChoice = function(attackType, level) {
     } else if (attackType === 'scratch') {
         attackModifier = 4; // Medium bonus
         updateGameOutput('You choose to Scratch! Medium bonus applied.');
-    } else if (attackType === 'pee') {
+    } else if (attackType === 'pee on them') {
         attackModifier = Math.floor(Math.random() * 6) - 2; // Risky, could be a negative bonus or a big bonus
-        updateGameOutput('You choose to Pee! High risk, high reward!');
+        updateGameOutput('You choose to Pee on them! High risk, high reward!');
     }
 
     // Clear attack options and start the fight
