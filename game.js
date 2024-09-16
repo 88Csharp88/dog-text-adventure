@@ -93,23 +93,21 @@ window.handleChoice = function(choice) {
     }
 };
 
-// Handle cave decision
 function handleCaveDecision(level, choice) {
     if (choice === 'yes') {
         updateGameOutput('You log onto X and immediately encounter a FUDer!');
-        // Simulate a fight
-        simulateFight(level);
+        // Present attack options before simulating the fight
+        presentAttackOptions(level);
     } else {
         updateGameOutput('You decide not to log onto X. The adventure continues...');
     }
 }
 
-// Simulate a fight (with simple dice rolls)
-function simulateFight(level) {
-    const playerRoll = Math.floor(Math.random() * 20) + 1 + level;
+function simulateFight(level, attackModifier) {
+    const playerRoll = Math.floor(Math.random() * 20) + 1 + level + attackModifier; // Modify based on the chosen attack
     const enemyRoll = Math.floor(Math.random() * 20) + 1;
 
-    updateGameOutput(`You roll a ${playerRoll} including your level bonus. The FUDer rolls a ${enemyRoll}.`);
+    updateGameOutput(`You roll a ${playerRoll} including your level bonus and attack modifier. The FUDer rolls a ${enemyRoll}.`);
 
     if (playerRoll > enemyRoll) {
         updateGameOutput('You win the fight!');
@@ -117,3 +115,40 @@ function simulateFight(level) {
         updateGameOutput('You lose the fight...');
     }
 }
+
+function presentAttackOptions(level) {
+    const gameOutput = document.getElementById('game-output');
+    const inputForm = `
+        <div>
+            <p>Choose your attack method:</p>
+            <button onclick="handleAttackChoice('bite', ${level})">Bite (small bonus)</button>
+            <button onclick="handleAttackChoice('scratch', ${level})">Scratch (medium bonus)</button>
+            <button onclick="handleAttackChoice('pee', ${level})">Pee (high risk, high reward!)</button>
+        </div>
+    `;
+    gameOutput.innerHTML += inputForm;
+}
+
+// Handle the attack choice
+window.handleAttackChoice = function(attackType, level) {
+    let attackModifier = 0;
+
+    // Apply different bonuses based on the attack type
+    if (attackType === 'bite') {
+        attackModifier = 2; // Small bonus
+        updateGameOutput('You choose to Bite! Small bonus applied.');
+    } else if (attackType === 'scratch') {
+        attackModifier = 4; // Medium bonus
+        updateGameOutput('You choose to Scratch! Medium bonus applied.');
+    } else if (attackType === 'pee') {
+        attackModifier = Math.floor(Math.random() * 6) - 2; // Risky, could be a negative bonus or a big bonus
+        updateGameOutput('You choose to Pee! High risk, high reward!');
+    }
+
+    // Clear attack options and start the fight
+    const gameOutput = document.getElementById('game-output');
+    gameOutput.innerHTML = '';
+
+    simulateFight(level, attackModifier);
+};
+
