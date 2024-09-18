@@ -56,7 +56,7 @@ function startAdventure(level, hasLobo) {
         }
 
         // Simulate a simple choice for the user (this could later be a button click)
-        presentChoice('Do you want to log onto socials and shill some $DOG? (yes/no)', handleCaveDecision.bind(null, level, hasLobo));
+        presentChoice('You awake from your slumber. GM. Do you want to log onto socials and shill some $DOG? (yes/no)', handleCaveDecision.bind(null, level, hasLobo));
 
     } else {
         updateGameOutput('You do not have enough DOG to start the adventure. Gather more to level up!');
