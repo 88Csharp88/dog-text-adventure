@@ -56,7 +56,7 @@ function startAdventure(level, hasLobo) {
         }
 
         // Simulate a simple choice for the user (this could later be a button click)
-        presentChoice('Do you want to log onto X and shill some $DOG? (yes/no)', handleCaveDecision.bind(null, level, hasLobo));
+        presentChoice('Do you want to log onto socials and shill some $DOG? (yes/no)', handleCaveDecision.bind(null, level, hasLobo));
 
     } else {
         updateGameOutput('You do not have enough DOG to start the adventure. Gather more to level up!');
@@ -94,7 +94,7 @@ window.handleChoice = function(choice) {
 
 function handleCaveDecision(level, hasLobo, choice) {
     if (choice === 'yes') {
-        updateGameOutput('You log onto X and immediately encounter a CAT-NIP FUDer!');
+        updateGameOutput('You log onto socials and immediately encounter a CAT-NIP FUDer!');
 
         // Add the FUDer image
         const fuderImage = `
