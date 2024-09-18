@@ -120,12 +120,38 @@ function simulateFight(level, attackModifier, hasLobo) {
 
     if (playerRoll > enemyRoll) {
         updateGameOutput('You win the fight!');
+        // Add the Dead FUDer image
+        const DeadfuderImage = `
+            <div>
+                <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/Dead%20Cat.png?raw=true" alt="DeadFUDer" style="width: 200px; height: auto;"/>
+            </div>
+        `;
+        const gameOutput = document.getElementById('game-output');
+        gameOutput.innerHTML += DeadfuderImage; // Add the image to the game output
     } else {
         updateGameOutput('You lose the fight...');
+
+        // Add the Dead Dog image
+        const DeadDogImage = `
+            <div>
+                <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/Dead%20Dog.png?raw=true" alt="DeadDog" style="width: 200px; height: auto;"/>
+            </div>
+        `;
+        const gameOutput = document.getElementById('game-output');
+        gameOutput.innerHTML += DeadDogImage; // Add the image to the game output
         
         // Check if the player has a LOBO companion and give a second chance
         if (hasLobo) {
             updateGameOutput('But wait! Your LOBO companion bites the FUDer, giving you another chance!');
+
+            // Add the Lobo image
+        const LoboImage = `
+            <div>
+                <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/Lobo.jpg?raw=true" alt="Lobo" style="width: 200px; height: auto;"/>
+            </div>
+        `;
+        const gameOutput = document.getElementById('game-output');
+        gameOutput.innerHTML += LoboImage; // Add the image to the game output
             
             // Simulate a second fight with the same attack method
             const secondPlayerRoll = Math.floor(Math.random() * 20) + 1 + level + attackModifier;
@@ -135,8 +161,25 @@ function simulateFight(level, attackModifier, hasLobo) {
 
             if (secondPlayerRoll > secondEnemyRoll) {
                 updateGameOutput('With LOBO’s help, you win the fight!');
+
+                // Add the Dead FUDer image
+        const DeadfuderImage2 = `
+            <div>
+                <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/Dead%20Cat.png?raw=true" alt="DeadFUDer2" style="width: 200px; height: auto;"/>
+            </div>
+        `;
+        const gameOutput = document.getElementById('game-output');
+        gameOutput.innerHTML += DeadfuderImage2; // Add the image to the game output
             } else {
                 updateGameOutput('Even with LOBO’s interference, you still lose the fight...');
+                // Add the Dead Dog image
+        const DeadDogImage2 = `
+            <div>
+                <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/Dead%20Dog.png?raw=true" alt="DeadDog2" style="width: 200px; height: auto;"/>
+            </div>
+        `;
+        const gameOutput = document.getElementById('game-output');
+        gameOutput.innerHTML += DeadDogImage2; // Add the image to the game output
             }
         }
     }
