@@ -187,26 +187,31 @@ function simulateFight(level, attackModifier, hasLobo) {
 
 function presentAttackOptions(level, hasLobo) {
     const gameOutput = document.getElementById('game-output');
-    let inputForm = '<p>Choose your attack method:</p>';
+    let attackOptions = `<div><p>Choose your attack method:</p>`;
 
-    // Allow different attacks based on the player's level
-    if (level >= 1 && level <= 2) {
-        inputForm += `<button onclick="handleAttackChoice('bite', ${level}, ${hasLobo})">Bite (small bonus)</button>`;
+    // Level 1 or higher can use Bite
+    if (level >= 1) {
+        attackOptions += `<button onclick="handleAttackChoice('bite', ${level}, ${hasLobo})">Bite (small bonus)</button>`;
     }
-    if (level >= 3 && level <= 4) {
-        inputForm += `<button onclick="handleAttackChoice('scratch', ${level}, ${hasLobo})">Scratch (medium bonus)</button>`;
+    // Level 3 or higher can use Scratch
+    if (level >= 3) {
+        attackOptions += `<button onclick="handleAttackChoice('scratch', ${level}, ${hasLobo})">Scratch (medium bonus)</button>`;
     }
-    if (level >= 5 && level <= 6) {
-        inputForm += `<button onclick="handleAttackChoice('pee on them', ${level}, ${hasLobo})">Pee on them (high risk, high reward!)</button>`;
+    // Level 5 or higher can use Pee on them
+    if (level >= 5) {
+        attackOptions += `<button onclick="handleAttackChoice('pee on them', ${level}, ${hasLobo})">Pee on them (high risk, high reward!)</button>`;
     }
-    if (level >= 8 && level <= 9) {
-        inputForm += `<button onclick="handleAttackChoice('psyop', ${level}, ${hasLobo})">Psyop (mind games!)</button>`;
+    // Level 8 or higher can use Psyop
+    if (level >= 8) {
+        attackOptions += `<button onclick="handleAttackChoice('psyop', ${level}, ${hasLobo})">Psyop (psychological attack)</button>`;
     }
-    if (level == 10) {
-        inputForm += `<button onclick="handleAttackChoice('laser eyes', ${level}, ${hasLobo})">Laser Eyes (ultimate attack!)</button>`;
+    // Level 10 can use Laser Eyes
+    if (level === 10) {
+        attackOptions += `<button onclick="handleAttackChoice('laser eyes', ${level}, ${hasLobo})">Laser Eyes (ultimate attack!)</button>`;
     }
 
-    gameOutput.innerHTML += `<div>${inputForm}</div>`;
+    attackOptions += `</div>`;
+    gameOutput.innerHTML += attackOptions;
 }
 
 // Handle the attack choice
