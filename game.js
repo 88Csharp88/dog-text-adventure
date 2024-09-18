@@ -185,18 +185,28 @@ function simulateFight(level, attackModifier, hasLobo) {
     }
 }
 
-
 function presentAttackOptions(level, hasLobo) {
     const gameOutput = document.getElementById('game-output');
-    const inputForm = `
-        <div>
-            <p>Choose your attack method:</p>
-            <button onclick="handleAttackChoice('bite', ${level}, ${hasLobo})">Bite (small bonus)</button>
-            <button onclick="handleAttackChoice('scratch', ${level}, ${hasLobo})">Scratch (medium bonus)</button>
-            <button onclick="handleAttackChoice('pee on them', ${level}, ${hasLobo})">Pee on them (high risk, high reward!)</button>
-        </div>
-    `;
-    gameOutput.innerHTML += inputForm;
+    let inputForm = '<p>Choose your attack method:</p>';
+
+    // Allow different attacks based on the player's level
+    if (level >= 1 && level <= 2) {
+        inputForm += `<button onclick="handleAttackChoice('bite', ${level}, ${hasLobo})">Bite (small bonus)</button>`;
+    }
+    if (level >= 3 && level <= 4) {
+        inputForm += `<button onclick="handleAttackChoice('scratch', ${level}, ${hasLobo})">Scratch (medium bonus)</button>`;
+    }
+    if (level >= 5 && level <= 6) {
+        inputForm += `<button onclick="handleAttackChoice('pee on them', ${level}, ${hasLobo})">Pee on them (high risk, high reward!)</button>`;
+    }
+    if (level >= 8 && level <= 9) {
+        inputForm += `<button onclick="handleAttackChoice('psyop', ${level}, ${hasLobo})">Psyop (mind games!)</button>`;
+    }
+    if (level == 10) {
+        inputForm += `<button onclick="handleAttackChoice('laser eyes', ${level}, ${hasLobo})">Laser Eyes (ultimate attack!)</button>`;
+    }
+
+    gameOutput.innerHTML += `<div>${inputForm}</div>`;
 }
 
 // Handle the attack choice
@@ -213,6 +223,12 @@ window.handleAttackChoice = function(attackType, level, hasLobo) {
     } else if (attackType === 'pee on them') {
         attackModifier = Math.floor(Math.random() * 6) - 2; // Risky, could be a negative bonus or a big bonus
         updateGameOutput('You choose to Pee on them! High risk, high reward!');
+    } else if (attackType === 'psyop') {
+        attackModifier = 8; // Strong attack
+        updateGameOutput('You choose Psyop! You mess with their mind!');
+    } else if (attackType === 'laser eyes') {
+        attackModifier = 10; // Ultimate attack
+        updateGameOutput('You choose Laser Eyes! The FUDer trembles in fear!');
     }
 
     // Clear attack options and start the fight
