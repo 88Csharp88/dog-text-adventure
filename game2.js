@@ -18,6 +18,21 @@ window.startGame = function(dogBalance, loboBalance) {
     startAdventure(level, hasLobo, mana, maxMana);
 };
 
+// Function to calculate player's level
+function calculateLevel(dogBalance) {
+    if (dogBalance >= 50000000) return 10;
+    if (dogBalance >= 25000000) return 9;
+    if (dogBalance >= 10000000) return 8;
+    if (dogBalance >= 5000000) return 7;
+    if (dogBalance >= 1000000) return 6;
+    if (dogBalance >= 500000) return 5;
+    if (dogBalance >= 250000) return 4;
+    if (dogBalance >= 100000) return 3;
+    if (dogBalance >= 10000) return 2;
+    if (dogBalance >= 1000) return 1;
+    return 0; // Not enough DOG balance for level 1
+}
+
 // Update the startAdventure function to take mana as an argument
 function startAdventure(level, hasLobo, mana, maxMana) {
     const gameOutput = document.getElementById('game2-output');
