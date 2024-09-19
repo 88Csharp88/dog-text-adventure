@@ -44,7 +44,7 @@ function handleCaveDecision(level, hasLobo, mana, maxMana, choice) {
                 <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/FUDer.png?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
             </div>
         `;
-        const gameOutput = document.getElementById('game-output');
+        const gameOutput = document.getElementById('game2-output');
         gameOutput.innerHTML += fuderImage; // Add the image to the game output
 
         // Present new options
