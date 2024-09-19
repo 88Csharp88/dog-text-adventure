@@ -78,9 +78,9 @@ function startAdventure(level, hasLobo, mana, maxMana) {
             updateGameOutput('You venture alone, but determined.');
         }
 
-        presentChoice('You awake from your slumber. Do you want to log onto socials, begin coding a $DOG application, block your ex from contacts, take a walk, or make a $DOG influencer video?', (choice) => {
+        //presentChoice('You awake from your slumber. Do you want to log onto socials, begin coding a $DOG application, block your ex from contacts, take a walk, or make a $DOG influencer video?', (choice) => {
             // Directly call presentNewOptions based on choice
-            updateGameOutput(`You chose to ${choice}.`);
+            //updateGameOutput(`You chose to ${choice}.`);
             presentNewOptions(level, hasLobo, mana, maxMana);
         });
     } else {
@@ -93,7 +93,7 @@ function presentNewOptions(level, hasLobo, mana, maxMana) {
     const gameOutput = document.getElementById('game-output');
     gameOutput.innerHTML = ''; // Clear previous output
     
-    let options = `<div><p>You have several options:</p>`;
+    let options = `<div><p>You awake from your slumber. Do you want to log onto socials, begin coding a $DOG application, block your ex from contacts, take a walk, or make a $DOG influencer video?:</p>`;
 
     options += `<button onclick="handleNewChoice('log onto socials', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Log onto socials</button>`;
     options += `<button onclick="handleNewChoice('coding', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Begin coding a $DOG application</button>`;
