@@ -109,7 +109,30 @@ function handleCaveDecision(level, hasLobo, choice) {
         presentAttackOptions(level, hasLobo);
     } else {
         //updateGameOutput('You decide not to log onto X. Go back to bed and gather your strength...');
-        presentChoice('You decide not to log onto socials. Your phone rings. It is your ex. Would you like to block her contact? (yes/no)', handleCaveDecision.bind(null, level, hasLobo));
+        presentChoice('You decide not to log onto socials. Your phone rings. It is your ex. Would you like to block her contact? (yes/no)', handleExDecision.bind(null, level, hasLobo));
+    }
+}
+
+function handleExDecision(level, hasLobo, choice) {
+    if (choice === 'yes') {
+        updateGameOutput('That was a great decision.  Now you have time to focus!');
+        // Present attack options before simulating the fight
+        presentAttackOptions(level, hasLobo);
+    } else {
+        //updateGameOutput('You decide not to log onto X. Go back to bed and gather your strength...');
+        presentChoice('You did not block your ex and now they arrive at your door. Prepare to fight!');
+
+         // Add the FUDer image
+        const fuderImage = `
+            <div>
+                <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/FUDer.png?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
+            </div>
+        `;
+        const gameOutput = document.getElementById('game-output');
+        gameOutput.innerHTML += fuderImage; // Add the image to the game output
+        
+         // Present attack options before simulating the fight
+        presentAttackOptions(level, hasLobo);
     }
 }
 
