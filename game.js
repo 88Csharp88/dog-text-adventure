@@ -12,12 +12,6 @@ window.startGame = function(dogBalance, loboBalance) {
     updateGameOutput(`Starting game with DOG balance: ${dogBalance} and LOBO balance: ${loboBalance}`);
     updateGameOutput(`Player Level: ${level}`);
     
-    //if (hasLobo) {
-      //  updateGameOutput('You have a Lobo companion to help you fight!');
-    //} else {
-      //  updateGameOutput('You do not have a Lobo companion.');
-    //}
-
     // Start the text adventure
     startAdventure(level, hasLobo);
 };
@@ -108,31 +102,7 @@ function handleCaveDecision(level, hasLobo, choice) {
         // Present attack options before simulating the fight
         presentAttackOptions(level, hasLobo);
     } else {
-        //updateGameOutput('You decide not to log onto X. Go back to bed and gather your strength...');
-        presentChoice('You decide not to log onto socials. Your phone rings. It is your ex. Would you like to block her contact? (yes/no)', handleExDecision.bind(null, level, hasLobo));
-    }
-}
-
-function handleExDecision(level, hasLobo, choice) {
-    if (choice === 'yes') {
-        updateGameOutput('That was a great decision.  Now you have time to focus!');
-        // Present attack options before simulating the fight
-       
-    } else {
-        //updateGameOutput('You decide not to log onto X. Go back to bed and gather your strength...');
-        presentChoice('You did not block your ex and now they arrive at your door. Prepare to fight!');
-
-         // Add the Ex image
-        const ExImage = `
-            <div>
-                <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/ex.jpg?raw=true" alt="Ex" style="width: 200px; height: auto;"/>
-            </div>
-        `;
-        const gameOutput = document.getElementById('game-output');
-        gameOutput.innerHTML += ExImage; // Add the image to the game output
-        
-         // Present attack options before simulating the fight
-        presentAttackOptions(level, hasLobo);
+        updateGameOutput('You decide not to log onto socials. Go back to bed and gather your strength...');       
     }
 }
 
