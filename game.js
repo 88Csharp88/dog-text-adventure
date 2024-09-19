@@ -39,7 +39,6 @@ function updateGameOutput(text) {
     gameOutput.innerHTML += `<p>${text}</p>`;
 }
 
-// Update the startAdventure function to take mana as an argument
 function startAdventure(level, hasLobo, mana, maxMana) {
     const gameOutput = document.getElementById('game-output');
 
@@ -51,27 +50,13 @@ function startAdventure(level, hasLobo, mana, maxMana) {
             updateGameOutput('You venture alone, but determined.');
         }
 
-        presentChoice('You awake from your slumber. GM. Do you want to log onto socials, begin coding a $DOG application, block your ex from contacts, take a walk, or make a $DOG influencer video?', handleCaveDecision.bind(null, level, hasLobo, mana, maxMana));
+        presentChoice('You awake from your slumber. Do you want to log onto socials, begin coding a $DOG application, block your ex from contacts, take a walk, or make a $DOG influencer video?', (choice) => {
+            // Directly call presentNewOptions based on choice
+            updateGameOutput(`You chose to ${choice}.`);
+            presentNewOptions(level, hasLobo, mana, maxMana);
+        });
     } else {
         updateGameOutput('You do not have enough DOG to start the adventure. Gather more to level up!');
-    }
-}
-
-function handleCaveDecision(level, hasLobo, mana, maxMana, choice) {
-    if (choice === 'yes') {
-        updateGameOutput('You log onto socials and immediately encounter a FUDer!');
-        const fuderImage = `
-            <div>
-                <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/FUDer.png?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
-            </div>
-        `;
-        const gameOutput = document.getElementById('game-output');
-        gameOutput.innerHTML += fuderImage; // Add the image to the game output
-
-        // Present new options
-        presentNewOptions(level, hasLobo, mana, maxMana);
-    } else {
-        updateGameOutput('You decide not to log onto X. Go back to bed and gather your strength...');
     }
 }
 
