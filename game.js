@@ -82,7 +82,7 @@ function startAdventure(level, hasLobo, mana, maxMana) {
             // Directly call presentNewOptions based on choice
             //updateGameOutput(`You chose to ${choice}.`);
             presentNewOptions(level, hasLobo, mana, maxMana);
-        });
+        //});
     } else {
         updateGameOutput('You do not have enough DOG to start the adventure. Gather more to level up!');
     }
