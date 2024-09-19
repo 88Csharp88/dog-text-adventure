@@ -1,4 +1,3 @@
-// game.js
 window.startGame = function(dogBalance, loboBalance) {
     const gameOutput = document.getElementById('game-output');
 
@@ -7,19 +6,16 @@ window.startGame = function(dogBalance, loboBalance) {
 
     const level = calculateLevel(dogBalance);
     const hasLobo = loboBalance > 1;
+    let mana = level; // Initialize mana based on level
+    const maxMana = 20; // Set maximum mana
 
     // Display initial game information
     updateGameOutput(`Starting game with DOG balance: ${dogBalance} and LOBO balance: ${loboBalance}`);
     updateGameOutput(`Player Level: ${level}`);
+    updateGameOutput(`Mana: ${mana}/${maxMana}`);
     
-    //if (hasLobo) {
-      //  updateGameOutput('You have a Lobo companion to help you fight!');
-    //} else {
-      //  updateGameOutput('You do not have a Lobo companion.');
-    //}
-
     // Start the text adventure
-    startAdventure(level, hasLobo);
+    startAdventure(level, hasLobo, mana, maxMana);
 };
 
 // Function to calculate player's level
@@ -43,8 +39,8 @@ function updateGameOutput(text) {
     gameOutput.innerHTML += `<p>${text}</p>`;
 }
 
-// Adventure logic with choices
-function startAdventure(level, hasLobo) {
+// Update the startAdventure function to take mana as an argument
+function startAdventure(level, hasLobo, mana, maxMana) {
     const gameOutput = document.getElementById('game-output');
 
     if (level > 0) {
@@ -55,48 +51,15 @@ function startAdventure(level, hasLobo) {
             updateGameOutput('You venture alone, but determined.');
         }
 
-        // Simulate a simple choice for the user (this could later be a button click)
-        presentChoice('You awake from your slumber. GM. Do you want to log onto socials and shill some $DOG? (yes/no)', handleCaveDecision.bind(null, level, hasLobo));
-
+        presentChoice('You awake from your slumber. GM. Do you want to log onto socials, begin coding a $DOG application, block your ex from contacts, take a walk, or make a $DOG influencer video?', handleCaveDecision.bind(null, level, hasLobo, mana, maxMana));
     } else {
         updateGameOutput('You do not have enough DOG to start the adventure. Gather more to level up!');
     }
 }
 
-// Function to present a choice and wait for user's response
-function presentChoice(question, callback) {
-    const gameOutput = document.getElementById('game-output');
-    const inputForm = `
-        <div>
-            <p>${question}</p>
-            <button onclick="handleChoice('yes')">Yes</button>
-            <button onclick="handleChoice('no')">No</button>
-        </div>
-    `;
-    gameOutput.innerHTML += inputForm;
-
-    // Store the callback to be used later in handleChoice
-    window.currentCallback = callback;
-}
-
-// Function to handle the user's decision
-window.handleChoice = function(choice) {
-    const gameOutput = document.getElementById('game-output');
-    gameOutput.innerHTML = ''; // Clear the buttons after making a choice
-
-    updateGameOutput(`You chose: ${choice}`);
-    
-    // Call the stored callback function
-    if (window.currentCallback) {
-        window.currentCallback(choice);
-    }
-};
-
-function handleCaveDecision(level, hasLobo, choice) {
+function handleCaveDecision(level, hasLobo, mana, maxMana, choice) {
     if (choice === 'yes') {
         updateGameOutput('You log onto socials and immediately encounter a FUDer!');
-
-        // Add the FUDer image
         const fuderImage = `
             <div>
                 <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/FUDer.png?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
@@ -105,38 +68,137 @@ function handleCaveDecision(level, hasLobo, choice) {
         const gameOutput = document.getElementById('game-output');
         gameOutput.innerHTML += fuderImage; // Add the image to the game output
 
-        // Present attack options before simulating the fight
-        presentAttackOptions(level, hasLobo);
+        // Present new options
+        presentNewOptions(level, hasLobo, mana, maxMana);
     } else {
-        //updateGameOutput('You decide not to log onto X. Go back to bed and gather your strength...');
-        presentChoice('You decide not to log onto socials. Your phone rings. It is your ex. Would you like to block her contact? (yes/no)', handleExDecision.bind(null, level, hasLobo));
+        updateGameOutput('You decide not to log onto X. Go back to bed and gather your strength...');
     }
 }
 
-function handleExDecision(level, hasLobo, choice) {
-    if (choice === 'yes') {
-        updateGameOutput('That was a great decision.  Now you have time to focus!');
-        // Present attack options before simulating the fight
-       
-    } else {
-        //updateGameOutput('You decide not to log onto X. Go back to bed and gather your strength...');
-        presentChoice('You did not block your ex and now they arrive at your door. Prepare to fight!');
+// Updated presentNewOptions to take mana and maxMana as arguments
+function presentNewOptions(level, hasLobo, mana, maxMana) {
+    const gameOutput = document.getElementById('game-output');
+    let options = `<div><p>You have several options:</p>`;
 
-         // Add the Ex image
-        const ExImage = `
-            <div>
-                <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/ex.jpg?raw=true" alt="Ex" style="width: 200px; height: auto;"/>
-            </div>
-        `;
-        const gameOutput = document.getElementById('game-output');
-        gameOutput.innerHTML += ExImage; // Add the image to the game output
-        
-         // Present attack options before simulating the fight
-        presentAttackOptions(level, hasLobo);
+    options += `<button onclick="handleNewChoice('log onto socials', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Log onto socials</button>`;
+    options += `<button onclick="handleNewChoice('coding', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Begin coding a $DOG application</button>`;
+    options += `<button onclick="handleNewChoice('block ex', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Block your ex from contacts</button>`;
+    options += `<button onclick="handleNewChoice('take a walk', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Take a walk</button>`;
+    options += `<button onclick="handleNewChoice('influencer video', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Make a $DOG influencer video</button>`;
+
+    options += `</div>`;
+    gameOutput.innerHTML += options;
+}
+
+function handleNewChoice(choice, level, hasLobo, mana, maxMana) {
+    const gameOutput = document.getElementById('game-output');
+    gameOutput.innerHTML = ''; // Clear previous output
+
+    updateGameOutput(`You chose to ${choice}.`);
+
+    switch (choice) {
+        case 'log onto socials':
+            updateGameOutput('You log onto socials and encounter a FUDer!');
+            presentAttackOptions(level, hasLobo, mana, maxMana);
+            break;
+        case 'coding':
+            updateGameOutput('You get lost in coding a $DOG application! Gain 1 mana.');
+            mana = Math.min(mana + 1, maxMana);
+            updateGameOutput(`Mana: ${mana}/${maxMana}`);
+            break;
+        case 'block ex':
+            updateGameOutput('You block your ex from contacts. Peace of mind achieved! Gain 2 mana.');
+            mana = Math.min(mana + 2, maxMana);
+            updateGameOutput(`Mana: ${mana}/${maxMana}`);
+            break;
+        case 'take a walk':
+            updateGameOutput('You take a walk and feel refreshed! Gain 1 mana.');
+            mana = Math.min(mana + 1, maxMana);
+            updateGameOutput(`Mana: ${mana}/${maxMana}`);
+            break;
+        case 'influencer video':
+            updateGameOutput('You make a $DOG influencer video and gain followers! Gain 3 mana.');
+            mana = Math.min(mana + 3, maxMana);
+            updateGameOutput(`Mana: ${mana}/${maxMana}`);
+            break;
+        default:
+            updateGameOutput('Nothing happened.');
+            break;
     }
 }
 
-function simulateFight(level, attackModifier, hasLobo) {
+// Updated presentAttackOptions to take mana and maxMana as arguments
+function presentAttackOptions(level, hasLobo, mana, maxMana) {
+    const gameOutput = document.getElementById('game-output');
+    let attackOptions = `<div><p>Choose your attack method:</p>`;
+
+    // Level 1 or higher can use Bite
+    if (level >= 1) {
+        attackOptions += `<button onclick="handleAttackChoice('bite', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Bite (0 mana)</button>`;
+    }
+    // Level 3 or higher can use Scratch
+    if (level >= 3) {
+        attackOptions += `<button onclick="handleAttackChoice('scratch', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Scratch (1 mana)</button>`;
+    }
+    // Level 5 or higher can use Pee on them
+    if (level >= 5) {
+        attackOptions += `<button onclick="handleAttackChoice('pee on them', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Pee on them (2 mana)</button>`;
+    }
+    // Level 8 or higher can use Psyop
+    if (level >= 8) {
+        attackOptions += `<button onclick="handleAttackChoice('psyop', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Psyop (3 mana)</button>`;
+    }
+    // Level 10 can use Laser Eyes
+    if (level === 10) {
+        attackOptions += `<button onclick="handleAttackChoice('laser eyes', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Laser Eyes (4 mana)</button>`;
+    }
+
+    attackOptions += `</div>`;
+    gameOutput.innerHTML += attackOptions;
+}
+
+// Updated handleAttackChoice to deduct mana
+window.handleAttackChoice = function(attackType, level, hasLobo, mana, maxMana) {
+    let attackModifier = 0;
+    let manaCost = 0;
+
+    // Apply different bonuses based on the attack type and set mana cost
+    if (attackType === 'bite') {
+        attackModifier = 2; // Small bonus
+        manaCost = 0;
+    } else if (attackType === 'scratch') {
+        attackModifier = 4; // Medium bonus
+        manaCost = 1;
+    } else if (attackType === 'pee on them') {
+        attackModifier = Math.floor(Math.random() * 6) - 2; // Risky, could be a negative bonus or a big bonus
+        manaCost = 2;
+    } else if (attackType === 'psyop') {
+        attackModifier = 8; // Strong attack
+        manaCost = 3;
+    } else if (attackType === 'laser eyes') {
+        attackModifier = 10; // Ultimate attack
+        manaCost = 4;
+    }
+
+    // Check if player has enough mana
+    if (mana < manaCost) {
+        updateGameOutput('Not enough mana to perform this attack!');
+        return; // Abort if not enough mana
+    }
+
+    // Deduct mana
+    mana -= manaCost;
+
+    updateGameOutput(`You choose to ${attackType}! Attack modifier: ${attackModifier}. Mana: ${mana}/${maxMana}`);
+
+    // Clear attack options and start the fight
+    const gameOutput = document.getElementById('game-output');
+    gameOutput.innerHTML = '';
+
+    simulateFight(level, attackModifier, hasLobo, mana, maxMana);
+};
+
+function simulateFight(level, attackModifier, hasLobo, mana, maxMana) {
     const playerRoll = Math.floor(Math.random() * 20) + 1 + level + attackModifier; // Modify based on the chosen attack
     const enemyRoll = Math.floor(Math.random() * 20) + 1;
 
@@ -145,37 +207,40 @@ function simulateFight(level, attackModifier, hasLobo) {
     if (playerRoll > enemyRoll) {
         updateGameOutput('You win the fight!');
         // Add the Dead FUDer image
-        const DeadfuderImage = `
+        const deadFuderImage = `
             <div>
                 <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/Dead%20Cat.png?raw=true" alt="DeadFUDer" style="width: 200px; height: auto;"/>
             </div>
         `;
         const gameOutput = document.getElementById('game-output');
-        gameOutput.innerHTML += DeadfuderImage; // Add the image to the game output
+        gameOutput.innerHTML += deadFuderImage; // Add the image to the game output
+
+        // Refill some mana after a win
+        mana = Math.min(mana + 2, maxMana);
+        updateGameOutput(`You regain 2 mana! Current Mana: ${mana}/${maxMana}`);
     } else {
         updateGameOutput('You lose the fight...');
 
         // Add the Dead Dog image
-        const DeadDogImage = `
+        const deadDogImage = `
             <div>
                 <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/Dead%20Dog.png?raw=true" alt="DeadDog" style="width: 200px; height: auto;"/>
             </div>
         `;
         const gameOutput = document.getElementById('game-output');
-        gameOutput.innerHTML += DeadDogImage; // Add the image to the game output
+        gameOutput.innerHTML += deadDogImage; // Add the image to the game output
         
         // Check if the player has a LOBO companion and give a second chance
         if (hasLobo) {
             updateGameOutput('But wait! Your LOBO companion bites the FUDer, giving you another chance!');
 
             // Add the Lobo image
-        const LoboImage = `
-            <div>
-                <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/Lobo.jpg?raw=true" alt="Lobo" style="width: 200px; height: auto;"/>
-            </div>
-        `;
-        const gameOutput = document.getElementById('game-output');
-        gameOutput.innerHTML += LoboImage; // Add the image to the game output
+            const loboImage = `
+                <div>
+                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/Lobo.jpg?raw=true" alt="Lobo" style="width: 200px; height: auto;"/>
+                </div>
+            `;
+            gameOutput.innerHTML += loboImage; // Add the image to the game output
             
             // Simulate a second fight with the same attack method
             const secondPlayerRoll = Math.floor(Math.random() * 20) + 1 + level + attackModifier;
@@ -186,84 +251,26 @@ function simulateFight(level, attackModifier, hasLobo) {
             if (secondPlayerRoll > secondEnemyRoll) {
                 updateGameOutput('With LOBO’s help, you win the fight!');
 
-                // Add the Dead FUDer image
-        const DeadfuderImage2 = `
-            <div>
-                <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/Dead%20Cat.png?raw=true" alt="DeadFUDer2" style="width: 200px; height: auto;"/>
-            </div>
-        `;
-        const gameOutput = document.getElementById('game-output');
-        gameOutput.innerHTML += DeadfuderImage2; // Add the image to the game output
+                const deadFuderImage2 = `
+                    <div>
+                        <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/Dead%20Cat.png?raw=true" alt="DeadFUDer2" style="width: 200px; height: auto;"/>
+                    </div>
+                `;
+                gameOutput.innerHTML += deadFuderImage2; // Add the image to the game output
+                
+                // Refill some mana after a win
+                mana = Math.min(mana + 2, maxMana);
+                updateGameOutput(`You regain 2 mana! Current Mana: ${mana}/${maxMana}`);
             } else {
                 updateGameOutput('Even with LOBO’s interference, you still lose the fight...');
-                // Add the Dead Dog image
-        const DeadDogImage2 = `
-            <div>
-                <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/Dead%20Dog.png?raw=true" alt="DeadDog2" style="width: 200px; height: auto;"/>
-            </div>
-        `;
-        const gameOutput = document.getElementById('game-output');
-        gameOutput.innerHTML += DeadDogImage2; // Add the image to the game output
+                const deadDogImage2 = `
+                    <div>
+                        <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/Dead%20Dog.png?raw=true" alt="DeadDog2" style="width: 200px; height: auto;"/>
+                    </div>
+                `;
+                gameOutput.innerHTML += deadDogImage2; // Add the image to the game output
             }
         }
     }
 }
-
-function presentAttackOptions(level, hasLobo) {
-    const gameOutput = document.getElementById('game-output');
-    let attackOptions = `<div><p>Choose your attack method:</p>`;
-
-    // Level 1 or higher can use Bite
-    if (level >= 1) {
-        attackOptions += `<button onclick="handleAttackChoice('bite', ${level}, ${hasLobo})">Bite (small bonus)</button>`;
-    }
-    // Level 3 or higher can use Scratch
-    if (level >= 3) {
-        attackOptions += `<button onclick="handleAttackChoice('scratch', ${level}, ${hasLobo})">Scratch (medium bonus)</button>`;
-    }
-    // Level 5 or higher can use Pee on them
-    if (level >= 5) {
-        attackOptions += `<button onclick="handleAttackChoice('pee on them', ${level}, ${hasLobo})">Pee on them (high risk, high reward!)</button>`;
-    }
-    // Level 8 or higher can use Psyop
-    if (level >= 8) {
-        attackOptions += `<button onclick="handleAttackChoice('psyop', ${level}, ${hasLobo})">Psyop (psychological attack)</button>`;
-    }
-    // Level 10 can use Laser Eyes
-    if (level === 10) {
-        attackOptions += `<button onclick="handleAttackChoice('laser eyes', ${level}, ${hasLobo})">Laser Eyes (ultimate attack!)</button>`;
-    }
-
-    attackOptions += `</div>`;
-    gameOutput.innerHTML += attackOptions;
-}
-
-// Handle the attack choice
-window.handleAttackChoice = function(attackType, level, hasLobo) {
-    let attackModifier = 0;
-
-    // Apply different bonuses based on the attack type
-    if (attackType === 'bite') {
-        attackModifier = 2; // Small bonus
-        updateGameOutput('You choose to Bite! Small bonus applied.');
-    } else if (attackType === 'scratch') {
-        attackModifier = 4; // Medium bonus
-        updateGameOutput('You choose to Scratch! Medium bonus applied.');
-    } else if (attackType === 'pee on them') {
-        attackModifier = Math.floor(Math.random() * 6) - 2; // Risky, could be a negative bonus or a big bonus
-        updateGameOutput('You choose to Pee on them! High risk, high reward!');
-    } else if (attackType === 'psyop') {
-        attackModifier = 8; // Strong attack
-        updateGameOutput('You choose Psyop! You mess with their mind!');
-    } else if (attackType === 'laser eyes') {
-        attackModifier = 10; // Ultimate attack
-        updateGameOutput('You choose Laser Eyes! The FUDer trembles in fear!');
-    }
-
-    // Clear attack options and start the fight
-    const gameOutput = document.getElementById('game-output');
-    gameOutput.innerHTML = '';
-
-    simulateFight(level, attackModifier, hasLobo);
-};
 
