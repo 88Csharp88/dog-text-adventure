@@ -39,6 +39,34 @@ function updateGameOutput(text) {
     gameOutput.innerHTML += `<p>${text}</p>`;
 }
 
+function presentChoice(question, callback) {
+    const gameOutput = document.getElementById('game-output');
+    
+    // Clear previous output
+    gameOutput.innerHTML = '';
+    
+    // Display the question
+    updateGameOutput(question);
+    
+    // Create buttons for the choices
+    const choices = [
+        'log onto socials',
+        'begin coding a $DOG application',
+        'block your ex from contacts',
+        'take a walk',
+        'make a $DOG influencer video'
+    ];
+
+    choices.forEach(choice => {
+        const button = document.createElement('button');
+        button.innerText = choice;
+        button.onclick = () => {
+            callback(choice); // Call the provided callback with the chosen option
+        };
+        gameOutput.appendChild(button);
+    });
+}
+
 function startAdventure(level, hasLobo, mana, maxMana) {
     const gameOutput = document.getElementById('game-output');
 
