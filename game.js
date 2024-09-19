@@ -91,6 +91,8 @@ function startAdventure(level, hasLobo, mana, maxMana) {
 // Updated presentNewOptions to take mana and maxMana as arguments
 function presentNewOptions(level, hasLobo, mana, maxMana) {
     const gameOutput = document.getElementById('game-output');
+    gameOutput.innerHTML = ''; // Clear previous output
+    
     let options = `<div><p>You have several options:</p>`;
 
     options += `<button onclick="handleNewChoice('log onto socials', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Log onto socials</button>`;
