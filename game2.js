@@ -1,5 +1,5 @@
 window.startGame = function(dogBalance, loboBalance) {
-    const gameOutput = document.getElementById('game2-output');
+    const gameOutput = document.getElementById('game-output');
 
     // Clear the output box for a fresh start
     gameOutput.innerHTML = '';
@@ -41,7 +41,7 @@ function updateGameOutput(text) {
 
 // Update the startAdventure function to take mana as an argument
 function startAdventure(level, hasLobo, mana, maxMana) {
-    const gameOutput = document.getElementById('game2-output');
+    const gameOutput = document.getElementById('game-output');
 
     if (level > 0) {
         updateGameOutput(`You begin your journey as Level ${level}!`);
@@ -65,7 +65,7 @@ function handleCaveDecision(level, hasLobo, mana, maxMana, choice) {
                 <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/FUDer.png?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
             </div>
         `;
-        const gameOutput = document.getElementById('game2-output');
+        const gameOutput = document.getElementById('game-output');
         gameOutput.innerHTML += fuderImage; // Add the image to the game output
 
         // Present new options
@@ -77,7 +77,7 @@ function handleCaveDecision(level, hasLobo, mana, maxMana, choice) {
 
 // Updated presentNewOptions to take mana and maxMana as arguments
 function presentNewOptions(level, hasLobo, mana, maxMana) {
-    const gameOutput = document.getElementById('game2-output');
+    const gameOutput = document.getElementById('game-output');
     let options = `<div><p>You have several options:</p>`;
 
     options += `<button onclick="handleNewChoice('log onto socials', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Log onto socials</button>`;
@@ -91,7 +91,7 @@ function presentNewOptions(level, hasLobo, mana, maxMana) {
 }
 
 function handleNewChoice(choice, level, hasLobo, mana, maxMana) {
-    const gameOutput = document.getElementById('game2-output');
+    const gameOutput = document.getElementById('game-output');
     gameOutput.innerHTML = ''; // Clear previous output
 
     updateGameOutput(`You chose to ${choice}.`);
@@ -129,7 +129,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana) {
 
 // Updated presentAttackOptions to take mana and maxMana as arguments
 function presentAttackOptions(level, hasLobo, mana, maxMana) {
-    const gameOutput = document.getElementById('game2-output');
+    const gameOutput = document.getElementById('game-output');
     let attackOptions = `<div><p>Choose your attack method:</p>`;
 
     // Level 1 or higher can use Bite
@@ -192,7 +192,7 @@ window.handleAttackChoice = function(attackType, level, hasLobo, mana, maxMana) 
     updateGameOutput(`You choose to ${attackType}! Attack modifier: ${attackModifier}. Mana: ${mana}/${maxMana}`);
 
     // Clear attack options and start the fight
-    const gameOutput = document.getElementById('game2-output');
+    const gameOutput = document.getElementById('game-output');
     gameOutput.innerHTML = '';
 
     simulateFight(level, attackModifier, hasLobo, mana, maxMana);
@@ -212,7 +212,7 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana) {
                 <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/Dead%20Cat.png?raw=true" alt="DeadFUDer" style="width: 200px; height: auto;"/>
             </div>
         `;
-        const gameOutput = document.getElementById('game2-output');
+        const gameOutput = document.getElementById('game-output');
         gameOutput.innerHTML += deadFuderImage; // Add the image to the game output
 
         // Refill some mana after a win
@@ -227,7 +227,7 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana) {
                 <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/Dead%20Dog.png?raw=true" alt="DeadDog" style="width: 200px; height: auto;"/>
             </div>
         `;
-        const gameOutput = document.getElementById('game2-output');
+        const gameOutput = document.getElementById('game-output');
         gameOutput.innerHTML += deadDogImage; // Add the image to the game output
         
         // Check if the player has a LOBO companion and give a second chance
