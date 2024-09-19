@@ -108,7 +108,8 @@ function handleCaveDecision(level, hasLobo, choice) {
         // Present attack options before simulating the fight
         presentAttackOptions(level, hasLobo);
     } else {
-        updateGameOutput('You decide not to log onto X. Go back to bed and gather your strength...');
+        //updateGameOutput('You decide not to log onto X. Go back to bed and gather your strength...');
+        presentChoice('You decide not to log onto socials. Your phone rings. It is your ex. Would you like to block her contact? (yes/no)', handleCaveDecision.bind(null, level, hasLobo));
     }
 }
 
