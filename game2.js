@@ -33,6 +33,12 @@ function calculateLevel(dogBalance) {
     return 0; // Not enough DOG balance for level 1
 }
 
+// Function to update the game output box
+function updateGameOutput(text) {
+    const gameOutput = document.getElementById('game-output');
+    gameOutput.innerHTML += `<p>${text}</p>`;
+}
+
 // Update the startAdventure function to take mana as an argument
 function startAdventure(level, hasLobo, mana, maxMana) {
     const gameOutput = document.getElementById('game2-output');
