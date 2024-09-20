@@ -69,6 +69,7 @@ function presentChoice(question, callback) {
 
 function startAdventure(level, hasLobo, mana, maxMana) {
     const gameOutput = document.getElementById('game-output');
+    const buttonContainer = document.getElementById('button-container'); // Ensure this exists in your HTML
 
     if (level > 0) {
         updateGameOutput(`You begin your journey as Level ${level}!`);
@@ -78,11 +79,19 @@ function startAdventure(level, hasLobo, mana, maxMana) {
             updateGameOutput('You venture alone, but determined.');
         }
 
-        //presentChoice('You awake from your slumber. Do you want to log onto socials, begin coding a $DOG application, block your ex from contacts, take a walk, or make a $DOG influencer video?', (choice) => {
-            // Directly call presentNewOptions based on choice
-            //updateGameOutput(`You chose to ${choice}.`);
+        // Create a "Ready to Start" button
+        const startButton = document.createElement('button');
+        startButton.textContent = "Are you ready to start your adventure?";
+        buttonContainer.appendChild(startButton);
+
+        // Add event listener to the button
+        startButton.addEventListener('click', () => {
+            // Remove the button after clicking
+            buttonContainer.removeChild(startButton);
+            
+            // Proceed with the next part of the adventure
             presentNewOptions(level, hasLobo, mana, maxMana);
-        //});
+        });
     } else {
         updateGameOutput('You do not have enough DOG to start the adventure. Gather more to level up!');
     }
