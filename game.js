@@ -123,6 +123,14 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana) {
     switch (choice) {
         case 'log onto socials':
             updateGameOutput('You log onto socials and encounter a FUDer!');
+             // Add the FUDer image
+        const fuderImage = `
+            <div>
+                <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/FUDer.png?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
+            </div>
+        `;
+        const gameOutput = document.getElementById('game-output');
+        gameOutput.innerHTML += fuderImage; // Add the image to the game output
             presentAttackOptions(level, hasLobo, mana, maxMana);
             break;
         case 'coding':
