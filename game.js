@@ -117,15 +117,15 @@ function presentNewOptions(level, hasLobo, mana, maxMana) {
 // Define an array of enemies
 const enemies = [
     { name: "FUDer", image: "https://github.com/88Csharp88/dog-text-adventure/blob/main/images/FUDer.png?raw=true" },
-    { name: "Gary Gensler", image: "https://example.com/gary-gensler.png" }, // Replace with actual image URL
-    { name: "Your Ex", image: "https://example.com/your-ex.png" }, // Replace with actual image URL
-    { name: "Tax Collector", image: "https://example.com/tax-collector.png" }, // Replace with actual image URL
-    { name: "Hacker", image: "https://example.com/tax-collector.png" }, // Replace with actual image URL
-    { name: "Zombie Elon", image: "https://example.com/tax-collector.png" }, // Replace with actual image URL
-    { name: "Hater", image: "https://example.com/tax-collector.png" }, // Replace with actual image URL
-    { name: "Animal Control", image: "https://example.com/tax-collector.png" }, // Replace with actual image URL
-    { name: "Mad Dad", image: "https://example.com/tax-collector.png" }, // Replace with actual image URL
-    { name: "Toxic Neighbor", image: "https://example.com/tax-collector.png" } // Replace with actual image URL
+    { name: "Gary Gensler", image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/GaryGensler.jpeg?raw=true" }, // Replace with actual image URL
+    { name: "Your Ex", image: "" }, // Replace with actual image URL
+    { name: "Tax Collector", image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/TaxCollector.jpeg?raw=true" }, // Replace with actual image URL
+    { name: "Hacker", image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/Hacker.jpg?raw=true" }, // Replace with actual image URL
+    { name: "Zombie Elon", image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/ZombieElon.jpeg?raw=true" }, // Replace with actual image URL
+    { name: "Hater", image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/Hater.jpg?raw=true" }, // Replace with actual image URL
+    { name: "Animal Control", image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/AnimalControl.jpg?raw=true" }, // Replace with actual image URL
+    { name: "Mad Dad", image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/MadDad.jpg?raw=true" }, // Replace with actual image URL
+    { name: "Toxic Neighbor", image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/ToxicNeighbor.jpg?raw=true" } // Replace with actual image URL
 ];
 
 function handleNewChoice(choice, level, hasLobo, mana, maxMana) {
