@@ -118,7 +118,7 @@ function presentNewOptions(level, hasLobo, mana, maxMana) {
 const enemies = [
     { name: "FUDer", image: "https://github.com/88Csharp88/dog-text-adventure/blob/main/images/FUDer.png?raw=true" },
     { name: "Gary Gensler", image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/GaryGensler.jpeg?raw=true" }, // Replace with actual image URL
-    { name: "Your Ex", image: "" }, // Replace with actual image URL
+    { name: "Your Ex", image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/ex.jpg?raw=true" }, // Replace with actual image URL
     { name: "Tax Collector", image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/TaxCollector.jpeg?raw=true" }, // Replace with actual image URL
     { name: "Hacker", image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/Hacker.jpg?raw=true" }, // Replace with actual image URL
     { name: "Zombie Elon", image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/ZombieElon.jpeg?raw=true" }, // Replace with actual image URL
