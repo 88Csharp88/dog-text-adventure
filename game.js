@@ -231,7 +231,7 @@ window.handleAttackChoice = function(attackType, level, hasLobo, mana, maxMana) 
 };
 
 function simulateFight(level, attackModifier, hasLobo, mana, maxMana) {
-    const playerRoll = Math.floor(Math.random() * 20) + 1 + level + attackModifier; // Modify based on the chosen attack
+    const playerRoll = Math.floor(Math.random() * 20) + 1 + (level/2) + attackModifier; // Modify based on the chosen attack
     const enemyRoll = Math.floor(Math.random() * 20) + 1;
 
     updateGameOutput(`You roll a ${playerRoll} including your level bonus and attack modifier. The FUDer rolls a ${enemyRoll}.`);
