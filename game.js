@@ -248,8 +248,8 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana) {
         gameOutput.innerHTML += deadFuderImage; // Add the image to the game output
 
         // Refill some mana after a win
-        mana = Math.min(mana + 2, maxMana);
-        updateGameOutput(`You regain 2 mana! Current Mana: ${mana}/${maxMana}`);
+        mana = Math.min(mana + 1, maxMana);
+        updateGameOutput(`You regain 1 mana! Current Mana: ${mana}/${maxMana}`);
     } else {
         updateGameOutput('You lose the fight...');
 
@@ -291,8 +291,8 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana) {
                 gameOutput.innerHTML += deadFuderImage2; // Add the image to the game output
                 
                 // Refill some mana after a win
-                mana = Math.min(mana + 2, maxMana);
-                updateGameOutput(`You regain 2 mana! Current Mana: ${mana}/${maxMana}`);
+                mana = Math.min(mana + 1, maxMana);
+                updateGameOutput(`You regain 1 mana! Current Mana: ${mana}/${maxMana}`);
             } else {
                 updateGameOutput('Even with LOBO’s interference, you still lose the fight...');
                 const deadDogImage2 = `
