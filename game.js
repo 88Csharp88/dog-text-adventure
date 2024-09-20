@@ -196,19 +196,19 @@ window.handleAttackChoice = function(attackType, level, hasLobo, mana, maxMana) 
 
     // Apply different bonuses based on the attack type and set mana cost
     if (attackType === 'bite') {
-        attackModifier = 2; // Small bonus
+        attackModifier = 0; // Small bonus
         manaCost = 0;
     } else if (attackType === 'scratch') {
-        attackModifier = 4; // Medium bonus
+        attackModifier = 1; // Medium bonus
         manaCost = 1;
     } else if (attackType === 'pee on them') {
-        attackModifier = Math.floor(Math.random() * 6) - 2; // Risky, could be a negative bonus or a big bonus
+        attackModifier = Math.floor(Math.random() * 6) - 4; // Risky, could be a negative bonus or a big bonus
         manaCost = 2;
     } else if (attackType === 'psyop') {
-        attackModifier = 8; // Strong attack
+        attackModifier = 4; // Strong attack
         manaCost = 3;
     } else if (attackType === 'laser eyes') {
-        attackModifier = 10; // Ultimate attack
+        attackModifier = 6; // Ultimate attack
         manaCost = 4;
     }
 
