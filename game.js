@@ -133,78 +133,68 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana) {
     gameOutput.innerHTML = ''; // Clear previous output
 
     updateGameOutput(`You chose to ${choice}.`);
+    
+    let enemy;
 
+    // Determine the enemy based on the choice
     switch (choice) {
         case 'log onto socials':
+            enemy = enemies.find(e => e.name === "FUDer");
             updateGameOutput('You log onto socials and encounter a FUDer!');
-             // Add the FUDer image
-        const fuderImage = `
-            <div>
-                <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/FUDer.png?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
-            </div>
-        `;
-        const gameOutput = document.getElementById('game-output');
-        gameOutput.innerHTML += fuderImage; // Add the image to the game output
-            presentAttackOptions(level, hasLobo, mana, maxMana);
             break;
         case 'coding':
-            updateGameOutput('You get lost in coding a $DOG application! Gain 1 mana.');
-            mana = Math.min(mana + 1, maxMana);
-            updateGameOutput(`Mana: ${mana}/${maxMana}`);
-            break;
-        case 'block ex':
-            updateGameOutput('You block your ex from contacts. Peace of mind achieved! Gain 2 mana.');
-            mana = Math.min(mana + 2, maxMana);
-            updateGameOutput(`Mana: ${mana}/${maxMana}`);
+            // You can set a different enemy or just provide a message
+            updateGameOutput('You get lost in coding. No enemy this time!');
+            return; // Return early since there's no fight
+        case 'block your ex':
+            enemy = enemies.find(e => e.name === "Your Ex");
+            updateGameOutput('You block your ex from contacts and now must face them in a fight!');
             break;
         case 'take a walk':
-            updateGameOutput('You take a walk and feel refreshed! Gain 1 mana.');
-            mana = Math.min(mana + 1, maxMana);
-            updateGameOutput(`Mana: ${mana}/${maxMana}`);
+            enemy = enemies.find(e => e.name === "Zombie Elon"); // Example enemy
+            updateGameOutput('You take a walk and encounter Zombie Elon!');
             break;
         case 'influencer video':
-            updateGameOutput('You make a $DOG influencer video and gain followers! Gain 3 mana.');
-            mana = Math.min(mana + 3, maxMana);
-            updateGameOutput(`Mana: ${mana}/${maxMana}`);
+            enemy = enemies.find(e => e.name === "Hater");
+            updateGameOutput('You make a $DOG influencer video and face a Hater!');
             break;
         default:
             updateGameOutput('Nothing happened.');
-            break;
+            return; // Return early for unrecognized choices
     }
+
+    // Proceed to fight with the determined enemy
+    presentAttackOptions(level, hasLobo, mana, maxMana, enemy);
 }
 
-// Updated presentAttackOptions to take mana and maxMana as arguments
-function presentAttackOptions(level, hasLobo, mana, maxMana) {
-    const gameOutput = document.getElementById('game-output');
-    let attackOptions = `<div><p>Choose your attack method:</p>`;
 
-    // Level 1 or higher can use Bite
+function presentAttackOptions(level, hasLobo, mana, maxMana, enemy) {
+    const gameOutput = document.getElementById('game-output');
+    let attackOptions = `<div><p>Choose your attack method against ${enemy.name}:</p>`;
+
+    // Level-based attack options
     if (level >= 1) {
-        attackOptions += `<button onclick="handleAttackChoice('bite', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Bite (0 mana)</button>`;
+        attackOptions += `<button onclick="handleAttackChoice('bite', ${level}, ${hasLobo}, ${mana}, ${maxMana}, '${enemy.name}')">Bite (0 mana)</button>`;
     }
-    // Level 3 or higher can use Scratch
     if (level >= 3) {
-        attackOptions += `<button onclick="handleAttackChoice('scratch', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Scratch (1 mana)</button>`;
+        attackOptions += `<button onclick="handleAttackChoice('scratch', ${level}, ${hasLobo}, ${mana}, ${maxMana}, '${enemy.name}')">Scratch (1 mana)</button>`;
     }
-    // Level 5 or higher can use Pee on them
     if (level >= 5) {
-        attackOptions += `<button onclick="handleAttackChoice('pee on them', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Pee on them (2 mana)</button>`;
+        attackOptions += `<button onclick="handleAttackChoice('pee on them', ${level}, ${hasLobo}, ${mana}, ${maxMana}, '${enemy.name}')">Pee on them (2 mana)</button>`;
     }
-    // Level 8 or higher can use Psyop
     if (level >= 8) {
-        attackOptions += `<button onclick="handleAttackChoice('psyop', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Psyop (3 mana)</button>`;
+        attackOptions += `<button onclick="handleAttackChoice('psyop', ${level}, ${hasLobo}, ${mana}, ${maxMana}, '${enemy.name}')">Psyop (3 mana)</button>`;
     }
-    // Level 10 can use Laser Eyes
     if (level === 10) {
-        attackOptions += `<button onclick="handleAttackChoice('laser eyes', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Laser Eyes (4 mana)</button>`;
+        attackOptions += `<button onclick="handleAttackChoice('laser eyes', ${level}, ${hasLobo}, ${mana}, ${maxMana}, '${enemy.name}')">Laser Eyes (4 mana)</button>`;
     }
 
     attackOptions += `</div>`;
     gameOutput.innerHTML += attackOptions;
 }
 
-// Updated handleAttackChoice to deduct mana
-window.handleAttackChoice = function(attackType, level, hasLobo, mana, maxMana) {
+
+window.handleAttackChoice = function(attackType, level, hasLobo, mana, maxMana, enemyName) {
     let attackModifier = 0;
     let manaCost = 0;
 
@@ -216,7 +206,7 @@ window.handleAttackChoice = function(attackType, level, hasLobo, mana, maxMana) 
         attackModifier = 1; // Medium bonus
         manaCost = 1;
     } else if (attackType === 'pee on them') {
-        attackModifier = Math.floor(Math.random() * 6) - 4; // Risky, could be a negative bonus or a big bonus
+        attackModifier = Math.floor(Math.random() * 6) - 4; // Risky
         manaCost = 2;
     } else if (attackType === 'psyop') {
         attackModifier = 4; // Strong attack
@@ -241,82 +231,94 @@ window.handleAttackChoice = function(attackType, level, hasLobo, mana, maxMana) 
     const gameOutput = document.getElementById('game-output');
     gameOutput.innerHTML = '';
 
-    simulateFight(level, attackModifier, hasLobo, mana, maxMana);
+    // Find the enemy by name
+    const enemy = enemies.find(e => e.name === enemyName);
+    simulateFight(level, attackModifier, hasLobo, mana, maxMana, enemy);
 };
 
-function simulateFight(level, attackModifier, hasLobo, mana, maxMana) {
-    const playerRoll = Math.floor(Math.random() * 20) + 1 + Math.round(level/2) + attackModifier; // Modify based on the chosen attack
+
+function simulateFight(level, attackModifier, hasLobo, mana, maxMana, enemy) {
+    // Player roll
+    const playerRoll = Math.floor(Math.random() * 20) + 1 + Math.round(level / 2) + attackModifier;
+
+    // Enemy roll
     const enemyRoll = Math.floor(Math.random() * 20) + 1;
 
-    updateGameOutput(`You roll a ${playerRoll} including your level bonus and attack modifier. The FUDer rolls a ${enemyRoll}.`);
+    // Display rolls
+    updateGameOutput(`You roll a ${playerRoll} including your level bonus and attack modifier. The ${enemy.name} rolls a ${enemyRoll}.`);
 
+    // Determine the outcome
     if (playerRoll > enemyRoll) {
-        updateGameOutput('You win the fight!');
-        // Add the Dead FUDer image
-        const deadFuderImage = `
+        updateGameOutput(`You win the fight against ${enemy.name}!`);
+
+        // Display the dead enemy image
+        const deadEnemyImage = `
             <div>
-                <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/Dead%20Cat.png?raw=true" alt="DeadFUDer" style="width: 200px; height: auto;"/>
+                <img src="${enemy.image.replace('raw=true', 'raw=true')}" alt="Dead ${enemy.name}" style="width: 200px; height: auto;"/>
             </div>
         `;
         const gameOutput = document.getElementById('game-output');
-        gameOutput.innerHTML += deadFuderImage; // Add the image to the game output
+        gameOutput.innerHTML += deadEnemyImage;
 
         // Refill some mana after a win
         mana = Math.min(mana + 1, maxMana);
         updateGameOutput(`You regain 1 mana! Current Mana: ${mana}/${maxMana}`);
     } else {
-        updateGameOutput('You lose the fight...');
+        updateGameOutput(`You lose the fight against ${enemy.name}...`);
 
-        // Add the Dead Dog image
+        // Display the dead dog image (player lost)
         const deadDogImage = `
             <div>
-                <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/Dead%20Dog.png?raw=true" alt="DeadDog" style="width: 200px; height: auto;"/>
+                <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/Dead%20Dog.png?raw=true" alt="Dead Dog" style="width: 200px; height: auto;"/>
             </div>
         `;
         const gameOutput = document.getElementById('game-output');
-        gameOutput.innerHTML += deadDogImage; // Add the image to the game output
-        
+        gameOutput.innerHTML += deadDogImage;
+
         // Check if the player has a LOBO companion and give a second chance
         if (hasLobo) {
-            updateGameOutput('But wait! Your LOBO companion bites the FUDer, giving you another chance!');
+            updateGameOutput(`But wait! Your LOBO companion bites ${enemy.name}, giving you another chance!`);
 
-            // Add the Lobo image
+            // Display the Lobo image
             const loboImage = `
                 <div>
                     <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/Lobo.jpg?raw=true" alt="Lobo" style="width: 200px; height: auto;"/>
                 </div>
             `;
-            gameOutput.innerHTML += loboImage; // Add the image to the game output
-            
+            gameOutput.innerHTML += loboImage;
+
             // Simulate a second fight with the same attack method
-            const secondPlayerRoll = Math.floor(Math.random() * 20) + 1 + level + attackModifier;
+            const secondPlayerRoll = Math.floor(Math.random() * 20) + 1 + Math.round(level / 2) + attackModifier;
             const secondEnemyRoll = Math.floor(Math.random() * 20) + 1;
 
-            updateGameOutput(`You roll a ${secondPlayerRoll} with LOBO’s help. The FUDer rolls a ${secondEnemyRoll}.`);
+            updateGameOutput(`You roll a ${secondPlayerRoll} with LOBO’s help. The ${enemy.name} rolls a ${secondEnemyRoll}.`);
 
             if (secondPlayerRoll > secondEnemyRoll) {
-                updateGameOutput('With LOBO’s help, you win the fight!');
+                updateGameOutput(`With LOBO’s help, you win the fight against ${enemy.name}!`);
 
-                const deadFuderImage2 = `
+                const deadEnemyImage2 = `
                     <div>
-                        <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/Dead%20Cat.png?raw=true" alt="DeadFUDer2" style="width: 200px; height: auto;"/>
+                        <img src="${enemy.image.replace('raw=true', 'raw=true')}" alt="Dead ${enemy.name}" style="width: 200px; height: auto;"/>
                     </div>
                 `;
-                gameOutput.innerHTML += deadFuderImage2; // Add the image to the game output
-                
+                gameOutput.innerHTML += deadEnemyImage2;
+
                 // Refill some mana after a win
                 mana = Math.min(mana + 1, maxMana);
                 updateGameOutput(`You regain 1 mana! Current Mana: ${mana}/${maxMana}`);
             } else {
-                updateGameOutput('Even with LOBO’s interference, you still lose the fight...');
+                updateGameOutput(`Even with LOBO’s interference, you still lose the fight against ${enemy.name}...`);
+                
+                // Display the dead dog image (player lost again)
                 const deadDogImage2 = `
                     <div>
-                        <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/Dead%20Dog.png?raw=true" alt="DeadDog2" style="width: 200px; height: auto;"/>
+                        <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/Dead%20Dog.png?raw=true" alt="Dead Dog" style="width: 200px; height: auto;"/>
                     </div>
                 `;
-                gameOutput.innerHTML += deadDogImage2; // Add the image to the game output
+                gameOutput.innerHTML += deadDogImage2;
             }
         }
     }
 }
+
 
