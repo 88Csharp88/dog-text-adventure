@@ -118,7 +118,7 @@ function presentNewOptions(level, hasLobo, mana, maxMana) {
 const enemies = [
     { name: "FUDer", 
         image: "https://github.com/88Csharp88/dog-text-adventure/blob/main/images/FUDer.png?raw=true",
-        deadImage: ""
+        deadImage: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/Dead%20Cat.png?raw=true"
     },
     
     { name: "Gary Gensler", 
