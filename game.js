@@ -236,7 +236,6 @@ window.handleAttackChoice = function(attackType, level, hasLobo, mana, maxMana, 
     simulateFight(level, attackModifier, hasLobo, mana, maxMana, enemy);
 };
 
-
 function simulateFight(level, attackModifier, hasLobo, mana, maxMana, enemy) {
     // Player roll
     const playerRoll = Math.floor(Math.random() * 20) + 1 + Math.round(level / 2) + attackModifier;
@@ -254,7 +253,7 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, enemy) {
         // Display the dead enemy image
         const deadEnemyImage = `
             <div>
-                <img src="${enemy.image.replace('raw=true', 'raw=true')}" alt="Dead ${enemy.name}" style="width: 200px; height: auto;"/>
+                <img src="${enemy.deadImage}" alt="Dead ${enemy.name}" style="width: 200px; height: auto;"/>
             </div>
         `;
         const gameOutput = document.getElementById('game-output');
@@ -298,7 +297,7 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, enemy) {
 
                 const deadEnemyImage2 = `
                     <div>
-                        <img src="${enemy.image.replace('raw=true', 'raw=true')}" alt="Dead ${enemy.name}" style="width: 200px; height: auto;"/>
+                        <img src="${enemy.deadImage}" alt="Dead ${enemy.name}" style="width: 200px; height: auto;"/>
                     </div>
                 `;
                 gameOutput.innerHTML += deadEnemyImage2;
@@ -320,5 +319,6 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, enemy) {
         }
     }
 }
+
 
 
