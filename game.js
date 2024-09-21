@@ -172,38 +172,48 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana) {
     gameOutput.innerHTML = ''; // Clear previous output
 
     updateGameOutput(`You chose to ${choice}.`);
-    
+
     let enemy;
 
-    // Determine the enemy based on the choice
     switch (choice) {
         case 'log onto socials':
-            enemy = enemies.find(e => e.name === "FUDer");
             updateGameOutput('You log onto socials and encounter a FUDer!');
+            // Add the FUDer image
+            const fuderImage = `
+                <div>
+                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/FUDer.png?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
+                </div>
+            `;
+            gameOutput.innerHTML += fuderImage; // Add the image to the game output
+            enemy = enemies.find(e => e.name === "FUDer");
+            presentAttackOptions(level, hasLobo, mana, maxMana, enemy);
             break;
         case 'coding':
-            // You can set a different enemy or just provide a message
-            updateGameOutput('You get lost in coding. No enemy this time!');
-            return; // Return early since there's no fight
+            updateGameOutput('You get lost in coding a $DOG application! Gain 1 mana.');
+            mana = Math.min(mana + 1, maxMana);
+            updateGameOutput(`Mana: ${mana}/${maxMana}`);
+            break;
         case 'block your ex':
+            updateGameOutput('You block your ex from contacts. Peace of mind achieved! Gain 2 mana.');
+            mana = Math.min(mana + 2, maxMana);
+            updateGameOutput(`Mana: ${mana}/${maxMana}`);
             enemy = enemies.find(e => e.name === "Your Ex");
-            updateGameOutput('You block your ex from contacts and now must face them in a fight!');
+            presentAttackOptions(level, hasLobo, mana, maxMana, enemy);
             break;
         case 'take a walk':
-            enemy = enemies.find(e => e.name === "Zombie Elon"); // Example enemy
-            updateGameOutput('You take a walk and encounter Zombie Elon!');
+            updateGameOutput('You take a walk and feel refreshed! Gain 1 mana.');
+            mana = Math.min(mana + 1, maxMana);
+            updateGameOutput(`Mana: ${mana}/${maxMana}`);
             break;
         case 'influencer video':
-            enemy = enemies.find(e => e.name === "Hater");
-            updateGameOutput('You make a $DOG influencer video and face a Hater!');
+            updateGameOutput('You make a $DOG influencer video and gain followers! Gain 3 mana.');
+            mana = Math.min(mana + 3, maxMana);
+            updateGameOutput(`Mana: ${mana}/${maxMana}`);
             break;
         default:
             updateGameOutput('Nothing happened.');
-            return; // Return early for unrecognized choices
+            break;
     }
-
-    // Proceed to fight with the determined enemy
-    presentAttackOptions(level, hasLobo, mana, maxMana, enemy);
 }
 
 
