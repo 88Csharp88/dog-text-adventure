@@ -81,7 +81,7 @@ function startAdventure(level, hasLobo, mana, maxMana) {
 
         // Create a "Ready to Start" button
         const startButton = document.createElement('button');
-        startButton.textContent = "Are you ready to start your adventure?";
+        startButton.textContent = "Start your adventure";
         buttonContainer.appendChild(startButton);
 
         // Add event listener to the button
@@ -248,8 +248,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana) {
             updateGameOutput('Nothing happened.');
             break;
     }
-    // Call to present new options after the choice
-    //presentNewOptions(level, hasLobo, mana, maxMana);
+    
 }
 
 
@@ -405,7 +404,7 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, enemy) {
             }
              // Create a "Ready to Start" button
         const startButton = document.createElement('button');
-        startButton.textContent = "Are you ready to continue your adventure?";
+        startButton.textContent = "Continue your adventure?";
         buttonContainer.appendChild(startButton);
 
         // Add event listener to the button
@@ -413,6 +412,8 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, enemy) {
             // Remove the button after clicking
             buttonContainer.removeChild(startButton);
             });
+            Call to present new options after the choice
+            presentNewOptions(level, hasLobo, mana, maxMana);
         }
     }
 }
