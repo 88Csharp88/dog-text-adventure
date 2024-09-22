@@ -196,12 +196,12 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana) {
         case 'block your ex':
             updateGameOutput('You block your ex from contacts but she breaks into your house!');
               // Add the FUDer image
-            const fuderImage = `
+            const ExImage = `
                 <div>
                     <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/ex.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
                 </div>
             `;
-            gameOutput.innerHTML += fuderImage; // Add the image to the game output
+            gameOutput.innerHTML += ExImage; // Add the image to the game output
             //mana = Math.min(mana + 2, maxMana);
             //updateGameOutput(`Mana: ${mana}/${maxMana}`);
             enemy = enemies.find(e => e.name === "Your Ex");
