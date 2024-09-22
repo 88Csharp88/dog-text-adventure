@@ -194,9 +194,9 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana) {
             updateGameOutput(`Mana: ${mana}/${maxMana}`);
             break;
         case 'block your ex':
-            updateGameOutput('You block your ex from contacts. Peace of mind achieved! Gain 2 mana.');
-            mana = Math.min(mana + 2, maxMana);
-            updateGameOutput(`Mana: ${mana}/${maxMana}`);
+            updateGameOutput('You block your ex from contacts but she breaks into your house!');
+            //mana = Math.min(mana + 2, maxMana);
+            //updateGameOutput(`Mana: ${mana}/${maxMana}`);
             enemy = enemies.find(e => e.name === "Your Ex");
             presentAttackOptions(level, hasLobo, mana, maxMana, enemy);
             break;
