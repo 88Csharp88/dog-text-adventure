@@ -412,6 +412,7 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, enemy) {
         startButton.addEventListener('click', () => {
             // Remove the button after clicking
             buttonContainer.removeChild(startButton);
+            });
         }
     }
 }
