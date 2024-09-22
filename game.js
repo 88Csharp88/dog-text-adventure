@@ -189,9 +189,17 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana) {
             presentAttackOptions(level, hasLobo, mana, maxMana, enemy);
             break;
         case 'coding':
-            updateGameOutput('You get lost in coding a $DOG application! Gain 1 mana.');
-            mana = Math.min(mana + 1, maxMana);
-            updateGameOutput(`Mana: ${mana}/${maxMana}`);
+            updateGameOutput('You work on coding a $DOG application, but something takes control of your computer. You encounter a hacker!');
+             const HackerImage = `
+                <div>
+                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/Hacker.jpg?raw=true"/>
+                </div>
+            `;
+            gameOutput.innerHTML += HackerImage; // Add the image to the game output
+            enemy = enemies.find(e => e.name === "Hacker");
+            presentAttackOptions(level, hasLobo, mana, maxMana, enemy);
+            //mana = Math.min(mana + 1, maxMana);
+            //updateGameOutput(`Mana: ${mana}/${maxMana}`);
             break;
         case 'block your ex':
             updateGameOutput('You block your ex from contacts but she breaks into your house!');
