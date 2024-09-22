@@ -222,7 +222,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana) {
             break;
     }
     // Call to present new options after the choice
-    presentNewOptions(level, hasLobo, mana, maxMana);
+    //presentNewOptions(level, hasLobo, mana, maxMana);
 }
 
 
