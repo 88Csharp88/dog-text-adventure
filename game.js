@@ -190,6 +190,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana) {
             break;
         case 'coding':
             updateGameOutput('You work on coding a $DOG application, but something takes control of your computer. You encounter a hacker!');
+            // Add Hacker Image
              const HackerImage = `
                 <div>
                     <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/Hacker.jpg?raw=true"/>
@@ -203,7 +204,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana) {
             break;
         case 'block your ex':
             updateGameOutput('You block your ex from contacts but she breaks into your house!');
-              // Add the FUDer image
+              // Add the Ex image
             const ExImage = `
                 <div>
                     <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/ex.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
@@ -216,14 +217,32 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana) {
             presentAttackOptions(level, hasLobo, mana, maxMana, enemy);
             break;
         case 'take a walk':
-            updateGameOutput('You take a walk and feel refreshed! Gain 1 mana.');
-            mana = Math.min(mana + 1, maxMana);
-            updateGameOutput(`Mana: ${mana}/${maxMana}`);
+            updateGameOutput('You take a walk to clear your mind but you are interupted by your toxic neighbor!');
+            //Add Toxic Neighbor Image
+            const ToxicNeighborImage = `
+                <div>
+                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/ToxicNeighbor.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
+                </div>
+            `;
+            gameOutput.innerHTML += ToxicNeighborImage; // Add the image to the game output
+            //mana = Math.min(mana + 2, maxMana);
+            //updateGameOutput(`Mana: ${mana}/${maxMana}`);
+            enemy = enemies.find(e => e.name === "Toxic Neighbor");
+            presentAttackOptions(level, hasLobo, mana, maxMana, enemy);
             break;
         case 'influencer video':
-            updateGameOutput('You make a $DOG influencer video and gain followers! Gain 3 mana.');
-            mana = Math.min(mana + 3, maxMana);
-            updateGameOutput(`Mana: ${mana}/${maxMana}`);
+            updateGameOutput('You make a $DOG influencer video but encounter a Hater in the comment section!');
+           //Add Hater Image
+            const HaterImage = `
+                <div>
+                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/Hater.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
+                </div>
+            `;
+            gameOutput.innerHTML += HaterImage; // Add the image to the game output
+            //mana = Math.min(mana + 2, maxMana);
+            //updateGameOutput(`Mana: ${mana}/${maxMana}`);
+            enemy = enemies.find(e => e.name === "Hater");
+            presentAttackOptions(level, hasLobo, mana, maxMana, enemy);
             break;
         default:
             updateGameOutput('Nothing happened.');
