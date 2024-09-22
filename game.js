@@ -328,6 +328,8 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, enemy) {
     // Enemy roll
     const enemyRoll = Math.floor(Math.random() * 20) + 1;
 
+    const buttonContainer = document.getElementById('button-container'); // Ensure this exists in your HTML
+
     // Display rolls
     updateGameOutput(`You roll a ${playerRoll} including your level bonus and attack modifier. The ${enemy.name} rolls a ${enemyRoll}.`);
 
@@ -401,6 +403,15 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, enemy) {
                 `;
                 gameOutput.innerHTML += deadDogImage2;
             }
+             // Create a "Ready to Start" button
+        const startButton = document.createElement('button');
+        startButton.textContent = "Are you ready to continue your adventure?";
+        buttonContainer.appendChild(startButton);
+
+        // Add event listener to the button
+        startButton.addEventListener('click', () => {
+            // Remove the button after clicking
+            buttonContainer.removeChild(startButton);
         }
     }
 }
