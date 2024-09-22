@@ -412,7 +412,7 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, enemy) {
             // Remove the button after clicking
             buttonContainer.removeChild(startButton);
             });
-            Call to present new options after the choice
+            //Call to present new options after the choice
             presentNewOptions(level, hasLobo, mana, maxMana);
         }
     }
