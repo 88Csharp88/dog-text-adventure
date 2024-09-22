@@ -221,6 +221,8 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana) {
             updateGameOutput('Nothing happened.');
             break;
     }
+    // Call to present new options after the choice
+    presentNewOptions(level, hasLobo, mana, maxMana);
 }
 
 
