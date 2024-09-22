@@ -402,7 +402,10 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, enemy) {
                 `;
                 gameOutput.innerHTML += deadDogImage2;
             }
-             // Create a "Ready to Start" button
+      
+        }
+    }
+           // Create a "Ready to Start" button
         const startButton = document.createElement('button');
         startButton.textContent = "Continue your adventure?";
         buttonContainer.appendChild(startButton);
@@ -414,8 +417,6 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, enemy) {
             });
             //Call to present new options after the choice
             presentNewOptions(level, hasLobo, mana, maxMana);
-        }
-    }
 }
 
 
