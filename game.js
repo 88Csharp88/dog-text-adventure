@@ -406,17 +406,17 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, enemy) {
         }
     }
            // Create a "Ready to Start" button
-        const startButton = document.createElement('button');
-        startButton.textContent = "Continue your adventure?";
-        buttonContainer.appendChild(startButton);
+        //const startButton = document.createElement('button');
+       // startButton.textContent = "Continue your adventure?";
+       // buttonContainer.appendChild(startButton);
 
         // Add event listener to the button
-        startButton.addEventListener('click', () => {
+        //startButton.addEventListener('click', () => {
             // Remove the button after clicking
-            buttonContainer.removeChild(startButton);
-            });
+           // buttonContainer.removeChild(startButton);
+           // });
             //Call to present new options after the choice
-            presentNewOptions(level, hasLobo, mana, maxMana);
+            //presentNewOptions(level, hasLobo, mana, maxMana);
 }
 
 
