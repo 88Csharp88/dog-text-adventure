@@ -71,6 +71,22 @@ function startAdventure(level, hasLobo, mana, maxMana) {
     const gameOutput = document.getElementById('game-output');
     const buttonContainer = document.getElementById('button-container'); // Ensure this exists in your HTML
 
+    // Clear initial content
+    const initialContent = document.getElementById('address-form');
+    const resultDiv = document.getElementById('result');
+    const dogImage = document.querySelector('img'); // Assuming the dog image is the first img tag
+
+    // Remove or hide the initial content
+    if (initialContent) {
+        initialContent.style.display = 'none'; // Hide the form
+    }
+    if (resultDiv) {
+        resultDiv.style.display = 'none'; // Hide the result display
+    }
+    if (dogImage) {
+        dogImage.style.display = 'none'; // Hide the dog image
+    }
+
     if (level > 0) {
         updateGameOutput(`You begin your journey as Level ${level}!`);
         if (hasLobo) {
