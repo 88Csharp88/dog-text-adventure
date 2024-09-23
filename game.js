@@ -83,9 +83,9 @@ function startAdventure(level, hasLobo, mana, maxMana) {
     if (resultDiv) {
         resultDiv.style.display = 'none'; // Hide the result display
     }
-    if (dogImage) {
-        dogImage.style.display = 'none'; // Hide the dog image
-    }
+    //if (dogImage) {
+        //dogImage.style.display = 'none'; // Hide the dog image
+    //}
 
     if (level > 0) {
         updateGameOutput(`You begin your journey as Level ${level}!`);
@@ -119,6 +119,22 @@ function presentNewOptions(level, hasLobo, mana, maxMana) {
     gameOutput.innerHTML = ''; // Clear previous output
     
     let options = `<div><p>You awake from your slumber. Do you want to log onto socials, begin coding a $DOG application, block your ex from contacts, take a walk, or make a $DOG influencer video?:</p>`;
+
+    options += `<button onclick="handleNewChoice('log onto socials', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Log onto socials</button>`;
+    options += `<button onclick="handleNewChoice('coding', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Begin coding a $DOG application</button>`;
+    options += `<button onclick="handleNewChoice('block your ex', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Block your ex from contacts</button>`;
+    options += `<button onclick="handleNewChoice('take a walk', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Take a walk</button>`;
+    options += `<button onclick="handleNewChoice('influencer video', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Make a $DOG influencer video</button>`;
+
+    options += `</div>`;
+    gameOutput.innerHTML += options;
+}
+
+function presentSecondOptions(level, hasLobo, mana, maxMana) {
+    const gameOutput = document.getElementById('game-output');
+    gameOutput.innerHTML = ''; // Clear previous output
+    
+    let options = `<div><p>What would you like to do next?:</p>`;
 
     options += `<button onclick="handleNewChoice('log onto socials', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Log onto socials</button>`;
     options += `<button onclick="handleNewChoice('coding', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Begin coding a $DOG application</button>`;
@@ -428,7 +444,7 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, enemy) {
     // Add event listener to the button
     continueButton.addEventListener('click', () => {
         buttonContainer.removeChild(continueButton); // Remove the button
-        presentNewOptions(level, hasLobo, mana, maxMana); // Call to present new options after the choice
+        presentSecondOptions(level, hasLobo, mana, maxMana); // Call to present new options after the choice
     });
 }
 
