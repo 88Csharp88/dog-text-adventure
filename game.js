@@ -281,7 +281,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
 function presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, enemy) {
     const gameOutput = document.getElementById('game-output');
     let attackOptions = `<div><p>Choose your attack method against ${enemy.name}:</p>`;
-    // Level-based attack options
+   // Level-based attack options
     if (level >= 1) {
         attackOptions += `<button onclick="handleAttackChoice('bite', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, '${enemy.name}')">Bite (0 mana)</button>`;
     }
