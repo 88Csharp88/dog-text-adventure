@@ -7,7 +7,7 @@ window.startGame = function(dogBalance, loboBalance) {
     const level = calculateLevel(dogBalance);
     const hasLobo = loboBalance > 1;
     let mana = level; // Initialize mana based on level
-    let hitpoints = level*2; //Initialize hitpionts based on level times two
+    let hitpoints = level*2; //Initialize hitpoints based on level times two
     const maxMana = 20; // Set maximum mana
     const maxHitpoints = 20; // Set maximum hitpoints
 
