@@ -390,7 +390,7 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, enemy) {
         presentSecondOptions(level, hasLobo, mana, maxMana); // Call to present new options after the choice
     });
     } else {
-        updateGameOutput(`You lose the fight against ${enemy.name}...`);
+        updateGameOutput(`You lose the fight against ${enemy.name}...  GAME OVER`);
 
         // Display the dead dog image (player lost)
         const deadDogImage = `
@@ -444,7 +444,7 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, enemy) {
         presentSecondOptions(level, hasLobo, mana, maxMana); // Call to present new options after the choice
     });
             } else {
-                updateGameOutput(`Even with LOBO’s interference, you still lose the fight against ${enemy.name}...`);
+                updateGameOutput(`Even with LOBO’s interference, you still lose the fight against ${enemy.name}...  GAME OVER`);
                 
                 // Display the dead dog image (player lost again)
                 const deadDogImage2 = `
