@@ -281,22 +281,21 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
 function presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, enemy) {
     const gameOutput = document.getElementById('game-output');
     let attackOptions = `<div><p>Choose your attack method against ${enemy.name}:</p>`;
-
     // Level-based attack options
     if (level >= 1) {
-        attackOptions += `<button onclick="handleAttackChoice('bite', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}', ${enemy.name}')">Bite (0 mana)</button>`;
+        attackOptions += `<button onclick="handleAttackChoice('bite', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, '${enemy.name}')">Bite (0 mana)</button>`;
     }
     if (level >= 3) {
-        attackOptions += `<button onclick="handleAttackChoice('scratch', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}', '${enemy.name}')">Scratch (1 mana)</button>`;
+        attackOptions += `<button onclick="handleAttackChoice('scratch', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, '${enemy.name}')">Scratch (1 mana)</button>`;
     }
     if (level >= 5) {
-        attackOptions += `<button onclick="handleAttackChoice('pee on them', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}', '${enemy.name}')">Pee on them (2 mana)</button>`;
+        attackOptions += `<button onclick="handleAttackChoice('pee on them', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, '${enemy.name}')">Pee on them (2 mana)</button>`;
     }
     if (level >= 8) {
-        attackOptions += `<button onclick="handleAttackChoice('psyop', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}', '${enemy.name}')">Psyop (3 mana)</button>`;
+        attackOptions += `<button onclick="handleAttackChoice('psyop', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, '${enemy.name}')">Psyop (3 mana)</button>`;
     }
     if (level === 10) {
-        attackOptions += `<button onclick="handleAttackChoice('laser eyes', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}', '${enemy.name}')">Laser Eyes (4 mana)</button>`;
+        attackOptions += `<button onclick="handleAttackChoice('laser eyes', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, '${enemy.name}')">Laser Eyes (4 mana)</button>`;
     }
 
     attackOptions += `</div>`;
