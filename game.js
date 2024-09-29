@@ -378,6 +378,17 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, enemy) {
         // Refill some mana after a win
         mana = Math.min(mana + 1, maxMana);
         updateGameOutput(`You regain 1 mana! Current Mana: ${mana}/${maxMana}`);
+        // Add a button to continue the adventure
+    const buttonContainer = document.getElementById('button-container'); // Ensure this exists in your HTML
+    const continueButton = document.createElement('button');
+    continueButton.textContent = "Continue your adventure?";
+    buttonContainer.appendChild(continueButton);
+
+    // Add event listener to the button
+    continueButton.addEventListener('click', () => {
+        buttonContainer.removeChild(continueButton); // Remove the button
+        presentSecondOptions(level, hasLobo, mana, maxMana); // Call to present new options after the choice
+    });
     } else {
         updateGameOutput(`You lose the fight against ${enemy.name}...`);
 
@@ -421,6 +432,17 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, enemy) {
                 // Refill some mana after a win
                 mana = Math.min(mana + 1, maxMana);
                 updateGameOutput(`You regain 1 mana! Current Mana: ${mana}/${maxMana}`);
+                // Add a button to continue the adventure
+    const buttonContainer = document.getElementById('button-container'); // Ensure this exists in your HTML
+    const continueButton = document.createElement('button');
+    continueButton.textContent = "Continue your adventure?";
+    buttonContainer.appendChild(continueButton);
+
+    // Add event listener to the button
+    continueButton.addEventListener('click', () => {
+        buttonContainer.removeChild(continueButton); // Remove the button
+        presentSecondOptions(level, hasLobo, mana, maxMana); // Call to present new options after the choice
+    });
             } else {
                 updateGameOutput(`Even with LOBO’s interference, you still lose the fight against ${enemy.name}...`);
                 
@@ -435,17 +457,7 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, enemy) {
       
         }
     }
-            // Add a button to continue the adventure
-    const buttonContainer = document.getElementById('button-container'); // Ensure this exists in your HTML
-    const continueButton = document.createElement('button');
-    continueButton.textContent = "Continue your adventure?";
-    buttonContainer.appendChild(continueButton);
-
-    // Add event listener to the button
-    continueButton.addEventListener('click', () => {
-        buttonContainer.removeChild(continueButton); // Remove the button
-        presentSecondOptions(level, hasLobo, mana, maxMana); // Call to present new options after the choice
-    });
+            
 }
 
 
