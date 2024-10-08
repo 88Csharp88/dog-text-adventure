@@ -401,6 +401,10 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
             hitpoints = Math.max(hitpoints - 3, 0); // Deduct 3 HP, ensuring it doesn't go below 0
             updateGameOutput(`You lose 3 hitpoints! Current Hitpoints: ${hitpoints}/${maxHitpoints}`);
         }
+        // Check if hitpoints have reached 0
+            if (hitpoints === 0) {
+                endGame();
+                return; // Exit the function to prevent further actions
 
         // Check if the player has a LOBO companion and give a second chance
         if (hasLobo) {
@@ -449,6 +453,11 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
 
                 hitpoints = Math.max(hitpoints - 3, 0); // Deduct 3 HP, ensuring it doesn't go below 0
                 updateGameOutput(`You lose 3 hitpoints! Current Hitpoints: ${hitpoints}/${maxHitpoints}`);
+
+                // Check if hitpoints have reached 0
+            if (hitpoints === 0) {
+                endGame();
+                return; // Exit the function to prevent further actions
                 
                 // Display the dead dog image (player lost again)
                 const deadDogImage2 = `
@@ -462,6 +471,12 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
         }
     }
             
+}
+
+function endGame() {
+    const gameOutput = document.getElementById('game-output');
+    updateGameOutput(`Game Over! You have lost all your hitpoints...`);
+    // You could add any additional game-over logic here, like showing a restart button.
 }
 
 
