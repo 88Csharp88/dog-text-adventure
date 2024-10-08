@@ -408,7 +408,7 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
             if (hitpoints === 0) {
                 endGame();
                 return; // Exit the function to prevent further actions
-
+            }
         // Check if the player has a LOBO companion and give a second chance
         if (hasLobo) {
             updateGameOutput(`But wait! Your LOBO companion bites ${enemy.name}, giving you another chance!`);
@@ -464,7 +464,7 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
             if (hitpoints === 0) {
                 endGame();
                 return; // Exit the function to prevent further actions
-                
+                }
                 // Display the dead dog image (player lost again)
                 const deadDogImage2 = `
                     <div>
