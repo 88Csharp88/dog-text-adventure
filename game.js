@@ -171,7 +171,7 @@ function presentSecondOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpo
     // Select the first 3 options
     const selectedOptions = allOptions.slice(0, 3);
 
-    let options = `<div><p>You awake from your slumber. Choose an action:</p>`;
+    let options = `<div><p>What would you like to do next? Choose an action:</p>`;
     selectedOptions.forEach(option => {
         options += `<button onclick="handleNewChoice('${option.action}', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">${option.text}</button>`;
     });
