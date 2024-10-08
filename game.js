@@ -135,21 +135,51 @@ function presentNewOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoint
     gameOutput.innerHTML += options;
 }
 
+//function presentSecondOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold) {
+    //const gameOutput = document.getElementById('game-output');
+   // gameOutput.innerHTML = ''; // Clear previous output
+    
+   // let options = `<div><p>What would you like to do next?:</p>`;
+
+    //options += `<button onclick="handleNewChoice('log onto socials', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Log onto socials</button>`;
+    //options += `<button onclick="handleNewChoice('coding', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Begin coding a $DOG application</button>`;
+   // options += `<button onclick="handleNewChoice('block your ex', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Block your ex from contacts</button>`;
+    //options += `<button onclick="handleNewChoice('take a walk', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Take a walk</button>`;
+   // options += `<button onclick="handleNewChoice('influencer video', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Make a $DOG influencer video</button>`;
+
+   // options += `</div>`;
+    //gameOutput.innerHTML += options;
+//}
 function presentSecondOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold) {
     const gameOutput = document.getElementById('game-output');
     gameOutput.innerHTML = ''; // Clear previous output
-    
-    let options = `<div><p>What would you like to do next?:</p>`;
 
-    options += `<button onclick="handleNewChoice('log onto socials', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Log onto socials</button>`;
-    options += `<button onclick="handleNewChoice('coding', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Begin coding a $DOG application</button>`;
-    options += `<button onclick="handleNewChoice('block your ex', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Block your ex from contacts</button>`;
-    options += `<button onclick="handleNewChoice('take a walk', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Take a walk</button>`;
-    options += `<button onclick="handleNewChoice('influencer video', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Make a $DOG influencer video</button>`;
+    const allOptions = [
+        { text: 'Log onto socials', action: 'log onto socials' },
+        { text: 'Begin coding a $DOG application', action: 'coding' },
+        { text: 'Block your ex from contacts', action: 'block your ex' },
+        { text: 'Take a walk', action: 'take a walk' },
+        { text: 'Make a $DOG influencer video', action: 'influencer video' }
+    ];
+
+    // Shuffle options
+    for (let i = allOptions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [allOptions[i], allOptions[j]] = [allOptions[j], allOptions[i]];
+    }
+
+    // Select the first 3 options
+    const selectedOptions = allOptions.slice(0, 3);
+
+    let options = `<div><p>You awake from your slumber. Choose an action:</p>`;
+    selectedOptions.forEach(option => {
+        options += `<button onclick="handleNewChoice('${option.action}', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">${option.text}</button>`;
+    });
 
     options += `</div>`;
     gameOutput.innerHTML += options;
 }
+
 
 // Define an array of enemies
 const enemies = [
