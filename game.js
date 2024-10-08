@@ -451,13 +451,7 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
                 addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
                         
             }     
-                // Display the dead dog image (player lost again)
-                const deadDogImage2 = `
-                    <div>
-                        <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/Dead%20Dog.png?raw=true" alt="Dead Dog" style="width: 200px; height: auto;"/>
-                    </div>
-                `;
-                gameOutput.innerHTML += deadDogImage2;
+               
             }
       
         }
