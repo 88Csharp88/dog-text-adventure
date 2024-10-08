@@ -408,12 +408,13 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
             if (hitpoints === 0) {
                 endGame();
                 return; // Exit the function to prevent further actions
-            }
-            // Add a button to continue the adventure
+                // Add a button to continue the adventure
             const buttonContainer = document.getElementById('button-container'); // Ensure this exists in your HTML
             const continueButton = document.createElement('button');
             continueButton.textContent = "Continue your adventure?";
             buttonContainer.appendChild(continueButton);
+            }
+            
         // Check if the player has a LOBO companion and give a second chance
         if (hasLobo) {
             updateGameOutput(`But wait! Your LOBO companion bites ${enemy.name}, giving you another chance!`);
