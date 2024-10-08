@@ -450,10 +450,12 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
                 gold = Math.min(gold + 1, maxGold);
                 updateGameOutput(`You earn 1 gold! Current Gold: ${gold}/${maxGold}`);
                 // Add a button to continue the adventure
-    const buttonContainer = document.getElementById('button-container'); // Ensure this exists in your HTML
-    const continueButton = document.createElement('button');
-    continueButton.textContent = "Continue your adventure?";
-    buttonContainer.appendChild(continueButton);
+                const buttonContainer = document.getElementById('button-container'); // Ensure this exists in your HTML
+                const continueButton = document.createElement('button');
+                continueButton.textContent = "Continue your adventure?";
+                buttonContainer.appendChild(continueButton);
+                // Proceed with the next part of the adventure
+                presentNewOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
 
     // Add event listener to the button
     continueButton.addEventListener('click', () => {
@@ -476,6 +478,9 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
                 const continueButton = document.createElement('button');
                 continueButton.textContent = "Continue your adventure?";
                 buttonContainer.appendChild(continueButton);
+                // Proceed with the next part of the adventure
+                presentNewOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+                
                 // Display the dead dog image (player lost again)
                 const deadDogImage2 = `
                     <div>
