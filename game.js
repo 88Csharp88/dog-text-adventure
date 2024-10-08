@@ -449,9 +449,7 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
                 }
                 // Add continue button
                 addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
-                
-                // Display the dead dog image
-                gameOutput.innerHTML += deadDogImage;
+                        
             }     
                 // Display the dead dog image (player lost again)
                 const deadDogImage2 = `
