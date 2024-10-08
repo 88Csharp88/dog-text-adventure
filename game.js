@@ -409,10 +409,15 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
                 endGame();
                 return; // Exit the function to prevent further actions
                 // Add a button to continue the adventure
-            const buttonContainer = document.getElementById('button-container'); // Ensure this exists in your HTML
-            const continueButton = document.createElement('button');
-            continueButton.textContent = "Continue your adventure?";
-            buttonContainer.appendChild(continueButton);
+             const buttonContainer = document.getElementById('button-container'); // Ensure this exists in your HTML
+    const continueButton = document.createElement('button');
+    continueButton.textContent = "Continue your adventure?";
+    buttonContainer.appendChild(continueButton);
+
+    // Add event listener to the button
+    continueButton.addEventListener('click', () => {
+        buttonContainer.removeChild(continueButton); // Remove the button
+        presentSecondOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold); // Call to present new options after the choice
             }
             
         // Check if the player has a LOBO companion and give a second chance
@@ -474,12 +479,15 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
                 return; // Exit the function to prevent further actions
                 }
                 // Add a button to continue the adventure
-                const buttonContainer = document.getElementById('button-container'); // Ensure this exists in your HTML
-                const continueButton = document.createElement('button');
-                continueButton.textContent = "Continue your adventure?";
-                buttonContainer.appendChild(continueButton);
-                // Proceed with the next part of the adventure
-                presentNewOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+                 const buttonContainer = document.getElementById('button-container'); // Ensure this exists in your HTML
+    const continueButton = document.createElement('button');
+    continueButton.textContent = "Continue your adventure?";
+    buttonContainer.appendChild(continueButton);
+
+    // Add event listener to the button
+    continueButton.addEventListener('click', () => {
+        buttonContainer.removeChild(continueButton); // Remove the button
+        presentSecondOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold); // Call to present new options after the choice
                 
                 // Display the dead dog image (player lost again)
                 const deadDogImage2 = `
