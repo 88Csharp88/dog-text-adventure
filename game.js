@@ -397,6 +397,11 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
         const gameOutput = document.getElementById('game-output');
         gameOutput.innerHTML += deadDogImage;
 
+        if (!hasLobo) {
+            hitpoints = Math.max(hitpoints - 3, 0); // Deduct 3 HP, ensuring it doesn't go below 0
+            updateGameOutput(`You lose 3 hitpoints! Current Hitpoints: ${hitpoints}/${maxHitpoints}`);
+        }
+
         // Check if the player has a LOBO companion and give a second chance
         if (hasLobo) {
             updateGameOutput(`But wait! Your LOBO companion bites ${enemy.name}, giving you another chance!`);
@@ -441,6 +446,9 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
     });
             } else {
                 updateGameOutput(`Even with LOBO’s interference, you still lose the fight against ${enemy.name}...`);
+
+                hitpoints = Math.max(hitpoints - 3, 0); // Deduct 3 HP, ensuring it doesn't go below 0
+                updateGameOutput(`You lose 3 hitpoints! Current Hitpoints: ${hitpoints}/${maxHitpoints}`);
                 
                 // Display the dead dog image (player lost again)
                 const deadDogImage2 = `
