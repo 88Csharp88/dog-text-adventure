@@ -413,6 +413,7 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
     const continueButton = document.createElement('button');
     continueButton.textContent = "Continue your adventure?";
     buttonContainer.appendChild(continueButton);
+            }
 
     // Add event listener to the button
     continueButton.addEventListener('click', () => {
