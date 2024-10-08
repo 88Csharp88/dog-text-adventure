@@ -408,13 +408,14 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
             if (hitpoints === 0) {
                 endGame();
                 return; // Exit the function to prevent further actions
-                // Add a button to continue the adventure
+            }
+
+        // Add a button to continue the adventure
              const buttonContainer = document.getElementById('button-container'); // Ensure this exists in your HTML
     const continueButton = document.createElement('button');
     continueButton.textContent = "Continue your adventure?";
     buttonContainer.appendChild(continueButton);
-            }
-
+        
     // Add event listener to the button
     continueButton.addEventListener('click', () => {
         buttonContainer.removeChild(continueButton); // Remove the button
