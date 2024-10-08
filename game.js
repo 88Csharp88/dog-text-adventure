@@ -374,6 +374,9 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
         // Refill some mana after a win
         mana = Math.min(mana + 1, maxMana);
         updateGameOutput(`You regain 1 mana! Current Mana: ${mana}/${maxMana}`);
+        // Add some gold after a win
+        gold = Math.min(gold + 1, maxGold);
+        updateGameOutput(`You earn 1 gold! Current Gold: ${gold}/${maxGold}`);
         // Add a button to continue the adventure
     const buttonContainer = document.getElementById('button-container'); // Ensure this exists in your HTML
     const continueButton = document.createElement('button');
@@ -437,6 +440,9 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
                 // Refill some mana after a win
                 mana = Math.min(mana + 1, maxMana);
                 updateGameOutput(`You regain 1 mana! Current Mana: ${mana}/${maxMana}`);
+                // Add some gold after a win
+                gold = Math.min(gold + 1, maxGold);
+                updateGameOutput(`You earn 1 gold! Current Gold: ${gold}/${maxGold}`);
                 // Add a button to continue the adventure
     const buttonContainer = document.getElementById('button-container'); // Ensure this exists in your HTML
     const continueButton = document.createElement('button');
