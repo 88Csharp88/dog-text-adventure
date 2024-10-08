@@ -11,7 +11,7 @@ window.startGame = function(dogBalance, loboBalance) {
     let gold = 0; //Initialize gold
     const maxMana = 20; // Set maximum mana
     const maxHitpoints = 20; // Set maximum hitpoints
-    const maxGold = 20;
+    const maxGold = 20; //Set maximum gold
 
     // Display initial game information
     updateGameOutput(`Starting game with DOG balance: ${dogBalance} and LOBO balance: ${loboBalance}`);
