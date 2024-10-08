@@ -409,6 +409,7 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
                 endGame();
                 return; // Exit the function to prevent further actions
            });
+    }
 
         // Add a button to continue the adventure
              const buttonContainer = document.getElementById('button-container'); // Ensure this exists in your HTML
