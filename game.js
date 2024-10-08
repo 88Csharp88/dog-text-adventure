@@ -489,7 +489,7 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
     continueButton.addEventListener('click', () => {
         buttonContainer.removeChild(continueButton); // Remove the button
         presentSecondOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold); // Call to present new options after the choice
-                
+    }     
                 // Display the dead dog image (player lost again)
                 const deadDogImage2 = `
                     <div>
