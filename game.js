@@ -278,7 +278,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             enemy = enemies.find(e => e.name === "Hater");
             presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
             break;
-        case 'walk to the park':
+        case 'go to the park':
             updateGameOutput('You take a walk to the park but encounter animal control!');
            //Add Hater Image
             const AnimalControlImage = `
