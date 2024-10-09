@@ -401,15 +401,23 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
         const gameOutput = document.getElementById('game-output');
         gameOutput.innerHTML += deadEnemyImage;
 
-        // Refill some mana after a win
-        mana = Math.min(mana + 1, maxMana);
-        updateGameOutput(`You regain 1 mana! Current Mana: ${mana}/${maxMana}`);
-        // Add some gold after a win
-        gold = Math.min(gold + 1, maxGold);
-        updateGameOutput(`You earn 1 gold! Current Gold: ${gold}/${maxGold}`);
+        // Generate a random number between 0 and 1
+        const randomChance = Math.random();
+
+        // Refill mana with a 50% chance
+        if (randomChance < 0.5) {
+            mana = Math.min(mana + 1, maxMana);
+            updateGameOutput(`You regain 1 mana! Current Mana: ${mana}/${maxMana}`);
+            }
+
+        // Add gold with a 50% chance
+        if (randomChance < 0.5) {
+            gold = Math.min(gold + 1, maxGold);
+            updateGameOutput(`You earn 1 gold! Current Gold: ${gold}/${maxGold}`);
+            }
         // Add continue button
         addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
-    } else {
+        } else {
         updateGameOutput(`You lose the fight against ${enemy.name}...`);
 
         // Display the dead dog image (player lost)
@@ -458,15 +466,23 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
                 `;
                 gameOutput.innerHTML += deadEnemyImage2;
 
-                // Refill some mana after a win
-                mana = Math.min(mana + 1, maxMana);
-                updateGameOutput(`You regain 1 mana! Current Mana: ${mana}/${maxMana}`);
-                // Add some gold after a win
-                gold = Math.min(gold + 1, maxGold);
-                updateGameOutput(`You earn 1 gold! Current Gold: ${gold}/${maxGold}`);
+               // Generate a random number between 0 and 1
+                const randomChance = Math.random();
+
+                // Refill mana with a 50% chance
+                if (randomChance < 0.5) {
+                    mana = Math.min(mana + 1, maxMana);
+                    updateGameOutput(`You regain 1 mana! Current Mana: ${mana}/${maxMana}`);
+                    }
+
+                // Add gold with a 50% chance
+                if (randomChance < 0.5) {
+                    gold = Math.min(gold + 1, maxGold);
+                    updateGameOutput(`You earn 1 gold! Current Gold: ${gold}/${maxGold}`);
+                    }
                // Add continue button
                 addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
-            } else {
+                } else {
                 updateGameOutput(`Even with LOBO’s interference, you still lose the fight against ${enemy.name}...`);
 
                 hitpoints = Math.max(hitpoints - 3, 0); // Deduct 3 HP, ensuring it doesn't go below 0
