@@ -97,7 +97,10 @@ function presentNewOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoint
         { text: 'Begin coding a $DOG application', action: 'coding' },
         { text: 'Block your ex from contacts', action: 'block your ex' },
         { text: 'Take a walk', action: 'take a walk' },
-        { text: 'Make a $DOG influencer video', action: 'influencer video' }
+        { text: 'Make a $DOG influencer video', action: 'influencer video' },
+        { text: 'Go to the park', action: 'go to the park' },
+        { text: 'Take a nap', action: 'take a nap' },
+        { text: 'Play video games', action: 'play video games' }
     ];
 
     // Shuffle options
@@ -128,7 +131,10 @@ function presentSecondOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpo
         { text: 'Begin coding a $DOG application', action: 'coding' },
         { text: 'Block your ex from contacts', action: 'block your ex' },
         { text: 'Take a walk', action: 'take a walk' },
-        { text: 'Make a $DOG influencer video', action: 'influencer video' }
+        { text: 'Make a $DOG influencer video', action: 'influencer video' },
+        { text: 'Go to the park', action: 'go to the park' },
+        { text: 'Take a nap', action: 'take a nap' },
+        { text: 'Play video games', action: 'play video games' }
     ];
 
     // Shuffle options
@@ -272,6 +278,42 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             enemy = enemies.find(e => e.name === "Hater");
             presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
             break;
+        case 'walk to the park':
+            updateGameOutput('You take a walk to the park but encounter animal control!');
+           //Add Hater Image
+            const AnimalControlImage = `
+                <div>
+                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/AnimalControl.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
+                </div>
+            `;
+            gameOutput.innerHTML += AnimalControlImage; // Add the image to the game output
+            enemy = enemies.find(e => e.name === "Animal Control");
+            presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
+            break;
+         case 'take a nap':
+            updateGameOutput('You begin to doze off but a tax collector shows up at your door!');
+           //Add Hater Image
+            const TaxCollectorImage = `
+                <div>
+                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/TaxCollector.jpeg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
+                </div>
+            `;
+            gameOutput.innerHTML += TaxCollectorImage; // Add the image to the game output
+            enemy = enemies.find(e => e.name === "Tax Collector");
+            presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
+            break;
+         case 'play video games':
+            updateGameOutput('You start playing video games but your Dad comes down stairs pissed!');
+           //Add Hater Image
+            const MadDadImage = `
+                <div>
+                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/MadDad.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
+                </div>
+            `;
+            gameOutput.innerHTML += MadDadImage; // Add the image to the game output
+            enemy = enemies.find(e => e.name === "Mad Dad");
+            presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
+            break;    
         default:
             updateGameOutput('Nothing happened.');
             break;
