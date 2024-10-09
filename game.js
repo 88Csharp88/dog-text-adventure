@@ -45,33 +45,33 @@ function updateGameOutput(text) {
     gameOutput.innerHTML += `<p>${text}</p>`;
 }
 
-function presentChoice(question, callback) {
-    const gameOutput = document.getElementById('game-output');
+//function presentChoice(question, callback) {
+    //const gameOutput = document.getElementById('game-output');
     
     // Clear previous output
-    gameOutput.innerHTML = '';
+    //gameOutput.innerHTML = '';
     
     // Display the question
-    updateGameOutput(question);
+    //updateGameOutput(question);
     
     // Create buttons for the choices
-    const choices = [
-        'log onto socials',
-        'begin coding a $DOG application',
-        'block your ex from contacts',
-        'take a walk',
-        'make a $DOG influencer video'
-    ];
+   // const choices = [
+        //'log onto socials',
+       // 'begin coding a $DOG application',
+        //'block your ex from contacts',
+        //'take a walk',
+        //'make a $DOG influencer video'
+   // ];
 
-    choices.forEach(choice => {
-        const button = document.createElement('button');
-        button.innerText = choice;
-        button.onclick = () => {
-            callback(choice); // Call the provided callback with the chosen option
-        };
-        gameOutput.appendChild(button);
-    });
-}
+   // choices.forEach(choice => {
+       // const button = document.createElement('button');
+       // button.innerText = choice;
+       // button.onclick = () => {
+           // callback(choice); // Call the provided callback with the chosen option
+       // };
+       // gameOutput.appendChild(button);
+   // });
+//}
 
 function startAdventure(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold) {
     const gameOutput = document.getElementById('game-output');
@@ -89,10 +89,7 @@ function startAdventure(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, 
     if (resultDiv) {
         resultDiv.style.display = 'none'; // Hide the result display
     }
-    //if (dogImage) {
-        //dogImage.style.display = 'none'; // Hide the dog image
-    //}
-
+   
     if (level > 0) {
         updateGameOutput(`You begin your journey as Level ${level}!`);
         if (hasLobo) {
