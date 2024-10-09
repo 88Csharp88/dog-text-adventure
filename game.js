@@ -45,34 +45,6 @@ function updateGameOutput(text) {
     gameOutput.innerHTML += `<p>${text}</p>`;
 }
 
-//function presentChoice(question, callback) {
-    //const gameOutput = document.getElementById('game-output');
-    
-    // Clear previous output
-    //gameOutput.innerHTML = '';
-    
-    // Display the question
-    //updateGameOutput(question);
-    
-    // Create buttons for the choices
-   // const choices = [
-        //'log onto socials',
-       // 'begin coding a $DOG application',
-        //'block your ex from contacts',
-        //'take a walk',
-        //'make a $DOG influencer video'
-   // ];
-
-   // choices.forEach(choice => {
-       // const button = document.createElement('button');
-       // button.innerText = choice;
-       // button.onclick = () => {
-           // callback(choice); // Call the provided callback with the chosen option
-       // };
-       // gameOutput.appendChild(button);
-   // });
-//}
-
 function startAdventure(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold) {
     const gameOutput = document.getElementById('game-output');
     const buttonContainer = document.getElementById('button-container'); // Ensure this exists in your HTML
@@ -511,12 +483,12 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
         presentSecondOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
     });
             
-}
+    }
 
-function endGame() {
-    const gameOutput = document.getElementById('game-output');
-    updateGameOutput(`Game Over! You have lost all your hitpoints...`);
-    // You could add any additional game-over logic here, like showing a restart button.
-}
+    function endGame() {
+        const gameOutput = document.getElementById('game-output');
+        updateGameOutput(`Game Over! You have lost all your hitpoints...`);
+        // You could add any additional game-over logic here, like showing a restart button.
+    }
 
 
