@@ -112,14 +112,6 @@ function presentNewOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoint
     // Select the first 3 options
     const selectedOptions = allOptions.slice(0, 3);
 
-    // Check if the player has enough gold and if Leonidas appears
-    if (gold >= 20 && Math.random() < 0.33) {
-        selectedOptions.push({
-            text: 'Fight the bosses with Leonidas\'s help',
-            action: 'fight bosses'
-        });
-    }
-
     let options = `<div><p>You awake from your slumber. Choose an action:</p>`;
     selectedOptions.forEach(option => {
         options += `<button onclick="handleNewChoice('${option.action}', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">${option.text}</button>`;
@@ -153,6 +145,14 @@ function presentSecondOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpo
 
     // Select the first 3 options
     const selectedOptions = allOptions.slice(0, 3);
+
+    // Check if the player has enough gold and if Leonidas appears
+    if (gold >= 20 && Math.random() < 0.33) {
+        selectedOptions.push({
+            text: 'Fight the bosses with Leonidas\'s help',
+            action: 'fight bosses'
+        });
+    }
 
     let options = `<div><p>What would you like to do next? Choose an action:</p>`;
     selectedOptions.forEach(option => {
