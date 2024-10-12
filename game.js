@@ -332,18 +332,18 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             `;
             gameOutput.innerHTML += ZombieElonImage; // Add the image to the game output
             enemy = enemies.find(e => e.name === "Zombie Elon");
-
-             //updateGameOutput('It is time to fight Gary Gensler!!!');
-           //Add Gary Gensler Image
-           // const GaryGenslerImage = `
-               // <div>
-                   // <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/GaryGensler.jpeg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
-                //</div>
-            //`;
-           // gameOutput.innerHTML += GaryGenslerImage; // Add the image to the game output
-            //enemy = enemies.find(e => e.name === "Gary Gensler");
-            //presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
-            //break;   
+            break;
+        case 'fight final boss':    
+             updateGameOutput('It is time to fight Gary Gensler!!!');
+           Add Gary Gensler Image
+            const GaryGenslerImage = `
+                <div>
+                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/GaryGensler.jpeg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
+                </div>
+            `;
+            gameOutput.innerHTML += GaryGenslerImage; // Add the image to the game output
+            enemy = enemies.find(e => e.name === "Gary Gensler");
+             break;   
         default:
             updateGameOutput('Nothing happened.');
             break;
@@ -456,6 +456,15 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
             gold = Math.min(gold + 1, maxGold);
             updateGameOutput(`You earn 1 gold! Current Gold: ${gold}/${maxGold}`);
             }
+
+        // Check if the defeated enemy is Zombie Elon Musk
+        if (enemy.name === 'Zombie Elon Musk') {
+            updateGameOutput("Prepare yourself! A new challenge awaits as you face Gary Gensler!");
+            // Redirect to the boss fight through handleNewChoice
+            handleNewChoice('fight final boss', level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+            return; // Exit the current function
+        }
+        
         // Add continue button
         addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
         } else {
@@ -521,6 +530,15 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
                     gold = Math.min(gold + 1, maxGold);
                     updateGameOutput(`You earn 1 gold! Current Gold: ${gold}/${maxGold}`);
                     }
+
+                // Check if the defeated enemy is Zombie Elon Musk
+                if (enemy.name === 'Zombie Elon Musk') {
+                    updateGameOutput("Prepare yourself! A new challenge awaits as you face Gary Gensler!");
+                    // Redirect to the boss fight through handleNewChoice
+                    handleNewChoice('fight final boss', level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+                    return; // Exit the current function
+                    }
+                
                // Add continue button
                 addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
                 } else {
