@@ -112,6 +112,14 @@ function presentNewOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoint
     // Select the first 3 options
     const selectedOptions = allOptions.slice(0, 3);
 
+    // Check if the player has enough gold and if Leonidas appears
+    if (gold >= 20 && Math.random() < 0.33) {
+        selectedOptions.push({
+            text: 'Fight the bosses with Leonidas\'s help',
+            action: 'fight bosses'
+        });
+    }
+
     let options = `<div><p>You awake from your slumber. Choose an action:</p>`;
     selectedOptions.forEach(option => {
         options += `<button onclick="handleNewChoice('${option.action}', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">${option.text}</button>`;
@@ -313,7 +321,29 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             gameOutput.innerHTML += MadDadImage; // Add the image to the game output
             enemy = enemies.find(e => e.name === "Mad Dad");
             presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
-            break;    
+            break;
+        case 'fight bosses':
+            updateGameOutput('It is time to fight Zombie Elon Musk!!!');
+           //Add Zombie Elon Image
+            const ZombieElonImage = `
+                <div>
+                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/ZombieElon.jpeg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
+                </div>
+            `;
+            gameOutput.innerHTML += ZombieElonImage; // Add the image to the game output
+            enemy = enemies.find(e => e.name === "Zombie Elon");
+
+             //updateGameOutput('It is time to fight Gary Gensler!!!');
+           //Add Gary Gensler Image
+           // const GaryGenslerImage = `
+               // <div>
+                   // <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/GaryGensler.jpeg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
+                //</div>
+            //`;
+           // gameOutput.innerHTML += GaryGenslerImage; // Add the image to the game output
+            //enemy = enemies.find(e => e.name === "Gary Gensler");
+            //presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
+            //break;   
         default:
             updateGameOutput('Nothing happened.');
             break;
