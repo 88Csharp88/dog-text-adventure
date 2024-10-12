@@ -99,7 +99,7 @@ function presentNewOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoint
         { text: 'Take a walk', action: 'take a walk' },
         { text: 'Make a $DOG influencer video', action: 'influencer video' },
         { text: 'Go to the park', action: 'go to the park' },
-        { text: 'Take a nap', action: 'take a nap' },
+        { text: 'Quit your job', action: 'quit your job' },
         { text: 'Play video games', action: 'play video games' }
     ];
 
@@ -133,7 +133,7 @@ function presentSecondOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpo
         { text: 'Take a walk', action: 'take a walk' },
         { text: 'Make a $DOG influencer video', action: 'influencer video' },
         { text: 'Go to the park', action: 'go to the park' },
-        { text: 'Take a nap', action: 'take a nap' },
+        { text: 'Quit your job', action: 'quit your job' },
         { text: 'Play video games', action: 'play video games' }
     ];
 
@@ -290,8 +290,8 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             enemy = enemies.find(e => e.name === "Animal Control");
             presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
             break;
-         case 'take a nap':
-            updateGameOutput('You begin to doze off but a tax collector shows up at your door!');
+         case 'quit your job':
+            updateGameOutput('You quit your job but a tax collector shows up at your door!');
            //Add Hater Image
             const TaxCollectorImage = `
                 <div>
