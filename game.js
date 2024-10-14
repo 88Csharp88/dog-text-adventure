@@ -332,6 +332,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             `;
             gameOutput.innerHTML += ZombieElonImage; // Add the image to the game output
             enemy = enemies.find(e => e.name === "Zombie Elon");
+            presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
             break;
         case 'fight final boss':    
              updateGameOutput('It is time to fight Gary Gensler!!!');
@@ -343,7 +344,8 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             `;
             gameOutput.innerHTML += GaryGenslerImage; // Add the image to the game output
             enemy = enemies.find(e => e.name === "Gary Gensler");
-             break;   
+            presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
+            break;   
         default:
             updateGameOutput('Nothing happened.');
             break;
