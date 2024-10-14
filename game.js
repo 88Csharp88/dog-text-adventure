@@ -335,7 +335,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             break;
         case 'fight final boss':    
              updateGameOutput('It is time to fight Gary Gensler!!!');
-           Add Gary Gensler Image
+           //Add Gary Gensler Image
             const GaryGenslerImage = `
                 <div>
                     <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/GaryGensler.jpeg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
