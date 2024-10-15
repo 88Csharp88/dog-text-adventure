@@ -13,17 +13,19 @@ window.startGame = function(dogBalance, loboBalance) {
     const maxHitpoints = 20; // Set maximum hitpoints
     const maxGold = 20; //Set maximum gold
 
+    
+    
+    // Start the text adventure
+    //startAdventure(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+    // Prompt the user to choose a class
+    chooseClass(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+
     // Display initial game information
     updateGameOutput(`Starting game with DOG balance: ${dogBalance} and LOBO balance: ${loboBalance}`);
     updateGameOutput(`Player Level: ${level}`);
     updateGameOutput(`Mana: ${mana}/${maxMana}`);
     updateGameOutput(`Hitpoints: ${hitpoints}/${maxHitpoints}`);
     updateGameOutput(`Gold: ${gold}/${maxGold}`); 
-    
-    // Start the text adventure
-    //startAdventure(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
-    // Prompt the user to choose a class
-    chooseClass(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
 
 };
 
