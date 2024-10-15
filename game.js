@@ -49,6 +49,9 @@ function chooseClass(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gol
                 gold += 5;
             }
 
+            // Clear the buttons before starting the adventure
+            buttonContainer.innerHTML = '';
+            
             // Start the adventure with the chosen stats
             startAdventure(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
         });
