@@ -585,4 +585,10 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
         // You could add any additional game-over logic here, like showing a restart button.
     }
 
+    function winGame() {
+        const gameOutput = document.getElementById('game-output');
+        updateGameOutput(`You win! You have defeated the final boss!`);
+        // You could add any additional game-over logic here, like showing a restart button.
+    }
+
 
