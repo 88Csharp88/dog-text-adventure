@@ -21,8 +21,39 @@ window.startGame = function(dogBalance, loboBalance) {
     updateGameOutput(`Gold: ${gold}/${maxGold}`); 
     
     // Start the text adventure
-    startAdventure(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+    //startAdventure(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+    // Prompt the user to choose a class
+    chooseClass(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+
 };
+
+function chooseClass(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold) {
+    const gameOutput = document.getElementById('game-output');
+    const buttonContainer = document.getElementById('button-container');
+
+    updateGameOutput('Choose your class:');
+    const classes = ['Warrior', 'Mage', 'Merchant'];
+    
+    classes.forEach(cls => {
+        const classButton = document.createElement('button');
+        classButton.textContent = cls;
+        buttonContainer.appendChild(classButton);
+
+        classButton.addEventListener('click', () => {
+            // Adjust stats based on chosen class
+            if (cls === 'Warrior') {
+                hitpoints += 5;
+            } else if (cls === 'Mage') {
+                mana += 10;
+            } else if (cls === 'Merchant') {
+                gold += 5;
+            }
+
+            // Start the adventure with the chosen stats
+            startAdventure(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+    });
+}
 
 // Function to calculate player's level
 function calculateLevel(dogBalance) {
