@@ -498,6 +498,12 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
             handleNewChoice('fight final boss', level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
             return; // Exit the current function
         }
+
+        // Check if the defeated enemy is Gary Gensler
+        if (enemy.name === 'Gary Gensler') {
+            winGame();
+            return; // Exit the current function
+        }
         
         // Add continue button
         addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
@@ -571,6 +577,12 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
                     updateGameOutput("Prepare yourself! A new challenge awaits as you face Gary Gensler!");
                     // Redirect to the boss fight through handleNewChoice
                     handleNewChoice('fight final boss', level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+                    return; // Exit the current function
+                    }
+
+                // Check if the defeated enemy is Gary Gensler
+                if (enemy.name === 'Gary Gensler') {
+                    winGame();
                     return; // Exit the current function
                     }
                 
