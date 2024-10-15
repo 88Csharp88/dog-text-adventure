@@ -53,6 +53,12 @@ function chooseClass(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gol
 
             // Clear the buttons before starting the adventure
             buttonContainer.innerHTML = '';
+
+            // Display updated stats
+            updateGameOutput(`You have chosen the ${cls} class!`);
+            updateGameOutput(`Mana: ${mana}/${maxMana}`);
+            updateGameOutput(`Hitpoints: ${hitpoints}/${maxHitpoints}`);
+            updateGameOutput(`Gold: ${gold}/${maxGold}`);
             
             // Start the adventure with the chosen stats
             startAdventure(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
