@@ -448,13 +448,13 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
         const randomChance = Math.random();
         const randomChance2 = Math.random();
 
-        // Refill mana with a 50% chance
+        // Refill mana with a 70% chance
         if (randomChance < 0.7) {
             mana = Math.min(mana + 1, maxMana);
             updateGameOutput(`You regain 1 mana! Current Mana: ${mana}/${maxMana}`);
             }
 
-        // Add gold with a 50% chance
+        // Add gold with a 70% chance
         if (randomChance2 < 0.7) {
             gold = Math.min(gold + 1, maxGold);
             updateGameOutput(`You earn 1 gold! Current Gold: ${gold}/${maxGold}`);
@@ -523,13 +523,13 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
                 const randomChance = Math.random();
                 const randomChance2 = Math.random();
 
-                // Refill mana with a 50% chance
+                // Refill mana with a 70% chance
                 if (randomChance < 0.7) {
                     mana = Math.min(mana + 1, maxMana);
                     updateGameOutput(`You regain 1 mana! Current Mana: ${mana}/${maxMana}`);
                     }
 
-                // Add gold with a 50% chance
+                // Add gold with a 70% chance
                 if (randomChance2 < 0.7) {
                     gold = Math.min(gold + 1, maxGold);
                     updateGameOutput(`You earn 1 gold! Current Gold: ${gold}/${maxGold}`);
