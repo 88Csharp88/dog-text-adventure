@@ -22,10 +22,10 @@ window.startGame = function(dogBalance, loboBalance) {
 
     // Display initial game information
     updateGameOutput(`Starting game with DOG balance: ${dogBalance} and LOBO balance: ${loboBalance}`);
-    updateGameOutput(`Player Level: ${level}`);
-    updateGameOutput(`Mana: ${mana}/${maxMana}`);
-    updateGameOutput(`Hitpoints: ${hitpoints}/${maxHitpoints}`);
-    updateGameOutput(`Gold: ${gold}/${maxGold}`); 
+    //updateGameOutput(`Player Level: ${level}`);
+    //updateGameOutput(`Mana: ${mana}/${maxMana}`);
+    //updateGameOutput(`Hitpoints: ${hitpoints}/${maxHitpoints}`);
+    //updateGameOutput(`Gold: ${gold}/${maxGold}`); 
 
 };
 
