@@ -460,8 +460,8 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
             updateGameOutput(`You earn 1 gold! Current Gold: ${gold}/${maxGold}`);
             }
 
-        // Check if the defeated enemy is Zombie Elon Musk
-        if (enemy.name === 'Zombie Elon Musk') {
+        // Check if the defeated enemy is Zombie Elon
+        if (enemy.name === 'Zombie Elon') {
             updateGameOutput("Prepare yourself! A new challenge awaits as you face Gary Gensler!");
             // Redirect to the boss fight through handleNewChoice
             handleNewChoice('fight final boss', level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
@@ -535,8 +535,8 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
                     updateGameOutput(`You earn 1 gold! Current Gold: ${gold}/${maxGold}`);
                     }
 
-                // Check if the defeated enemy is Zombie Elon Musk
-                if (enemy.name === 'Zombie Elon Musk') {
+                // Check if the defeated enemy is Zombie Elon
+                if (enemy.name === 'Zombie Elon') {
                     updateGameOutput("Prepare yourself! A new challenge awaits as you face Gary Gensler!");
                     // Redirect to the boss fight through handleNewChoice
                     handleNewChoice('fight final boss', level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
