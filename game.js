@@ -203,52 +203,52 @@ function presentSecondOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpo
 // Define an array of enemies
 const enemies = [
     { name: "FUDer", 
-        image: "https://github.com/88Csharp88/dog-text-adventure/blob/main/images/FUDer.png?raw=true",
+        image: "https://github.com/88Csharp88/dog-text-adventure/blob/main/testing-game2-of-2/FUDer.png?raw=true",
         deadImage: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/Dead%20Cat.png?raw=true"
     },
     
     { name: "Gary Gensler", 
-         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/GaryGensler.jpeg?raw=true",
+         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/GaryGensler.jpeg?raw=true",
         deadImage: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/DeadGensler.jpg?raw=true"
     },
     
     { name: "Your Ex", 
-         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/ex.jpg?raw=true",
+         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/ex.jpg?raw=true",
         deadImage: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/DeadEx.jpg?raw=true"
     }, 
     
     { name: "Tax Collector", 
-         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/TaxCollector.jpeg?raw=true",
+         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/TaxCollector.jpeg?raw=true",
         deadImage: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/DeadTaxCollector.jpg?raw=true"
     }, 
     
     { name: "Hacker", 
-     image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/Hacker.jpg?raw=true",
+     image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/Hacker.jpg?raw=true",
         deadImage: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/DeadHacker.jpg?raw=true"
     }, 
     
     { name: "Zombie Elon", 
-         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/ZombieElon.jpeg?raw=true",
+         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/ZombieElon.jpeg?raw=true",
          deadImage: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/DeadZombieElon.jpg?raw=true"
     }, 
     
     { name: "Hater", 
-         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/Hater.jpg?raw=true",
+         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/Hater.jpg?raw=true",
         deadImage: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/DeadHater.jpg?raw=true"
     }, 
     
     { name: "Animal Control", 
-         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/AnimalControl.jpg?raw=true",
+         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/AnimalControl.jpg?raw=true",
         deadImage: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/DeadAnimalControl.jpg?raw=true"
     }, 
     
     { name: "Mad Dad", 
-         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/MadDad.jpg?raw=true",
+         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/MadDad.jpg?raw=true",
         deadImage: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/DeadMadDad.jpg?raw=true"
     },
     
     { name: "Toxic Neighbor", 
-         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/ToxicNeighbor.jpg?raw=true",
+         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/ToxicNeighbor.jpg?raw=true",
         deadImage: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/DeadToxicNeighbor.jpg?raw=true"
     } 
 ];
@@ -267,7 +267,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             // Add the FUDer image
             const fuderImage = `
                 <div>
-                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/FUDer.png?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
+                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/FUDer.png?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
                 </div>
             `;
             gameOutput.innerHTML += fuderImage; // Add the image to the game output
@@ -279,7 +279,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             // Add Hacker Image
              const HackerImage = `
                 <div>
-                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/Hacker.jpg?raw=true"/>
+                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/Hacker.jpg?raw=true"/>
                 </div>
             `;
             gameOutput.innerHTML += HackerImage; // Add the image to the game output
@@ -291,7 +291,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
               // Add the Ex image
             const ExImage = `
                 <div>
-                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/ex.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
+                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/ex.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
                 </div>
             `;
             gameOutput.innerHTML += ExImage; // Add the image to the game output
@@ -303,7 +303,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             //Add Toxic Neighbor Image
             const ToxicNeighborImage = `
                 <div>
-                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/ToxicNeighbor.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
+                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/ToxicNeighbor.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
                 </div>
             `;
             gameOutput.innerHTML += ToxicNeighborImage; // Add the image to the game output
@@ -315,7 +315,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
            //Add Hater Image
             const HaterImage = `
                 <div>
-                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/Hater.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
+                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/Hater.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
                 </div>
             `;
             gameOutput.innerHTML += HaterImage; // Add the image to the game output
@@ -327,7 +327,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
            //Add Hater Image
             const AnimalControlImage = `
                 <div>
-                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/AnimalControl.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
+                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/AnimalControl.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
                 </div>
             `;
             gameOutput.innerHTML += AnimalControlImage; // Add the image to the game output
@@ -339,7 +339,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
            //Add Hater Image
             const TaxCollectorImage = `
                 <div>
-                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/TaxCollector.jpeg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
+                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/TaxCollector.jpeg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
                 </div>
             `;
             gameOutput.innerHTML += TaxCollectorImage; // Add the image to the game output
@@ -351,7 +351,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
            //Add Hater Image
             const MadDadImage = `
                 <div>
-                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/MadDad.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
+                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/MadDad.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
                 </div>
             `;
             gameOutput.innerHTML += MadDadImage; // Add the image to the game output
@@ -363,7 +363,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
            //Add Zombie Elon Image
             const ZombieElonImage = `
                 <div>
-                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/ZombieElon.jpeg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
+                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/ZombieElon.jpeg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
                 </div>
             `;
             gameOutput.innerHTML += ZombieElonImage; // Add the image to the game output
@@ -375,7 +375,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
            //Add Gary Gensler Image
             const GaryGenslerImage = `
                 <div>
-                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/GaryGensler.jpeg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
+                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/GaryGensler.jpeg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
                 </div>
             `;
             gameOutput.innerHTML += GaryGenslerImage; // Add the image to the game output
