@@ -51,6 +51,11 @@ function chooseClass(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gol
                 gold += 5;
             }
 
+            // Clamp values to max limits
+            mana = Math.min(mana, maxMana);
+            hitpoints = Math.min(hitpoints, maxHitpoints);
+            gold = Math.min(gold, maxGold);
+
             // Clear the buttons before starting the adventure
             buttonContainer.innerHTML = '';
 
