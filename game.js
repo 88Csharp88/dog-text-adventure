@@ -7,16 +7,60 @@ window.startGame = function(dogBalance, loboBalance) {
     const level = calculateLevel(dogBalance);
     const hasLobo = loboBalance > 1;
     let mana = level; // Initialize mana based on level
+    let hitpoints = level*2; //Initialize hitpoints based on level times two
+    let gold = 19; //Initialize gold
     const maxMana = 20; // Set maximum mana
+    const maxHitpoints = 20; // Set maximum hitpoints
+    const maxGold = 20; //Set maximum gold
+  
+    // Prompt the user to choose a class
+    chooseClass(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
 
     // Display initial game information
     updateGameOutput(`Starting game with DOG balance: ${dogBalance} and LOBO balance: ${loboBalance}`);
-    updateGameOutput(`Player Level: ${level}`);
-    updateGameOutput(`Mana: ${mana}/${maxMana}`);
-    
-    // Start the text adventure
-    startAdventure(level, hasLobo, mana, maxMana);
 };
+
+function chooseClass(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold) {
+    const gameOutput = document.getElementById('game-output');
+    const buttonContainer = document.getElementById('button-container');
+
+    updateGameOutput('Choose your class:');
+    const classes = ['Warrior', 'Mage', 'Merchant'];
+    
+    classes.forEach(cls => {
+        const classButton = document.createElement('button');
+        classButton.textContent = cls;
+        buttonContainer.appendChild(classButton);
+
+        classButton.addEventListener('click', () => {
+            // Adjust stats based on chosen class
+            if (cls === 'Warrior') {
+                hitpoints += 5;
+            } else if (cls === 'Mage') {
+                mana += 10;
+            } else if (cls === 'Merchant') {
+                gold += 5;
+            }
+
+            // Clamp values to max limits
+            mana = Math.min(mana, maxMana);
+            hitpoints = Math.min(hitpoints, maxHitpoints);
+            gold = Math.min(gold, maxGold);
+
+            // Clear the buttons before starting the adventure
+            buttonContainer.innerHTML = '';
+
+            // Display updated stats
+            updateGameOutput(`You have chosen the ${cls} class!`);
+            updateGameOutput(`Mana: ${mana}/${maxMana}`);
+            updateGameOutput(`Hitpoints: ${hitpoints}/${maxHitpoints}`);
+            updateGameOutput(`Gold: ${gold}/${maxGold}`);
+            
+            // Start the adventure with the chosen stats
+            startAdventure(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+    });
+}
 
 // Function to calculate player's level
 function calculateLevel(dogBalance) {
@@ -39,35 +83,7 @@ function updateGameOutput(text) {
     gameOutput.innerHTML += `<p>${text}</p>`;
 }
 
-function presentChoice(question, callback) {
-    const gameOutput = document.getElementById('game-output');
-    
-    // Clear previous output
-    gameOutput.innerHTML = '';
-    
-    // Display the question
-    updateGameOutput(question);
-    
-    // Create buttons for the choices
-    const choices = [
-        'log onto socials',
-        'begin coding a $DOG application',
-        'block your ex from contacts',
-        'take a walk',
-        'make a $DOG influencer video'
-    ];
-
-    choices.forEach(choice => {
-        const button = document.createElement('button');
-        button.innerText = choice;
-        button.onclick = () => {
-            callback(choice); // Call the provided callback with the chosen option
-        };
-        gameOutput.appendChild(button);
-    });
-}
-
-function startAdventure(level, hasLobo, mana, maxMana) {
+function startAdventure(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold) {
     const gameOutput = document.getElementById('game-output');
     const buttonContainer = document.getElementById('button-container'); // Ensure this exists in your HTML
 
@@ -83,10 +99,7 @@ function startAdventure(level, hasLobo, mana, maxMana) {
     if (resultDiv) {
         resultDiv.style.display = 'none'; // Hide the result display
     }
-    //if (dogImage) {
-        //dogImage.style.display = 'none'; // Hide the dog image
-    //}
-
+   
     if (level > 0) {
         updateGameOutput(`You begin your journey as Level ${level}!`);
         if (hasLobo) {
@@ -106,41 +119,82 @@ function startAdventure(level, hasLobo, mana, maxMana) {
             buttonContainer.removeChild(startButton);
             
             // Proceed with the next part of the adventure
-            presentNewOptions(level, hasLobo, mana, maxMana);
+            presentNewOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
         });
     } else {
         updateGameOutput('You do not have enough DOG to start the adventure. Gather more to level up!');
     }
 }
 
-// Updated presentNewOptions to take mana and maxMana as arguments
-function presentNewOptions(level, hasLobo, mana, maxMana) {
+function presentNewOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold) {
     const gameOutput = document.getElementById('game-output');
     gameOutput.innerHTML = ''; // Clear previous output
-    
-    let options = `<div><p>You awake from your slumber. Do you want to log onto socials, begin coding a $DOG application, block your ex from contacts, take a walk, or make a $DOG influencer video?:</p>`;
 
-    options += `<button onclick="handleNewChoice('log onto socials', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Log onto socials</button>`;
-    options += `<button onclick="handleNewChoice('coding', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Begin coding a $DOG application</button>`;
-    options += `<button onclick="handleNewChoice('block your ex', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Block your ex from contacts</button>`;
-    options += `<button onclick="handleNewChoice('take a walk', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Take a walk</button>`;
-    options += `<button onclick="handleNewChoice('influencer video', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Make a $DOG influencer video</button>`;
+    const allOptions = [
+        { text: 'Log onto socials', action: 'log onto socials' },
+        { text: 'Begin coding a $DOG application', action: 'coding' },
+        { text: 'Block your ex from contacts', action: 'block your ex' },
+        { text: 'Take a walk', action: 'take a walk' },
+        { text: 'Make a $DOG influencer video', action: 'influencer video' },
+        { text: 'Go to the park', action: 'go to the park' },
+        { text: 'Quit your job', action: 'quit your job' },
+        { text: 'Play video games', action: 'play video games' }
+    ];
+
+    // Shuffle options
+    for (let i = allOptions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [allOptions[i], allOptions[j]] = [allOptions[j], allOptions[i]];
+    }
+
+    // Select the first 3 options
+    const selectedOptions = allOptions.slice(0, 3);
+
+    let options = `<div><p>You awake from your slumber. Choose an action:</p>`;
+    selectedOptions.forEach(option => {
+        options += `<button onclick="handleNewChoice('${option.action}', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">${option.text}</button>`;
+    });
 
     options += `</div>`;
     gameOutput.innerHTML += options;
 }
 
-function presentSecondOptions(level, hasLobo, mana, maxMana) {
+function presentSecondOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold) {
     const gameOutput = document.getElementById('game-output');
     gameOutput.innerHTML = ''; // Clear previous output
-    
-    let options = `<div><p>What would you like to do next?:</p>`;
 
-    options += `<button onclick="handleNewChoice('log onto socials', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Log onto socials</button>`;
-    options += `<button onclick="handleNewChoice('coding', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Begin coding a $DOG application</button>`;
-    options += `<button onclick="handleNewChoice('block your ex', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Block your ex from contacts</button>`;
-    options += `<button onclick="handleNewChoice('take a walk', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Take a walk</button>`;
-    options += `<button onclick="handleNewChoice('influencer video', ${level}, ${hasLobo}, ${mana}, ${maxMana})">Make a $DOG influencer video</button>`;
+    const allOptions = [
+        { text: 'Log onto socials', action: 'log onto socials' },
+        { text: 'Begin coding a $DOG application', action: 'coding' },
+        { text: 'Block your ex from contacts', action: 'block your ex' },
+        { text: 'Take a walk', action: 'take a walk' },
+        { text: 'Make a $DOG influencer video', action: 'influencer video' },
+        { text: 'Go to the park', action: 'go to the park' },
+        { text: 'Quit your job', action: 'quit your job' },
+        { text: 'Play video games', action: 'play video games' }
+    ];
+
+    // Shuffle options
+    for (let i = allOptions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [allOptions[i], allOptions[j]] = [allOptions[j], allOptions[i]];
+    }
+
+    // Select the first 3 options
+    const selectedOptions = allOptions.slice(0, 3);
+
+    // Check if the player has enough gold and if Leonidas appears
+    if (gold >= 20 && Math.random() < 0.33) {
+        selectedOptions.push({
+            text: 'Fight the bosses with Leonidas\'s help',
+            action: 'fight bosses'
+        });
+    }
+
+    let options = `<div><p>What would you like to do next? Choose an action:</p>`;
+    selectedOptions.forEach(option => {
+        options += `<button onclick="handleNewChoice('${option.action}', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">${option.text}</button>`;
+    });
 
     options += `</div>`;
     gameOutput.innerHTML += options;
@@ -199,7 +253,7 @@ const enemies = [
     } 
 ];
 
-function handleNewChoice(choice, level, hasLobo, mana, maxMana) {
+function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold) {
     const gameOutput = document.getElementById('game-output');
     gameOutput.innerHTML = ''; // Clear previous output
 
@@ -218,7 +272,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana) {
             `;
             gameOutput.innerHTML += fuderImage; // Add the image to the game output
             enemy = enemies.find(e => e.name === "FUDer");
-            presentAttackOptions(level, hasLobo, mana, maxMana, enemy);
+            presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
             break;
         case 'coding':
             updateGameOutput('You work on coding a $DOG application, but something takes control of your computer. You encounter a hacker!');
@@ -230,9 +284,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana) {
             `;
             gameOutput.innerHTML += HackerImage; // Add the image to the game output
             enemy = enemies.find(e => e.name === "Hacker");
-            presentAttackOptions(level, hasLobo, mana, maxMana, enemy);
-            //mana = Math.min(mana + 1, maxMana);
-            //updateGameOutput(`Mana: ${mana}/${maxMana}`);
+            presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
             break;
         case 'block your ex':
             updateGameOutput('You block your ex from contacts but she breaks into your house!');
@@ -243,10 +295,8 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana) {
                 </div>
             `;
             gameOutput.innerHTML += ExImage; // Add the image to the game output
-            //mana = Math.min(mana + 2, maxMana);
-            //updateGameOutput(`Mana: ${mana}/${maxMana}`);
             enemy = enemies.find(e => e.name === "Your Ex");
-            presentAttackOptions(level, hasLobo, mana, maxMana, enemy);
+            presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
             break;
         case 'take a walk':
             updateGameOutput('You take a walk to clear your mind but you are interupted by your toxic neighbor!');
@@ -257,10 +307,8 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana) {
                 </div>
             `;
             gameOutput.innerHTML += ToxicNeighborImage; // Add the image to the game output
-            //mana = Math.min(mana + 2, maxMana);
-            //updateGameOutput(`Mana: ${mana}/${maxMana}`);
             enemy = enemies.find(e => e.name === "Toxic Neighbor");
-            presentAttackOptions(level, hasLobo, mana, maxMana, enemy);
+            presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
             break;
         case 'influencer video':
             updateGameOutput('You make a $DOG influencer video but encounter a Hater in the comment section!');
@@ -271,11 +319,69 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana) {
                 </div>
             `;
             gameOutput.innerHTML += HaterImage; // Add the image to the game output
-            //mana = Math.min(mana + 2, maxMana);
-            //updateGameOutput(`Mana: ${mana}/${maxMana}`);
             enemy = enemies.find(e => e.name === "Hater");
-            presentAttackOptions(level, hasLobo, mana, maxMana, enemy);
+            presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
             break;
+        case 'go to the park':
+            updateGameOutput('You take a walk to the park but encounter animal control!');
+           //Add Hater Image
+            const AnimalControlImage = `
+                <div>
+                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/AnimalControl.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
+                </div>
+            `;
+            gameOutput.innerHTML += AnimalControlImage; // Add the image to the game output
+            enemy = enemies.find(e => e.name === "Animal Control");
+            presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
+            break;
+         case 'quit your job':
+            updateGameOutput('You quit your job but a tax collector shows up at your door!');
+           //Add Hater Image
+            const TaxCollectorImage = `
+                <div>
+                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/TaxCollector.jpeg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
+                </div>
+            `;
+            gameOutput.innerHTML += TaxCollectorImage; // Add the image to the game output
+            enemy = enemies.find(e => e.name === "Tax Collector");
+            presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
+            break;
+         case 'play video games':
+            updateGameOutput('You start playing video games but your Dad comes down stairs pissed!');
+           //Add Hater Image
+            const MadDadImage = `
+                <div>
+                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/MadDad.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
+                </div>
+            `;
+            gameOutput.innerHTML += MadDadImage; // Add the image to the game output
+            enemy = enemies.find(e => e.name === "Mad Dad");
+            presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
+            break;
+        case 'fight bosses':
+            updateGameOutput('It is time to fight Zombie Elon Musk!!!');
+           //Add Zombie Elon Image
+            const ZombieElonImage = `
+                <div>
+                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/ZombieElon.jpeg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
+                </div>
+            `;
+            gameOutput.innerHTML += ZombieElonImage; // Add the image to the game output
+            enemy = enemies.find(e => e.name === "Zombie Elon");
+            presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
+            break;
+        case 'fight final boss':    
+             updateGameOutput('It is time to fight Gary Gensler!!!');
+           //Add Gary Gensler Image
+            const GaryGenslerImage = `
+                <div>
+                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/GaryGensler.jpeg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
+                </div>
+            `;
+            gameOutput.innerHTML += GaryGenslerImage; // Add the image to the game output
+            enemy = enemies.find(e => e.name === "Gary Gensler");
+            presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
+            break;   
         default:
             updateGameOutput('Nothing happened.');
             break;
@@ -284,25 +390,24 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana) {
 }
 
 
-function presentAttackOptions(level, hasLobo, mana, maxMana, enemy) {
+function presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy) {
     const gameOutput = document.getElementById('game-output');
     let attackOptions = `<div><p>Choose your attack method against ${enemy.name}:</p>`;
-
-    // Level-based attack options
+   // Level-based attack options
     if (level >= 1) {
-        attackOptions += `<button onclick="handleAttackChoice('bite', ${level}, ${hasLobo}, ${mana}, ${maxMana}, '${enemy.name}')">Bite (0 mana)</button>`;
+        attackOptions += `<button onclick="handleAttackChoice('bite', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints},${gold}, ${maxGold}, '${enemy.name}')">Bite (0 mana)</button>`;
     }
     if (level >= 3) {
-        attackOptions += `<button onclick="handleAttackChoice('scratch', ${level}, ${hasLobo}, ${mana}, ${maxMana}, '${enemy.name}')">Scratch (1 mana)</button>`;
+        attackOptions += `<button onclick="handleAttackChoice('scratch', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints},${gold}, ${maxGold}, '${enemy.name}')">Scratch (1 mana)</button>`;
     }
     if (level >= 5) {
-        attackOptions += `<button onclick="handleAttackChoice('pee on them', ${level}, ${hasLobo}, ${mana}, ${maxMana}, '${enemy.name}')">Pee on them (2 mana)</button>`;
+        attackOptions += `<button onclick="handleAttackChoice('pee on them', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints},${gold}, ${maxGold}, '${enemy.name}')">Pee on them (2 mana)</button>`;
     }
     if (level >= 8) {
-        attackOptions += `<button onclick="handleAttackChoice('psyop', ${level}, ${hasLobo}, ${mana}, ${maxMana}, '${enemy.name}')">Psyop (3 mana)</button>`;
+        attackOptions += `<button onclick="handleAttackChoice('psyop', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints},${gold}, ${maxGold}, '${enemy.name}')">Psyop (3 mana)</button>`;
     }
     if (level === 10) {
-        attackOptions += `<button onclick="handleAttackChoice('laser eyes', ${level}, ${hasLobo}, ${mana}, ${maxMana}, '${enemy.name}')">Laser Eyes (4 mana)</button>`;
+        attackOptions += `<button onclick="handleAttackChoice('laser eyes', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints},${gold}, ${maxGold}, '${enemy.name}')">Laser Eyes (4 mana)</button>`;
     }
 
     attackOptions += `</div>`;
@@ -310,7 +415,7 @@ function presentAttackOptions(level, hasLobo, mana, maxMana, enemy) {
 }
 
 
-window.handleAttackChoice = function(attackType, level, hasLobo, mana, maxMana, enemyName) {
+window.handleAttackChoice = function(attackType, level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemyName) {
     let attackModifier = 0;
     let manaCost = 0;
 
@@ -349,10 +454,10 @@ window.handleAttackChoice = function(attackType, level, hasLobo, mana, maxMana, 
 
     // Find the enemy by name
     const enemy = enemies.find(e => e.name === enemyName);
-    simulateFight(level, attackModifier, hasLobo, mana, maxMana, enemy);
+    simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
 };
 
-function simulateFight(level, attackModifier, hasLobo, mana, maxMana, enemy) {
+function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy) {
     // Player roll
     const playerRoll = Math.floor(Math.random() * 20) + 1 + Math.round(level / 2) + attackModifier;
 
@@ -375,22 +480,40 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, enemy) {
         const gameOutput = document.getElementById('game-output');
         gameOutput.innerHTML += deadEnemyImage;
 
-        // Refill some mana after a win
-        mana = Math.min(mana + 1, maxMana);
-        updateGameOutput(`You regain 1 mana! Current Mana: ${mana}/${maxMana}`);
-        // Add a button to continue the adventure
-    const buttonContainer = document.getElementById('button-container'); // Ensure this exists in your HTML
-    const continueButton = document.createElement('button');
-    continueButton.textContent = "Continue your adventure?";
-    buttonContainer.appendChild(continueButton);
+        // Generate a random number between 0 and 1
+        const randomChance = Math.random();
+        const randomChance2 = Math.random();
 
-    // Add event listener to the button
-    continueButton.addEventListener('click', () => {
-        buttonContainer.removeChild(continueButton); // Remove the button
-        presentSecondOptions(level, hasLobo, mana, maxMana); // Call to present new options after the choice
-    });
-    } else {
-        updateGameOutput(`You lose the fight against ${enemy.name}...  GAME OVER`);
+        // Refill mana with a 70% chance
+        if (randomChance < 0.7) {
+            mana = Math.min(mana + 1, maxMana);
+            updateGameOutput(`You regain 1 mana! Current Mana: ${mana}/${maxMana}`);
+            }
+
+        // Add gold with a 70% chance
+        if (randomChance2 < 0.7) {
+            gold = Math.min(gold + 1, maxGold);
+            updateGameOutput(`You earn 1 gold! Current Gold: ${gold}/${maxGold}`);
+            }
+
+        // Check if the defeated enemy is Zombie Elon
+        if (enemy.name === 'Zombie Elon') {
+            updateGameOutput("Prepare yourself! A new challenge awaits as you face Gary Gensler!");
+            // Redirect to the boss fight through handleNewChoice
+            handleNewChoice('fight final boss', level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+            return; // Exit the current function
+        }
+
+        // Check if the defeated enemy is Gary Gensler
+        if (enemy.name === 'Gary Gensler') {
+            winGame();
+            return; // Exit the current function
+        }
+        
+        // Add continue button
+        addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        } else {
+        updateGameOutput(`You lose the fight against ${enemy.name}...`);
 
         // Display the dead dog image (player lost)
         const deadDogImage = `
@@ -401,6 +524,15 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, enemy) {
         const gameOutput = document.getElementById('game-output');
         gameOutput.innerHTML += deadDogImage;
 
+       if (!hasLobo) {
+            hitpoints = Math.max(hitpoints - 3, 0);
+            updateGameOutput(`You lose 3 hitpoints! Current Hitpoints: ${hitpoints}/${maxHitpoints}`);
+
+            if (hitpoints === 0) {
+                endGame();
+                return;
+            }
+        }
         // Check if the player has a LOBO companion and give a second chance
         if (hasLobo) {
             updateGameOutput(`But wait! Your LOBO companion bites ${enemy.name}, giving you another chance!`);
@@ -429,36 +561,81 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, enemy) {
                 `;
                 gameOutput.innerHTML += deadEnemyImage2;
 
-                // Refill some mana after a win
-                mana = Math.min(mana + 1, maxMana);
-                updateGameOutput(`You regain 1 mana! Current Mana: ${mana}/${maxMana}`);
-                // Add a button to continue the adventure
-    const buttonContainer = document.getElementById('button-container'); // Ensure this exists in your HTML
-    const continueButton = document.createElement('button');
-    continueButton.textContent = "Continue your adventure?";
-    buttonContainer.appendChild(continueButton);
+               // Generate a random number between 0 and 1
+                const randomChance = Math.random();
+                const randomChance2 = Math.random();
 
-    // Add event listener to the button
-    continueButton.addEventListener('click', () => {
-        buttonContainer.removeChild(continueButton); // Remove the button
-        presentSecondOptions(level, hasLobo, mana, maxMana); // Call to present new options after the choice
-    });
-            } else {
-                updateGameOutput(`Even with LOBO’s interference, you still lose the fight against ${enemy.name}...  GAME OVER`);
+                // Refill mana with a 70% chance
+                if (randomChance < 0.7) {
+                    mana = Math.min(mana + 1, maxMana);
+                    updateGameOutput(`You regain 1 mana! Current Mana: ${mana}/${maxMana}`);
+                    }
+
+                // Add gold with a 70% chance
+                if (randomChance2 < 0.7) {
+                    gold = Math.min(gold + 1, maxGold);
+                    updateGameOutput(`You earn 1 gold! Current Gold: ${gold}/${maxGold}`);
+                    }
+
+                // Check if the defeated enemy is Zombie Elon
+                if (enemy.name === 'Zombie Elon') {
+                    updateGameOutput("Prepare yourself! A new challenge awaits as you face Gary Gensler!");
+                    // Redirect to the boss fight through handleNewChoice
+                    handleNewChoice('fight final boss', level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+                    return; // Exit the current function
+                    }
+
+                // Check if the defeated enemy is Gary Gensler
+                if (enemy.name === 'Gary Gensler') {
+                    winGame();
+                    return; // Exit the current function
+                    }
                 
-                // Display the dead dog image (player lost again)
-                const deadDogImage2 = `
-                    <div>
-                        <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/Dead%20Dog.png?raw=true" alt="Dead Dog" style="width: 200px; height: auto;"/>
-                    </div>
-                `;
-                gameOutput.innerHTML += deadDogImage2;
+               // Add continue button
+                addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+                } else {
+                updateGameOutput(`Even with LOBO’s interference, you still lose the fight against ${enemy.name}...`);
+
+                hitpoints = Math.max(hitpoints - 3, 0); // Deduct 3 HP, ensuring it doesn't go below 0
+                updateGameOutput(`You lose 3 hitpoints! Current Hitpoints: ${hitpoints}/${maxHitpoints}`);
+
+                // Check if hitpoints have reached 0
+            if (hitpoints === 0) {
+                endGame();
+                return; // Exit the function to prevent further actions
+                }
+                // Add continue button
+                addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+                        
+            }     
+               
             }
       
         }
     }
+    function addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold) {
+        const buttonContainer = document.getElementById('button-container');
+        const continueButton = document.createElement('button');
+        continueButton.textContent = "Continue your adventure?";
+        buttonContainer.appendChild(continueButton);
+    
+        // Add event listener to the button
+        continueButton.addEventListener('click', () => {
+        buttonContainer.removeChild(continueButton); // Remove the button
+        presentSecondOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+    });
             
-}
+    }
 
+    function endGame() {
+        const gameOutput = document.getElementById('game-output');
+        updateGameOutput(`Game Over! You have lost all your hitpoints...`);
+        // You could add any additional game-over logic here, like showing a restart button.
+    }
 
+    function winGame() {
+        const gameOutput = document.getElementById('game-output');
+        updateGameOutput(`You win! You have defeated the final boss!`);
+        // You could add any additional game-over logic here, like showing a restart button.
+    }
 
