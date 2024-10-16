@@ -203,7 +203,7 @@ function presentSecondOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpo
 // Define an array of enemies
 const enemies = [
     { name: "FUDer", 
-        image: "https://github.com/88Csharp88/dog-text-adventure/blob/main/testing-game2-of-2/FUDer.png?raw=true",
+        image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/FUDer.jpeg?raw=true",
         deadImage: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/Dead%20Cat.png?raw=true"
     },
     
@@ -267,7 +267,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             // Add the FUDer image
             const fuderImage = `
                 <div>
-                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/FUDer.png?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
+                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/FUDer.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
                 </div>
             `;
             gameOutput.innerHTML += fuderImage; // Add the image to the game output
