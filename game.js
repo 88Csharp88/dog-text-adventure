@@ -12,21 +12,12 @@ window.startGame = function(dogBalance, loboBalance) {
     const maxMana = 20; // Set maximum mana
     const maxHitpoints = 20; // Set maximum hitpoints
     const maxGold = 20; //Set maximum gold
-
-    
-    
-    // Start the text adventure
-    //startAdventure(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+  
     // Prompt the user to choose a class
     chooseClass(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
 
     // Display initial game information
     updateGameOutput(`Starting game with DOG balance: ${dogBalance} and LOBO balance: ${loboBalance}`);
-    //updateGameOutput(`Player Level: ${level}`);
-    //updateGameOutput(`Mana: ${mana}/${maxMana}`);
-    //updateGameOutput(`Hitpoints: ${hitpoints}/${maxHitpoints}`);
-    //updateGameOutput(`Gold: ${gold}/${maxGold}`); 
-
 };
 
 function chooseClass(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold) {
@@ -168,7 +159,6 @@ function presentNewOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoint
     gameOutput.innerHTML += options;
 }
 
-
 function presentSecondOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold) {
     const gameOutput = document.getElementById('game-output');
     gameOutput.innerHTML = ''; // Clear previous output
@@ -209,7 +199,6 @@ function presentSecondOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpo
     options += `</div>`;
     gameOutput.innerHTML += options;
 }
-
 
 // Define an array of enemies
 const enemies = [
@@ -625,13 +614,13 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
         }
     }
     function addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold) {
-    const buttonContainer = document.getElementById('button-container');
-    const continueButton = document.createElement('button');
-    continueButton.textContent = "Continue your adventure?";
-    buttonContainer.appendChild(continueButton);
+        const buttonContainer = document.getElementById('button-container');
+        const continueButton = document.createElement('button');
+        continueButton.textContent = "Continue your adventure?";
+        buttonContainer.appendChild(continueButton);
     
-    // Add event listener to the button
-    continueButton.addEventListener('click', () => {
+        // Add event listener to the button
+        continueButton.addEventListener('click', () => {
         buttonContainer.removeChild(continueButton); // Remove the button
         presentSecondOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
     });
