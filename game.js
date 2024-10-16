@@ -472,13 +472,13 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
         updateGameOutput(`You win the fight against ${enemy.name}!`);
 
         // Display the dead enemy image
-        const deadEnemyImage = `
-            <div>
-                <img src="${enemy.deadImage}" alt="Dead ${enemy.name}" style="width: 200px; height: auto;"/>
-            </div>
-        `;
+        //const deadEnemyImage = `
+          //  <div>
+            //    <img src="${enemy.deadImage}" alt="Dead ${enemy.name}" style="width: 200px; height: auto;"/>
+            //</div>
+        //`;
         const gameOutput = document.getElementById('game-output');
-        gameOutput.innerHTML += deadEnemyImage;
+        //gameOutput.innerHTML += deadEnemyImage;
 
         // Generate a random number between 0 and 1
         const randomChance = Math.random();
@@ -515,7 +515,7 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
         } else {
         updateGameOutput(`You lose the fight against ${enemy.name}...`);
 
-        // Display the dead dog image (player lost)
+        Display the dead dog image (player lost)
         const deadDogImage = `
             <div>
                 <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/Dead%20Dog.png?raw=true" alt="Dead Dog" style="width: 200px; height: auto;"/>
@@ -554,12 +554,12 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
             if (secondPlayerRoll > secondEnemyRoll) {
                 updateGameOutput(`With LOBO’s help, you win the fight against ${enemy.name}!`);
 
-                const deadEnemyImage2 = `
-                    <div>
-                        <img src="${enemy.deadImage}" alt="Dead ${enemy.name}" style="width: 200px; height: auto;"/>
-                    </div>
-                `;
-                gameOutput.innerHTML += deadEnemyImage2;
+                //const deadEnemyImage2 = `
+                   // <div>
+                     //   <img src="${enemy.deadImage}" alt="Dead ${enemy.name}" style="width: 200px; height: auto;"/>
+                   // </div>
+               // `;
+               // gameOutput.innerHTML += deadEnemyImage2;
 
                // Generate a random number between 0 and 1
                 const randomChance = Math.random();
