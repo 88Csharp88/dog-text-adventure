@@ -515,7 +515,7 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
         } else {
         updateGameOutput(`You lose the fight against ${enemy.name}...`);
 
-        Display the dead dog image (player lost)
+        //Display the dead dog image (player lost)
         const deadDogImage = `
             <div>
                 <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/Dead%20Dog.png?raw=true" alt="Dead Dog" style="width: 200px; height: auto;"/>
