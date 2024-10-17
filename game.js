@@ -204,7 +204,7 @@ function presentSecondOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpo
 const enemies = [
     { name: "FUDer", 
         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/FUDer.jpg?raw=true",
-        deadImage: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/Dead%20Cat.jpg?raw=true"
+        deadImage: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/DeadFUDer.jpg?raw=true"
     },
     
     { name: "Gary Gensler", 
@@ -472,11 +472,11 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
         updateGameOutput(`You win the fight against ${enemy.name}!`);
 
         // Display the dead enemy image
-        //const deadEnemyImage = `
-          //  <div>
-            //    <img src="${enemy.deadImage}" alt="Dead ${enemy.name}" style="width: 200px; height: auto;"/>
-            //</div>
-        //`;
+        const deadEnemyImage = `
+            <div>
+                <img src="${enemy.deadImage}" alt="Dead ${enemy.name}" style="width: 200px; height: auto;"/>
+            </div>
+        `;
         const gameOutput = document.getElementById('game-output');
         //gameOutput.innerHTML += deadEnemyImage;
 
@@ -554,12 +554,12 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
             if (secondPlayerRoll > secondEnemyRoll) {
                 updateGameOutput(`With LOBO’s help, you win the fight against ${enemy.name}!`);
 
-                //const deadEnemyImage2 = `
-                   // <div>
-                     //   <img src="${enemy.deadImage}" alt="Dead ${enemy.name}" style="width: 200px; height: auto;"/>
-                   // </div>
-               // `;
-               // gameOutput.innerHTML += deadEnemyImage2;
+                const deadEnemyImage2 = `
+                    <div>
+                        <img src="${enemy.deadImage}" alt="Dead ${enemy.name}" style="width: 200px; height: auto;"/>
+                    </div>
+                `;
+                gameOutput.innerHTML += deadEnemyImage2;
 
                // Generate a random number between 0 and 1
                 const randomChance = Math.random();
