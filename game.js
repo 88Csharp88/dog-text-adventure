@@ -478,7 +478,7 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
             </div>
         `;
         const gameOutput = document.getElementById('game-output');
-        //gameOutput.innerHTML += deadEnemyImage;
+        gameOutput.innerHTML += deadEnemyImage;
 
         // Generate a random number between 0 and 1
         const randomChance = Math.random();
@@ -559,6 +559,7 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
                         <img src="${enemy.deadImage}" alt="Dead ${enemy.name}" style="width: 200px; height: auto;"/>
                     </div>
                 `;
+                const gameOutput = document.getElementById('game-output');
                 gameOutput.innerHTML += deadEnemyImage2;
 
                // Generate a random number between 0 and 1
