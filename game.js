@@ -397,13 +397,13 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
 
     // Generate a random index
     const randomIndex2 = Math.floor(Math.random() * codingOutcomes.length);
-    const outcome = codingOutcomes[randomIndex2];
+    const outcome2 = codingOutcomes[randomIndex2];
 
     // Update game output with the selected outcome
-    updateGameOutput(outcome.message);
+    updateGameOutput(outcome2.message);
 
     // If the outcome is to continue coding
-    if (outcome.effect === 'mana') {
+    if (outcome2.effect === 'mana') {
         const buttonContainer = document.getElementById('button-container');
 
         // Create buttons for continuing coding or ignoring
@@ -440,7 +440,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
     } 
     
     // If the outcome is to try to compile code
-    else if (outcome.effect === 'hitpoints') {
+    else if (outcome2.effect === 'hitpoints') {
         const buttonContainer = document.getElementById('button-container');
 
         // Create buttons for compiling or ignoring
@@ -477,14 +477,14 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
     } 
     
     // If the outcome is to fight the Hacker
-    else if (outcome.effect === 'fight') {
+    else if (outcome2.effect === 'fight') {
         const hackerImage = `
             <div>
-                <img src="${outcome.image}" alt="${outcome.enemyName}" style="width: 200px; height: auto;"/>
+                <img src="${outcome2.image}" alt="${outcome2.enemyName}" style="width: 200px; height: auto;"/>
             </div>
         `;
         gameOutput.innerHTML += hackerImage; // Add the image to the game output
-        enemy = enemies.find(e => e.name === outcome.enemyName);
+        enemy = enemies.find(e => e.name === outcome2.enemyName);
         presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
     }
     break;
