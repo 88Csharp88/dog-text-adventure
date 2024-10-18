@@ -713,17 +713,117 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
     }
     break;
         case 'influencer video':
-            updateGameOutput('You make a $DOG influencer video but encounter a Hater in the comment section!');
-           //Add Hater Image
-            const HaterImage = `
-                <div>
-                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/Hater.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
-                </div>
-            `;
-            gameOutput.innerHTML += HaterImage; // Add the image to the game output
-            enemy = enemies.find(e => e.name === "Hater");
-            presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
-            break;
+    // Define possible outcomes
+    const outcomes5 = [
+        {
+            message: "You enable advertisements for your video!",
+            effect: 'gold' // Indicates that this will affect gold
+        },
+        {
+            message: "Your computer glitches!",
+            effect: 'hitpoints' // Indicates that this will affect hitpoints
+        },
+        {
+            message: "You encounter a Hater in the comments!",
+            effect: 'fight', // Indicates that this will trigger a fight
+            enemyName: 'Hater',
+            image: 'https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/Hater.jpg?raw=true'
+        }
+    ];
+
+    // Generate a random index
+    const randomIndex5 = Math.floor(Math.random() * outcomes5.length);
+    const outcome5 = outcomes5[randomIndex5];
+
+    // Update game output with the selected outcome
+    updateGameOutput(outcome5.message);
+
+    // If the outcome is enabling advertisements
+    if (outcome5.effect === 'gold') {
+        const buttonContainer = document.getElementById('button-container');
+
+        // Create buttons for enabling or ignoring
+        const enableAdsButton = document.createElement('button');
+        enableAdsButton.textContent = "Enable advertisements for your video";
+        buttonContainer.appendChild(enableAdsButton);
+
+        const ignoreAdsButton = document.createElement('button');
+        ignoreAdsButton.textContent = "Ignore and continue your day";
+        buttonContainer.appendChild(ignoreAdsButton);
+
+        enableAdsButton.addEventListener('click', () => {
+            buttonContainer.removeChild(enableAdsButton);
+            buttonContainer.removeChild(ignoreAdsButton); // Remove the ignore button
+
+            // 50/50 chance to increase or decrease gold
+            const goldChange = Math.random() < 0.5 ? 1 : -1; // 50% chance
+            gold = Math.min(Math.max(gold + goldChange, 0), maxGold); // Ensure gold stays within bounds
+            
+            const goldChangeMessage = goldChange > 0 
+                ? `You earn 1 gold from advertisements! Current Gold: ${gold}/${maxGold}` 
+                : `You lose 1 gold from ad costs! Current Gold: ${gold}/${maxGold}`;
+            
+            updateGameOutput(goldChangeMessage);
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+
+        ignoreAdsButton.addEventListener('click', () => {
+            buttonContainer.removeChild(enableAdsButton);
+            buttonContainer.removeChild(ignoreAdsButton); // Remove the enable button
+            updateGameOutput("You ignore advertisements and continue your day.");
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+    } 
+    
+    // If the outcome is a computer glitch
+    else if (outcome5.effect === 'hitpoints') {
+        const buttonContainer = document.getElementById('button-container');
+
+        // Create buttons for troubleshooting or ignoring
+        const troubleshootButton = document.createElement('button');
+        troubleshootButton.textContent = "Troubleshoot your computer";
+        buttonContainer.appendChild(troubleshootButton);
+
+        const ignoreGlitchButton = document.createElement('button');
+        ignoreGlitchButton.textContent = "Ignore the glitch and continue your day";
+        buttonContainer.appendChild(ignoreGlitchButton);
+
+        troubleshootButton.addEventListener('click', () => {
+            buttonContainer.removeChild(troubleshootButton);
+            buttonContainer.removeChild(ignoreGlitchButton); // Remove the ignore button
+
+            // 50/50 chance to increase or decrease hitpoints
+            const hitpointsChange = Math.random() < 0.5 ? 1 : -1; // 50% chance
+            hitpoints = Math.max(hitpoints + hitpointsChange, 0); // Ensure hitpoints stay above 0
+            
+            const hitpointsChangeMessage = hitpointsChange > 0 
+                ? `You regain 1 hitpoint after troubleshooting! Current Hitpoints: ${hitpoints}/${maxHitpoints}` 
+                : `You lose 1 hitpoint due to the glitch! Current Hitpoints: ${hitpoints}/${maxHitpoints}`;
+            
+            updateGameOutput(hitpointsChangeMessage);
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+
+        ignoreGlitchButton.addEventListener('click', () => {
+            buttonContainer.removeChild(troubleshootButton);
+            buttonContainer.removeChild(ignoreGlitchButton); // Remove the troubleshoot button
+            updateGameOutput("You ignore the glitch and continue your day.");
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+    } 
+    
+    // If the outcome is to fight the Hater
+    else if (outcome5.effect === 'fight') {
+        const haterImage = `
+            <div>
+                <img src="${outcome5.image}" alt="${outcome5.enemyName}" style="width: 200px; height: auto;"/>
+            </div>
+        `;
+        gameOutput.innerHTML += haterImage; // Add the image to the game output
+        enemy = enemies.find(e => e.name === outcome5.enemyName);
+        presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
+    }
+    break;
         case 'go to the park':
             updateGameOutput('You take a walk to the park but encounter animal control!');
            //Add Hater Image
