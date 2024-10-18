@@ -376,120 +376,18 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
         }
         break;
-            
         case 'coding':
-    // Define possible outcomes
-    const codingOutcomes = [
-    {
-        message: 'You decide to continue coding for 2 more hours!',
-        effect: 'mana' // Indicates that this will affect mana
-    },
-    {
-        message: 'You try to compile your code!',
-        effect: 'hitpoints' // Indicates that this will affect hitpoints
-    },
-    {
-        message: 'You encounter a Hacker!',
-        effect: 'fight', // Indicates that this will trigger a fight
-        enemyName: 'Hacker',
-        image: 'https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/Hacker.jpg?raw=true'
-    }
-];
-
-    // Generate a random index
-    const randomIndex = Math.floor(Math.random() * codingOutcomes.length);
-    const outcome = codingOutcomes[randomIndex];
-
-    // Update game output with the selected outcome
-    updateGameOutput(outcome.message);
-
-    // If the outcome is to continue coding
-    if (outcome.effect === 'mana') {
-        const buttonContainer = document.getElementById('button-container');
-
-        // Create buttons for continuing coding or ignoring
-        const continueCodingButton = document.createElement('button');
-        continueCodingButton.textContent = "Continue coding for 2 more hours";
-        buttonContainer.appendChild(continueCodingButton);
-
-        const ignoreCodingButton = document.createElement('button');
-        ignoreCodingButton.textContent = "Ignore and continue your adventure";
-        buttonContainer.appendChild(ignoreCodingButton);
-
-        continueCodingButton.addEventListener('click', () => {
-            buttonContainer.removeChild(continueCodingButton);
-            buttonContainer.removeChild(ignoreCodingButton); // Remove the ignore button
-
-            // 50/50 chance to increase or decrease mana
-            const manaChange = Math.random() < 0.5 ? 1 : -1; // 50% chance
-            mana = Math.min(Math.max(mana + manaChange, 0), maxMana); // Ensure mana stays within bounds
-            
-            const manaChangeMessage = manaChange > 0 
-                ? `You gain 1 mana! Current Mana: ${mana}/${maxMana}` 
-                : `You lose 1 mana! Current Mana: ${mana}/${maxMana}`;
-            
-            updateGameOutput(manaChangeMessage);
-            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
-        });
-
-        ignoreCodingButton.addEventListener('click', () => {
-            buttonContainer.removeChild(continueCodingButton);
-            buttonContainer.removeChild(ignoreCodingButton); // Remove the continue button
-            updateGameOutput("You ignore the coding and continue your adventure.");
-            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
-        });
-    } 
-    
-    // If the outcome is to try to compile code
-    else if (outcome.effect === 'hitpoints') {
-        const buttonContainer = document.getElementById('button-container');
-
-        // Create buttons for compiling or ignoring
-        const compileButton = document.createElement('button');
-        compileButton.textContent = "Try to compile your code";
-        buttonContainer.appendChild(compileButton);
-
-        const ignoreCompileButton = document.createElement('button');
-        ignoreCompileButton.textContent = "Ignore and continue your adventure";
-        buttonContainer.appendChild(ignoreCompileButton);
-
-        compileButton.addEventListener('click', () => {
-            buttonContainer.removeChild(compileButton);
-            buttonContainer.removeChild(ignoreCompileButton); // Remove the ignore button
-
-            // 50/50 chance to increase or decrease hitpoints
-            const hitpointsChange = Math.random() < 0.5 ? 1 : -1; // 50% chance
-            hitpoints = Math.max(hitpoints + hitpointsChange, 0); // Ensure hitpoints stay above 0
-            
-            const hitpointsChangeMessage = hitpointsChange > 0 
-                ? `You gain 1 hitpoint! Current Hitpoints: ${hitpoints}/${maxHitpoints}` 
-                : `You lose 1 hitpoint! Current Hitpoints: ${hitpoints}/${maxHitpoints}`;
-            
-            updateGameOutput(hitpointsChangeMessage);
-            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
-        });
-
-        ignoreCompileButton.addEventListener('click', () => {
-            buttonContainer.removeChild(compileButton);
-            buttonContainer.removeChild(ignoreCompileButton); // Remove the compile button
-            updateGameOutput("You ignore the compilation and continue your adventure.");
-            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
-        });
-    } 
-    
-    // If the outcome is to fight the Hacker
-    else if (outcome.effect === 'fight') {
-        const hackerImage = `
-            <div>
-                <img src="${outcome.image}" alt="${outcome.enemyName}" style="width: 200px; height: auto;"/>
-            </div>
-        `;
-        gameOutput.innerHTML += hackerImage; // Add the image to the game output
-        enemy = enemies.find(e => e.name === outcome.enemyName);
-        presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
-    }
-
-    break;
+            updateGameOutput('You begin coding but something takes over your computer and you encounter a hacker!');
+              // Add the Ex image
+            const HackerImage = `
+                <div>
+                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/Hacker.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
+                </div>
+            `;
+            gameOutput.innerHTML += HackerImage; // Add the image to the game output
+            enemy = enemies.find(e => e.name === "Hacker");
+            presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
+            break;
         case 'block your ex':
             updateGameOutput('You block your ex from contacts but she breaks into your house!');
               // Add the Ex image
