@@ -183,61 +183,79 @@ function presentSecondOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpo
     const gameOutput = document.getElementById('game-output');
     gameOutput.innerHTML = ''; // Clear previous output
 
-    const allOptions = [
-        { text: 'Log onto socials', action: 'log onto socials' },
-        { text: 'Begin coding a $DOG application', action: 'coding' },
-        { text: 'Block your ex from contacts', action: 'block your ex' },
-        { text: 'Take a walk', action: 'take a walk' },
-        { text: 'Make a $DOG influencer video', action: 'influencer video' },
-        { text: 'Go to the park', action: 'go to the park' },
-        { text: 'Quit your job', action: 'quit your job' },
-        { text: 'Play video games', action: 'play video games' }
-    ];
-
-    // Shuffle options
-    for (let i = allOptions.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [allOptions[i], allOptions[j]] = [allOptions[j], allOptions[i]];
-    }
-
-    // Select the first 2 options
-    const selectedOptions = allOptions.slice(0, 2);
-
-    // Check if the player has enough gold and if Leonidas appears
-    if (gold >= 20 && Math.random() < 0.33) {
-        selectedOptions.push({
-            text: 'Fight the bosses with Leonidas\'s help',
-            action: 'fight bosses'
-        });
-    }
-
-    let options = `<div><p>What would you like to do next? Choose an action:</p>`;
-    selectedOptions.forEach(option => {
-        options += `<button onclick="handleNewChoice('${option.action}', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">${option.text}</button>`;
-    });
-
     // Random events
     const randomEventChance = Math.random();
     if (randomEventChance < 0.05) {
-        options += `<p>You received a phone call. Do you want to answer?</p>
-                    <button onclick="handleRandomEvent('call', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Yes</button>
-                    <button onclick="presentSecondOptions(${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">No</button>`;
+        displayRandomEvent("call", level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
     } else if (randomEventChance < 0.10) {
-        options += `<p>You heard a knock on the door. Do you want to answer?</p>
-                    <button onclick="handleRandomEvent('knock', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Yes</button>
-                    <button onclick="presentSecondOptions(${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">No</button>`;
+        displayRandomEvent("knock", level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
     } else if (randomEventChance < 0.15) {
-        options += `<p>You received a text message. Do you want to read it?</p>
-                    <button onclick="handleRandomEvent('text', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Yes</button>
-                    <button onclick="presentSecondOptions(${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">No</button>`;
+        displayRandomEvent("text", level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
     } else if (randomEventChance < 0.20) {
-        options += `<p>You hear barking outside. Do you want to check it out?</p>
-                    <button onclick="handleRandomEvent('barking', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Yes</button>
-                    <button onclick="presentSecondOptions(${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">No</button>`;
+        displayRandomEvent("barking", level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+    } else {
+        // No random event, show normal options
+        const allOptions = [
+            { text: 'Log onto socials', action: 'log onto socials' },
+            { text: 'Begin coding a $DOG application', action: 'coding' },
+            { text: 'Block your ex from contacts', action: 'block your ex' },
+            { text: 'Take a walk', action: 'take a walk' },
+            { text: 'Make a $DOG influencer video', action: 'influencer video' },
+            { text: 'Go to the park', action: 'go to the park' },
+            { text: 'Quit your job', action: 'quit your job' },
+            { text: 'Play video games', action: 'play video games' }
+        ];
+
+        // Shuffle options
+        for (let i = allOptions.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [allOptions[i], allOptions[j]] = [allOptions[j], allOptions[i]];
+        }
+
+        // Select the first 2 options
+        const selectedOptions = allOptions.slice(0, 2);
+
+        // Check if the player has enough gold and if Leonidas appears
+        if (gold >= 20 && Math.random() < 0.33) {
+            selectedOptions.push({
+                text: 'Fight the bosses with Leonidas\'s help',
+                action: 'fight bosses'
+            });
+        }
+
+        let options = `<div><p>What would you like to do next? Choose an action:</p>`;
+        selectedOptions.forEach(option => {
+            options += `<button onclick="handleNewChoice('${option.action}', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">${option.text}</button>`;
+        });
+
+        options += `</div>`;
+        gameOutput.innerHTML += options;
+    }
+}
+
+// Helper function to display random event
+function displayRandomEvent(eventType, level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold) {
+    const gameOutput = document.getElementById('game-output');
+    let message = '';
+
+    switch (eventType) {
+        case 'call':
+            message = "You received a phone call. Do you want to answer?";
+            break;
+        case 'knock':
+            message = "You heard a knock on the door. Do you want to answer?";
+            break;
+        case 'text':
+            message = "You received a text message. Do you want to read it?";
+            break;
+        case 'barking':
+            message = "You hear barking outside. Do you want to check it out?";
+            break;
     }
 
-    options += `</div>`;
-    gameOutput.innerHTML += options;
+    gameOutput.innerHTML = `<p>${message}</p>
+                            <button onclick="handleRandomEvent('${eventType}', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Yes</button>
+                            <button onclick="presentSecondOptions(${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">No</button>`;
 }
 
 // Function to handle the random events
