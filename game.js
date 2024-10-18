@@ -937,17 +937,117 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
     }
     break;
          case 'quit your job':
-            updateGameOutput('You quit your job but a tax collector shows up at your door!');
-           //Add Hater Image
-            const TaxCollectorImage = `
-                <div>
-                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/TaxCollector.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
-                </div>
-            `;
-            gameOutput.innerHTML += TaxCollectorImage; // Add the image to the game output
-            enemy = enemies.find(e => e.name === "Tax Collector");
-            presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
-            break;
+    // Define possible outcomes
+    const outcomes7 = [
+        {
+            message: "You apply for a new job!",
+            effect: 'gold' // Indicates that this will affect gold
+        },
+        {
+            message: "You invest your remaining savings in memecoins!",
+            effect: 'gold' // Indicates that this will also affect gold
+        },
+        {
+            message: "You encounter a Tax Collector at your door!",
+            effect: 'fight', // Indicates that this will trigger a fight
+            enemyName: 'Tax Collector',
+            image: 'https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/TaxCollector.jpg?raw=true'
+        }
+    ];
+
+    // Generate a random index
+    const randomIndex7 = Math.floor(Math.random() * outcomes7.length);
+    const outcome7 = outcomes7[randomIndex7];
+
+    // Update game output with the selected outcome
+    updateGameOutput(outcome7.message);
+
+    // If the outcome is applying for a new job
+    if (outcome7.effect === 'gold' && outcome7.message.includes("apply for a new job")) {
+        const buttonContainer = document.getElementById('button-container');
+
+        // Create buttons for applying or ignoring
+        const applyJobButton = document.createElement('button');
+        applyJobButton.textContent = "Apply for a new job";
+        buttonContainer.appendChild(applyJobButton);
+
+        const ignoreJobButton = document.createElement('button');
+        ignoreJobButton.textContent = "Ignore and relax";
+        buttonContainer.appendChild(ignoreJobButton);
+
+        applyJobButton.addEventListener('click', () => {
+            buttonContainer.removeChild(applyJobButton);
+            buttonContainer.removeChild(ignoreJobButton); // Remove the ignore button
+
+            // 50/50 chance to increase or decrease gold
+            const goldChange = Math.random() < 0.5 ? 1 : -1; // 50% chance
+            gold = Math.min(Math.max(gold + goldChange, 0), maxGold); // Ensure gold stays within bounds
+            
+            const goldChangeMessage = goldChange > 0 
+                ? `You earn 1 gold from your job application! Current Gold: ${gold}/${maxGold}` 
+                : `You lose 1 gold in application fees! Current Gold: ${gold}/${maxGold}`;
+            
+            updateGameOutput(goldChangeMessage);
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+
+        ignoreJobButton.addEventListener('click', () => {
+            buttonContainer.removeChild(applyJobButton);
+            buttonContainer.removeChild(ignoreJobButton); // Remove the apply button
+            updateGameOutput("You ignore job applications and just relax.");
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+    }
+
+    // If the outcome is investing in memecoins
+    else if (outcome7.effect === 'gold' && outcome7.message.includes("invest your remaining savings in memecoins")) {
+        const buttonContainer = document.getElementById('button-container');
+
+        // Create buttons for investing or ignoring
+        const investMemecoinsButton = document.createElement('button');
+        investMemecoinsButton.textContent = "Invest in memecoins";
+        buttonContainer.appendChild(investMemecoinsButton);
+
+        const ignoreMemecoinsButton = document.createElement('button');
+        ignoreMemecoinsButton.textContent = "Ignore and relax";
+        buttonContainer.appendChild(ignoreMemecoinsButton);
+
+        investMemecoinsButton.addEventListener('click', () => {
+            buttonContainer.removeChild(investMemecoinsButton);
+            buttonContainer.removeChild(ignoreMemecoinsButton); // Remove the ignore button
+
+            // 50/50 chance to increase or decrease gold
+            const goldChange = Math.random() < 0.5 ? 1 : -1; // 50% chance
+            gold = Math.min(Math.max(gold + goldChange, 0), maxGold); // Ensure gold stays within bounds
+            
+            const goldChangeMessage = goldChange > 0 
+                ? `You gain 1 gold from a successful memecoin investment! Current Gold: ${gold}/${maxGold}` 
+                : `You lose 1 gold due to a memecoin crash! Current Gold: ${gold}/${maxGold}`;
+            
+            updateGameOutput(goldChangeMessage);
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+
+        ignoreMemecoinsButton.addEventListener('click', () => {
+            buttonContainer.removeChild(investMemecoinsButton);
+            buttonContainer.removeChild(ignoreMemecoinsButton); // Remove the invest button
+            updateGameOutput("You ignore investing and just relax.");
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+    }
+
+    // If the outcome is to fight the Tax Collector
+    else if (outcome7.effect === 'fight') {
+        const taxCollectorImage = `
+            <div>
+                <img src="${outcome7.image}" alt="${outcome7.enemyName}" style="width: 200px; height: auto;"/>
+            </div>
+        `;
+        gameOutput.innerHTML += taxCollectorImage; // Add the image to the game output
+        enemy = enemies.find(e => e.name === outcome7.enemyName);
+        presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
+    }
+    break;
          case 'play video games':
             updateGameOutput('You start playing video games but your Dad comes down stairs pissed!');
            //Add Hater Image
