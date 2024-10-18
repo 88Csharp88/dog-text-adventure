@@ -262,7 +262,8 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
     let enemy;
 
     switch (choice) {
-        case 'log onto socials':
+        switch (choice) {
+    case 'log onto socials':
         // Define possible outcomes
         const outcomes = [
             {
@@ -292,12 +293,19 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
         // If it's the DM from the influencer
         if (outcome.message.includes('DM from a $DOG influencer')) {
             const buttonContainer = document.getElementById('button-container');
+
+            // Create buttons for opening or ignoring the DM
             const openDMButton = document.createElement('button');
             openDMButton.textContent = "Open DM";
             buttonContainer.appendChild(openDMButton);
 
+            const ignoreDMButton = document.createElement('button');
+            ignoreDMButton.textContent = "Ignore DM";
+            buttonContainer.appendChild(ignoreDMButton);
+
             openDMButton.addEventListener('click', () => {
-                buttonContainer.removeChild(openDMButton); // Remove the button
+                buttonContainer.removeChild(openDMButton);
+                buttonContainer.removeChild(ignoreDMButton); // Remove the ignore button
 
                 // 50/50 chance to increase or decrease mana
                 const manaChange = Math.random() < 0.5 ? 1 : -1; // 50% chance
@@ -308,7 +316,13 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
                     : `You lose 1 mana! Current Mana: ${mana}/${maxMana}`;
                 
                 updateGameOutput(manaChangeMessage);
+                addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+            });
 
+            ignoreDMButton.addEventListener('click', () => {
+                buttonContainer.removeChild(openDMButton);
+                buttonContainer.removeChild(ignoreDMButton); // Remove the open button
+                updateGameOutput("You ignore the DM and continue your adventure.");
                 addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
             });
         } 
@@ -316,12 +330,19 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
         // If it's reading a post by the influencer
         else if (outcome.message.includes('interesting post by a $DOG influencer')) {
             const buttonContainer = document.getElementById('button-container');
+
+            // Create buttons for reading or ignoring the post
             const readPostButton = document.createElement('button');
             readPostButton.textContent = "Read Post";
             buttonContainer.appendChild(readPostButton);
 
+            const ignorePostButton = document.createElement('button');
+            ignorePostButton.textContent = "Ignore Post";
+            buttonContainer.appendChild(ignorePostButton);
+
             readPostButton.addEventListener('click', () => {
-                buttonContainer.removeChild(readPostButton); // Remove the button
+                buttonContainer.removeChild(readPostButton);
+                buttonContainer.removeChild(ignorePostButton); // Remove the ignore button
 
                 // 50/50 chance to increase or decrease gold
                 const goldChange = Math.random() < 0.5 ? 1 : -1; // 50% chance
@@ -332,7 +353,13 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
                     : `You lose 1 gold! Current Gold: ${gold}/${maxGold}`;
                 
                 updateGameOutput(goldChangeMessage);
+                addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+            });
 
+            ignorePostButton.addEventListener('click', () => {
+                buttonContainer.removeChild(readPostButton);
+                buttonContainer.removeChild(ignorePostButton); // Remove the read button
+                updateGameOutput("You ignore the post and continue your adventure.");
                 addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
             });
         } 
@@ -349,7 +376,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
         }
 
-            break;
+        break;
         case 'coding':
             updateGameOutput('You work on coding a $DOG application, but something takes control of your computer. You encounter a hacker!');
             // Add Hacker Image
