@@ -34,11 +34,11 @@ function chooseClass(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gol
 
         classButton.addEventListener('click', () => {
             // Adjust stats based on chosen class
-            if (cls === 'Warrior +5 HP') {
+            if (cls === 'Warrior') {
                 hitpoints += 5;
-            } else if (cls === 'Mage +10 Mana') {
+            } else if (cls === 'Mage') {
                 mana += 10;
-            } else if (cls === 'Merchant +5 Gold') {
+            } else if (cls === 'Merchant') {
                 gold += 5;
             }
 
