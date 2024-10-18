@@ -262,7 +262,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
     let enemy;
 
     switch (choice) {
-        switch (choice) {
+        
     case 'log onto socials':
         // Define possible outcomes
         const outcomes = [
