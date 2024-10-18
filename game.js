@@ -825,17 +825,117 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
     }
     break;
         case 'go to the park':
-            updateGameOutput('You take a walk to the park but encounter animal control!');
-           //Add Hater Image
-            const AnimalControlImage = `
-                <div>
-                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/AnimalControl.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
-                </div>
-            `;
-            gameOutput.innerHTML += AnimalControlImage; // Add the image to the game output
-            enemy = enemies.find(e => e.name === "Animal Control");
-            presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
-            break;
+    // Define possible outcomes
+    const outcomes6 = [
+        {
+            message: "You drink from the public drinking fountain!",
+            effect: 'hitpoints' // Indicates that this will affect hitpoints
+        },
+        {
+            message: "You play a round of disc golf!",
+            effect: 'mana' // Indicates that this will affect mana
+        },
+        {
+            message: "You encounter Animal Control!",
+            effect: 'fight', // Indicates that this will trigger a fight
+            enemyName: 'Animal Control',
+            image: 'https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/AnimalControl.jpg?raw=true'
+        }
+    ];
+
+    // Generate a random index
+    const randomIndex6 = Math.floor(Math.random() * outcomes6.length);
+    const outcome6 = outcomes6[randomIndex6];
+
+    // Update game output with the selected outcome
+    updateGameOutput(outcome6.message);
+
+    // If the outcome is drinking from the fountain
+    if (outcome6.effect === 'hitpoints') {
+        const buttonContainer = document.getElementById('button-container');
+
+        // Create buttons for drinking or ignoring
+        const drinkFountainButton = document.createElement('button');
+        drinkFountainButton.textContent = "Drink from the public drinking fountain";
+        buttonContainer.appendChild(drinkFountainButton);
+
+        const ignoreFountainButton = document.createElement('button');
+        ignoreFountainButton.textContent = "Ignore and continue your park visit";
+        buttonContainer.appendChild(ignoreFountainButton);
+
+        drinkFountainButton.addEventListener('click', () => {
+            buttonContainer.removeChild(drinkFountainButton);
+            buttonContainer.removeChild(ignoreFountainButton); // Remove the ignore button
+
+            // 50/50 chance to increase or decrease hitpoints
+            const hitpointsChange = Math.random() < 0.5 ? 1 : -1; // 50% chance
+            hitpoints = Math.max(hitpoints + hitpointsChange, 0); // Ensure hitpoints stay above 0
+            
+            const hitpointsChangeMessage = hitpointsChange > 0 
+                ? `You gain 1 hitpoint from the fountain! Current Hitpoints: ${hitpoints}/${maxHitpoints}` 
+                : `You lose 1 hitpoint from the fountain's questionable water! Current Hitpoints: ${hitpoints}/${maxHitpoints}`;
+            
+            updateGameOutput(hitpointsChangeMessage);
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+
+        ignoreFountainButton.addEventListener('click', () => {
+            buttonContainer.removeChild(drinkFountainButton);
+            buttonContainer.removeChild(ignoreFountainButton); // Remove the drink button
+            updateGameOutput("You ignore the fountain and continue your park visit.");
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+    } 
+    
+    // If the outcome is playing disc golf
+    else if (outcome6.effect === 'mana') {
+        const buttonContainer = document.getElementById('button-container');
+
+        // Create buttons for playing or ignoring
+        const playDiscGolfButton = document.createElement('button');
+        playDiscGolfButton.textContent = "Play a round of disc golf";
+        buttonContainer.appendChild(playDiscGolfButton);
+
+        const ignoreDiscGolfButton = document.createElement('button');
+        ignoreDiscGolfButton.textContent = "Ignore and continue your park visit";
+        buttonContainer.appendChild(ignoreDiscGolfButton);
+
+        playDiscGolfButton.addEventListener('click', () => {
+            buttonContainer.removeChild(playDiscGolfButton);
+            buttonContainer.removeChild(ignoreDiscGolfButton); // Remove the ignore button
+
+            // 50/50 chance to increase or decrease mana
+            const manaChange = Math.random() < 0.5 ? 1 : -1; // 50% chance
+            mana = Math.min(Math.max(mana + manaChange, 0), maxMana); // Ensure mana stays within bounds
+            
+            const manaChangeMessage = manaChange > 0 
+                ? `You gain 1 mana from playing disc golf! Current Mana: ${mana}/${maxMana}` 
+                : `You lose 1 mana from a bad throw! Current Mana: ${mana}/${maxMana}`;
+            
+            updateGameOutput(manaChangeMessage);
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+
+        ignoreDiscGolfButton.addEventListener('click', () => {
+            buttonContainer.removeChild(playDiscGolfButton);
+            buttonContainer.removeChild(ignoreDiscGolfButton); // Remove the play button
+            updateGameOutput("You ignore disc golf and continue your park visit.");
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+    } 
+    
+    // If the outcome is to fight Animal Control
+    else if (outcome6.effect === 'fight') {
+        const animalControlImage = `
+            <div>
+                <img src="${outcome6.image}" alt="${outcome6.enemyName}" style="width: 200px; height: auto;"/>
+            </div>
+        `;
+        gameOutput.innerHTML += animalControlImage; // Add the image to the game output
+        enemy = enemies.find(e => e.name === outcome6.enemyName);
+        presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
+    }
+    break;
          case 'quit your job':
             updateGameOutput('You quit your job but a tax collector shows up at your door!');
            //Add Hater Image
