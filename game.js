@@ -489,17 +489,117 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
     }
     break;
         case 'block your ex':
-            updateGameOutput('You block your ex from contacts but she breaks into your house!');
-              // Add the Ex image
-            const ExImage = `
-                <div>
-                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/ex.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
-                </div>
-            `;
-            gameOutput.innerHTML += ExImage; // Add the image to the game output
-            enemy = enemies.find(e => e.name === "Your Ex");
-            presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
-            break;
+    // Define possible outcomes
+    const outcomes3 = [
+        {
+            message: "Your ex's mom calls you!",
+            effect: 'mana' // Indicates that this will affect mana
+        },
+        {
+            message: "There is a knock at your window!",
+            effect: 'gold' // Indicates that this will affect gold
+        },
+        {
+            message: "You encounter your ex!",
+            effect: 'fight', // Indicates that this will trigger a fight
+            enemyName: 'Your Ex',
+            image: 'https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/ex.jpg?raw=true'
+        }
+    ];
+
+    // Generate a random index
+    const randomIndex3 = Math.floor(Math.random() * outcomes3.length);
+    const outcome3 = outcomes3[randomIndex3];
+
+    // Update game output with the selected outcome
+    updateGameOutput(outcome3.message);
+
+    // If the outcome is your ex's mom calling
+    if (outcome3.effect === 'mana') {
+        const buttonContainer = document.getElementById('button-container');
+
+        // Create buttons for answering or ignoring
+        const answerCallButton = document.createElement('button');
+        answerCallButton.textContent = "Answer the call from your ex's mom";
+        buttonContainer.appendChild(answerCallButton);
+
+        const ignoreCallButton = document.createElement('button');
+        ignoreCallButton.textContent = "Ignore the call and continue your adventure";
+        buttonContainer.appendChild(ignoreCallButton);
+
+        answerCallButton.addEventListener('click', () => {
+            buttonContainer.removeChild(answerCallButton);
+            buttonContainer.removeChild(ignoreCallButton); // Remove the ignore button
+
+            // 50/50 chance to increase or decrease mana
+            const manaChange = Math.random() < 0.5 ? 1 : -1; // 50% chance
+            mana = Math.min(Math.max(mana + manaChange, 0), maxMana); // Ensure mana stays within bounds
+            
+            const manaChangeMessage = manaChange > 0 
+                ? `You gain 1 mana! Current Mana: ${mana}/${maxMana}` 
+                : `You lose 1 mana! Current Mana: ${mana}/${maxMana}`;
+            
+            updateGameOutput(manaChangeMessage);
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+
+        ignoreCallButton.addEventListener('click', () => {
+            buttonContainer.removeChild(answerCallButton);
+            buttonContainer.removeChild(ignoreCallButton); // Remove the answer button
+            updateGameOutput("You ignore the call and continue your adventure.");
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+    } 
+    
+    // If the outcome is the knock at your window
+    else if (outcome3.effect === 'gold') {
+        const buttonContainer = document.getElementById('button-container');
+
+        // Create buttons for checking the window or ignoring
+        const checkWindowButton = document.createElement('button');
+        checkWindowButton.textContent = "Check the window";
+        buttonContainer.appendChild(checkWindowButton);
+
+        const ignoreWindowButton = document.createElement('button');
+        ignoreWindowButton.textContent = "Ignore the knock and continue your adventure";
+        buttonContainer.appendChild(ignoreWindowButton);
+
+        checkWindowButton.addEventListener('click', () => {
+            buttonContainer.removeChild(checkWindowButton);
+            buttonContainer.removeChild(ignoreWindowButton); // Remove the ignore button
+
+            // 50/50 chance to increase or decrease gold
+            const goldChange = Math.random() < 0.5 ? 1 : -1; // 50% chance
+            gold = Math.min(Math.max(gold + goldChange, 0), maxGold); // Ensure gold stays within bounds
+            
+            const goldChangeMessage = goldChange > 0 
+                ? `You find 1 gold! Current Gold: ${gold}/${maxGold}` 
+                : `You lose 1 gold! Current Gold: ${gold}/${maxGold}`;
+            
+            updateGameOutput(goldChangeMessage);
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+
+        ignoreWindowButton.addEventListener('click', () => {
+            buttonContainer.removeChild(checkWindowButton);
+            buttonContainer.removeChild(ignoreWindowButton); // Remove the check button
+            updateGameOutput("You ignore the knock and continue your adventure.");
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+    } 
+    
+    // If the outcome is to fight your ex
+    else if (outcome3.effect === 'fight') {
+        const exImage = `
+            <div>
+                <img src="${outcome3.image}" alt="${outcome3.enemyName}" style="width: 200px; height: auto;"/>
+            </div>
+        `;
+        gameOutput.innerHTML += exImage; // Add the image to the game output
+        enemy = enemies.find(e => e.name === outcome3.enemyName);
+        presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
+    }
+    break;
         case 'take a walk':
             updateGameOutput('You take a walk to clear your mind but you are interupted by your toxic neighbor!');
             //Add Toxic Neighbor Image
