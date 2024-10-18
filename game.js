@@ -158,16 +158,21 @@ function presentNewOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoint
     // Random events
     const randomEventChance = Math.random();
     if (randomEventChance < 0.05) {
-        options += `<button onclick="handleRandomEvent('call', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Answer a random phone call</button>`;
-    } 
-    if (randomEventChance < 0.10) {
-        options += `<button onclick="handleRandomEvent('knock', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Answer the random knock on the door</button>`;
-    } 
-    if (randomEventChance < 0.15) {
-        options += `<button onclick="handleRandomEvent('text', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Read a random text message</button>`;
-    } 
-    if (randomEventChance < 0.20) {
-        options += `<button onclick="handleRandomEvent('barking', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Check on the barking outside</button>`;
+        options += `<p>You received a phone call. Do you want to answer?</p>
+                    <button onclick="handleRandomEvent('call', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Yes</button>
+                    <button onclick="presentSecondOptions(${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">No</button>`;
+    } else if (randomEventChance < 0.10) {
+        options += `<p>You heard a knock on the door. Do you want to answer?</p>
+                    <button onclick="handleRandomEvent('knock', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Yes</button>
+                    <button onclick="presentSecondOptions(${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">No</button>`;
+    } else if (randomEventChance < 0.15) {
+        options += `<p>You received a text message. Do you want to read it?</p>
+                    <button onclick="handleRandomEvent('text', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Yes</button>
+                    <button onclick="presentSecondOptions(${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">No</button>`;
+    } else if (randomEventChance < 0.20) {
+        options += `<p>You hear barking outside. Do you want to check it out?</p>
+                    <button onclick="handleRandomEvent('barking', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Yes</button>
+                    <button onclick="presentSecondOptions(${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">No</button>`;
     }
 
     options += `</div>`;
@@ -214,16 +219,21 @@ function presentSecondOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpo
     // Random events
     const randomEventChance = Math.random();
     if (randomEventChance < 0.05) {
-        options += `<button onclick="handleRandomEvent('call', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Answer a random phone call</button>`;
-    } 
-    if (randomEventChance < 0.10) {
-        options += `<button onclick="handleRandomEvent('knock', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Answer the random knock on the door</button>`;
-    } 
-    if (randomEventChance < 0.15) {
-        options += `<button onclick="handleRandomEvent('text', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Read a random text message</button>`;
-    } 
-    if (randomEventChance < 0.20) {
-        options += `<button onclick="handleRandomEvent('barking', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Check on the barking outside</button>`;
+        options += `<p>You received a phone call. Do you want to answer?</p>
+                    <button onclick="handleRandomEvent('call', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Yes</button>
+                    <button onclick="presentSecondOptions(${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">No</button>`;
+    } else if (randomEventChance < 0.10) {
+        options += `<p>You heard a knock on the door. Do you want to answer?</p>
+                    <button onclick="handleRandomEvent('knock', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Yes</button>
+                    <button onclick="presentSecondOptions(${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">No</button>`;
+    } else if (randomEventChance < 0.15) {
+        options += `<p>You received a text message. Do you want to read it?</p>
+                    <button onclick="handleRandomEvent('text', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Yes</button>
+                    <button onclick="presentSecondOptions(${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">No</button>`;
+    } else if (randomEventChance < 0.20) {
+        options += `<p>You hear barking outside. Do you want to check it out?</p>
+                    <button onclick="handleRandomEvent('barking', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Yes</button>
+                    <button onclick="presentSecondOptions(${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">No</button>`;
     }
 
     options += `</div>`;
@@ -240,26 +250,25 @@ function handleRandomEvent(eventType, level, hasLobo, mana, maxMana, hitpoints, 
 
     switch (eventType) {
         case 'call':
-            outcomeMessage = "You received a phone call. Do you want to answer?";
-            // Adjust mana, hitpoints, or gold based on diceRoll
-            gold += (diceRoll === 6) ? 2 : -1; // Example outcome
+            outcomeMessage = "You answered the call!";
+            gold += (diceRoll === 6) ? 2 : -1; // Adjust gold based on roll
             break;
         case 'knock':
-            outcomeMessage = "You heard a knock on the door. Do you want to answer?";
-            hitpoints += (diceRoll === 6) ? 2 : -1; // Example outcome
+            outcomeMessage = "You answered the door!";
+            hitpoints += (diceRoll === 6) ? 2 : -1; // Adjust hitpoints based on roll
             break;
         case 'text':
-            outcomeMessage = "You received a text message. Do you want to read it?";
-            mana += (diceRoll === 6) ? 1 : -1; // Example outcome
+            outcomeMessage = "You read the text message!";
+            mana += (diceRoll === 6) ? 1 : -1; // Adjust mana based on roll
             break;
         case 'barking':
-            outcomeMessage = "You hear barking outside. Do you want to check it out?";
-            hitpoints += (diceRoll === 6) ? 1 : -1; // Example outcome
+            outcomeMessage = "You checked the barking outside!";
+            hitpoints += (diceRoll === 6) ? 1 : -1; // Adjust hitpoints based on roll
             break;
     }
 
     gameOutput.innerHTML += `<p>${outcomeMessage}</p>`;
-    // Add more logic for confirming or rejecting the event if needed
+    presentSecondOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold); // Cycle back to options
 }
 
 // Define an array of enemies
