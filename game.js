@@ -380,21 +380,21 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
         case 'coding':
     // Define possible outcomes
     const codingOutcomes = [
-        {
-            message: 'You decide to continue coding for 2 more hours!',
-            effect: 'mana', // Indicates that this will affect mana
-        },
-        {
-            message: 'You try to compile your code!',
-            effect: 'hitpoints', // Indicates that this will affect hitpoints
-        },
-        {
-            message: 'You encounter a Hacker!',
-            effect: 'fight', // Indicates that this will trigger a fight
-            enemyName: 'Hacker',
-            image: 'https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/Hacker.jpg?raw=true'
-        }
-    ];
+    {
+        message: 'You decide to continue coding for 2 more hours!',
+        effect: 'mana' // Indicates that this will affect mana
+    },
+    {
+        message: 'You try to compile your code!',
+        effect: 'hitpoints' // Indicates that this will affect hitpoints
+    },
+    {
+        message: 'You encounter a Hacker!',
+        effect: 'fight', // Indicates that this will trigger a fight
+        enemyName: 'Hacker',
+        image: 'https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/Hacker.jpg?raw=true'
+    }
+];
 
     // Generate a random index
     const randomIndex = Math.floor(Math.random() * codingOutcomes.length);
