@@ -155,8 +155,55 @@ function presentNewOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoint
         options += `<button onclick="handleNewChoice('${option.action}', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">${option.text}</button>`;
     });
 
+    // Random events
+    const randomEventChance = Math.random();
+    if (randomEventChance < 0.05) {
+        options += `<button onclick="handleRandomEvent('call', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Answer a random phone call</button>`;
+    } 
+    if (randomEventChance < 0.10) {
+        options += `<button onclick="handleRandomEvent('knock', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Answer the random knock on the door</button>`;
+    } 
+    if (randomEventChance < 0.15) {
+        options += `<button onclick="handleRandomEvent('text', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Read a random text message</button>`;
+    } 
+    if (randomEventChance < 0.20) {
+        options += `<button onclick="handleRandomEvent('barking', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Check on the barking outside</button>`;
+    }
+
     options += `</div>`;
     gameOutput.innerHTML += options;
+}
+
+// Function to handle the random events
+function handleRandomEvent(eventType, level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold) {
+    const gameOutput = document.getElementById('game-output');
+    let outcomeMessage = '';
+
+    // Determine the outcome based on the event type
+    const diceRoll = Math.floor(Math.random() * 6) + 1; // Roll a dice (1-6)
+
+    switch (eventType) {
+        case 'call':
+            outcomeMessage = "You received a phone call. Do you want to answer?";
+            // Adjust mana, hitpoints, or gold based on diceRoll
+            gold += (diceRoll === 6) ? 2 : -1; // Example outcome
+            break;
+        case 'knock':
+            outcomeMessage = "You heard a knock on the door. Do you want to answer?";
+            hitpoints += (diceRoll === 6) ? 2 : -1; // Example outcome
+            break;
+        case 'text':
+            outcomeMessage = "You received a text message. Do you want to read it?";
+            mana += (diceRoll === 6) ? 1 : -1; // Example outcome
+            break;
+        case 'barking':
+            outcomeMessage = "You hear barking outside. Do you want to check it out?";
+            hitpoints += (diceRoll === 6) ? 1 : -1; // Example outcome
+            break;
+    }
+
+    gameOutput.innerHTML += `<p>${outcomeMessage}</p>`;
+    // Add more logic for confirming or rejecting the event if needed
 }
 
 function presentSecondOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold) {
