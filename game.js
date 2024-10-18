@@ -377,7 +377,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
         }
         break;
             
-        case 'log onto code editor':
+        case 'coding':
     // Define possible outcomes
     const codingOutcomes = [
         {
