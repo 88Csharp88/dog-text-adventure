@@ -496,13 +496,23 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
             updateGameOutput(`You earn 1 gold! Current Gold: ${gold}/${maxGold}`);
             }
 
-        // Check if the defeated enemy is Zombie Elon
+        //check to see if defeated enemy is Zombie Elon        
         if (enemy.name === 'Zombie Elon') {
+            updateGameOutput("You defeated Zombie Elon!"); // Show defeat message
+            const buttonContainer = document.getElementById('button-container');
+
+            // Create and show the fight button
+            const fightButton = document.createElement('button');
+            fightButton.textContent = "Fight Final Boss";
+            buttonContainer.appendChild(fightButton);
+                    
+            fightButton.addEventListener('click', () => {
+            buttonContainer.removeChild(fightButton); // Remove the button
             updateGameOutput("Prepare yourself! A new challenge awaits as you face Gary Gensler!");
-            // Redirect to the boss fight through handleNewChoice
             handleNewChoice('fight final boss', level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
-            return; // Exit the current function
-        }
+            });
+             return; // Exit the current function
+            }
 
         // Check if the defeated enemy is Gary Gensler
         if (enemy.name === 'Gary Gensler') {
@@ -580,9 +590,19 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
 
                 // Check if the defeated enemy is Zombie Elon
                 if (enemy.name === 'Zombie Elon') {
+                    updateGameOutput("You defeated Zombie Elon!"); // Show defeat message
+                    const buttonContainer = document.getElementById('button-container');
+
+                    // Create and show the fight button
+                    const fightButton = document.createElement('button');
+                    fightButton.textContent = "Fight Final Boss";
+                    buttonContainer.appendChild(fightButton);
+                    
+                   fightButton.addEventListener('click', () => {
+                    buttonContainer.removeChild(fightButton); // Remove the button
                     updateGameOutput("Prepare yourself! A new challenge awaits as you face Gary Gensler!");
-                    // Redirect to the boss fight through handleNewChoice
                     handleNewChoice('fight final boss', level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+                    });
                     return; // Exit the current function
                     }
 
