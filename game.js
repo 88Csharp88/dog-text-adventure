@@ -601,17 +601,117 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
     }
     break;
         case 'take a walk':
-            updateGameOutput('You take a walk to clear your mind but you are interupted by your toxic neighbor!');
-            //Add Toxic Neighbor Image
-            const ToxicNeighborImage = `
-                <div>
-                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/ToxicNeighbor.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
-                </div>
-            `;
-            gameOutput.innerHTML += ToxicNeighborImage; // Add the image to the game output
-            enemy = enemies.find(e => e.name === "Toxic Neighbor");
-            presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
-            break;
+    // Define possible outcomes
+    const outcomes4 = [
+        {
+            message: "You enter the graveyard!",
+            effect: 'health' // Indicates that this will affect health
+        },
+        {
+            message: "You hang out at the gas station!",
+            effect: 'gold' // Indicates that this will affect gold
+        },
+        {
+            message: "You encounter the Toxic Neighbor!",
+            effect: 'fight', // Indicates that this will trigger a fight
+            enemyName: 'Toxic Neighbor',
+            image: 'https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/ToxicNeighbor.jpg?raw=true'
+        }
+    ];
+
+    // Generate a random index
+    const randomIndex4 = Math.floor(Math.random() * outcomes4.length);
+    const outcome4 = outcomes4[randomIndex4];
+
+    // Update game output with the selected outcome
+    updateGameOutput(outcome4.message);
+
+    // If the outcome is entering the graveyard
+    if (outcome4.effect === 'health') {
+        const buttonContainer = document.getElementById('button-container');
+
+        // Create buttons for exploring or ignoring
+        const exploreGraveyardButton = document.createElement('button');
+        exploreGraveyardButton.textContent = "Explore the graveyard";
+        buttonContainer.appendChild(exploreGraveyardButton);
+
+        const ignoreGraveyardButton = document.createElement('button');
+        ignoreGraveyardButton.textContent = "Ignore and continue your walk";
+        buttonContainer.appendChild(ignoreGraveyardButton);
+
+        exploreGraveyardButton.addEventListener('click', () => {
+            buttonContainer.removeChild(exploreGraveyardButton);
+            buttonContainer.removeChild(ignoreGraveyardButton); // Remove the ignore button
+
+            // 50/50 chance to increase or decrease health
+            const healthChange = Math.random() < 0.5 ? 1 : -1; // 50% chance
+            hitpoints = Math.max(hitpoints + healthChange, 0); // Ensure health stays above 0
+            
+            const healthChangeMessage = healthChange > 0 
+                ? `You gain 1 health point! Current Health: ${hitpoints}/${maxHitpoints}` 
+                : `You lose 1 health point! Current Health: ${hitpoints}/${maxHitpoints}`;
+            
+            updateGameOutput(healthChangeMessage);
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+
+        ignoreGraveyardButton.addEventListener('click', () => {
+            buttonContainer.removeChild(exploreGraveyardButton);
+            buttonContainer.removeChild(ignoreGraveyardButton); // Remove the explore button
+            updateGameOutput("You ignore the graveyard and continue your walk.");
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+    } 
+    
+    // If the outcome is hanging out at the gas station
+    else if (outcome4.effect === 'gold') {
+        const buttonContainer = document.getElementById('button-container');
+
+        // Create buttons for checking the gas station or ignoring
+        const checkGasStationButton = document.createElement('button');
+        checkGasStationButton.textContent = "Check the gas station";
+        buttonContainer.appendChild(checkGasStationButton);
+
+        const ignoreGasStationButton = document.createElement('button');
+        ignoreGasStationButton.textContent = "Ignore and continue your walk";
+        buttonContainer.appendChild(ignoreGasStationButton);
+
+        checkGasStationButton.addEventListener('click', () => {
+            buttonContainer.removeChild(checkGasStationButton);
+            buttonContainer.removeChild(ignoreGasStationButton); // Remove the ignore button
+
+            // 50/50 chance to increase or decrease gold
+            const goldChange = Math.random() < 0.5 ? 1 : -1; // 50% chance
+            gold = Math.min(Math.max(gold + goldChange, 0), maxGold); // Ensure gold stays within bounds
+            
+            const goldChangeMessage = goldChange > 0 
+                ? `You find 1 gold! Current Gold: ${gold}/${maxGold}` 
+                : `You lose 1 gold! Current Gold: ${gold}/${maxGold}`;
+            
+            updateGameOutput(goldChangeMessage);
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+
+        ignoreGasStationButton.addEventListener('click', () => {
+            buttonContainer.removeChild(checkGasStationButton);
+            buttonContainer.removeChild(ignoreGasStationButton); // Remove the check button
+            updateGameOutput("You ignore the gas station and continue your walk.");
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+    } 
+    
+    // If the outcome is to fight the Toxic Neighbor
+    else if (outcome4.effect === 'fight') {
+        const neighborImage = `
+            <div>
+                <img src="${outcome4.image}" alt="${outcome4.enemyName}" style="width: 200px; height: auto;"/>
+            </div>
+        `;
+        gameOutput.innerHTML += neighborImage; // Add the image to the game output
+        enemy = enemies.find(e => e.name === outcome4.enemyName);
+        presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
+    }
+    break;
         case 'influencer video':
             updateGameOutput('You make a $DOG influencer video but encounter a Hater in the comment section!');
            //Add Hater Image
