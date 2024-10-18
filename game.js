@@ -396,8 +396,8 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
     ];
 
     // Generate a random index
-    const randomIndex = Math.floor(Math.random() * codingOutcomes.length);
-    const outcome = codingOutcomes[randomIndex];
+    const randomIndex2 = Math.floor(Math.random() * codingOutcomes.length);
+    const outcome = codingOutcomes[randomIndex2];
 
     // Update game output with the selected outcome
     updateGameOutput(outcome.message);
