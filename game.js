@@ -285,8 +285,10 @@ function handleRandomEvent(eventType, level, hasLobo, mana, maxMana, hitpoints, 
             break;
     }
 
-    gameOutput.innerHTML += `<p>${outcomeMessage}</p>`;
-    presentSecondOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold); // Cycle back to options
+   // Display the outcome message and continue button
+    gameOutput.innerHTML += `<p>${outcomeMessage}</p>
+                             <button onclick="presentSecondOptions(${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Continue your adventure</button>`;
+
 }
 
 // Define an array of enemies
