@@ -1049,17 +1049,117 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
     }
     break;
          case 'play video games':
-            updateGameOutput('You start playing video games but your Dad comes down stairs pissed!');
-           //Add Hater Image
-            const MadDadImage = `
-                <div>
-                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/MadDad.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
-                </div>
-            `;
-            gameOutput.innerHTML += MadDadImage; // Add the image to the game output
-            enemy = enemies.find(e => e.name === "Mad Dad");
-            presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
-            break;
+    // Define possible outcomes
+    const outcomes8 = [
+        {
+            message: "You play video games online!",
+            effect: 'gold' // Indicates that this will affect gold
+        },
+        {
+            message: "You plug in the retro console!",
+            effect: 'mana' // Indicates that this will affect mana
+        },
+        {
+            message: "Your Dad comes downstairs pissed!",
+            effect: 'fight', // Indicates that this will trigger a fight
+            enemyName: 'Mad Dad',
+            image: 'https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/MadDad.jpg?raw=true'
+        }
+    ];
+
+    // Generate a random index
+    const randomIndex8 = Math.floor(Math.random() * outcomes8.length);
+    const outcome8 = outcomes8[randomIndex8];
+
+    // Update game output with the selected outcome
+    updateGameOutput(outcome8.message);
+
+    // If the outcome is playing video games online
+    if (outcome8.effect === 'gold' && outcome8.message.includes("play video games online")) {
+        const buttonContainer = document.getElementById('button-container');
+
+        // Create buttons for playing online or ignoring
+        const playOnlineButton = document.createElement('button');
+        playOnlineButton.textContent = "Play video games online";
+        buttonContainer.appendChild(playOnlineButton);
+
+        const ignoreOnlineButton = document.createElement('button');
+        ignoreOnlineButton.textContent = "Ignore and do something else";
+        buttonContainer.appendChild(ignoreOnlineButton);
+
+        playOnlineButton.addEventListener('click', () => {
+            buttonContainer.removeChild(playOnlineButton);
+            buttonContainer.removeChild(ignoreOnlineButton); // Remove the ignore button
+
+            // 50/50 chance to increase or decrease gold
+            const goldChange = Math.random() < 0.5 ? 1 : -1; // 50% chance
+            gold = Math.min(Math.max(gold + goldChange, 0), maxGold); // Ensure gold stays within bounds
+            
+            const goldChangeMessage = goldChange > 0 
+                ? `You earn 1 gold from your gaming session! Current Gold: ${gold}/${maxGold}` 
+                : `You lose 1 gold due to in-game purchases! Current Gold: ${gold}/${maxGold}`;
+            
+            updateGameOutput(goldChangeMessage);
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+
+        ignoreOnlineButton.addEventListener('click', () => {
+            buttonContainer.removeChild(playOnlineButton);
+            buttonContainer.removeChild(ignoreOnlineButton); // Remove the play button
+            updateGameOutput("You ignore online games and find something else to do.");
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+    }
+
+    // If the outcome is plugging in the retro console
+    else if (outcome8.effect === 'mana' && outcome8.message.includes("plug in the retro console")) {
+        const buttonContainer = document.getElementById('button-container');
+
+        // Create buttons for plugging in or ignoring
+        const plugInButton = document.createElement('button');
+        plugInButton.textContent = "Plug in the retro console";
+        buttonContainer.appendChild(plugInButton);
+
+        const ignoreRetroButton = document.createElement('button');
+        ignoreRetroButton.textContent = "Ignore and do something else";
+        buttonContainer.appendChild(ignoreRetroButton);
+
+        plugInButton.addEventListener('click', () => {
+            buttonContainer.removeChild(plugInButton);
+            buttonContainer.removeChild(ignoreRetroButton); // Remove the ignore button
+
+            // 50/50 chance to increase or decrease mana
+            const manaChange = Math.random() < 0.5 ? 1 : -1; // 50% chance
+            mana = Math.min(Math.max(mana + manaChange, 0), maxMana); // Ensure mana stays within bounds
+            
+            const manaChangeMessage = manaChange > 0 
+                ? `You gain 1 mana from nostalgic gaming! Current Mana: ${mana}/${maxMana}` 
+                : `You lose 1 mana due to a frustrating game! Current Mana: ${mana}/${maxMana}`;
+            
+            updateGameOutput(manaChangeMessage);
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+
+        ignoreRetroButton.addEventListener('click', () => {
+            buttonContainer.removeChild(plugInButton);
+            buttonContainer.removeChild(ignoreRetroButton); // Remove the plug-in button
+            updateGameOutput("You ignore the retro console and find something else to do.");
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+    }
+
+    // If the outcome is to fight Mad Dad
+    else if (outcome8.effect === 'fight') {
+        const madDadImage = `
+            <div>
+                <img src="${outcome8.image}" alt="${outcome8.enemyName}" style="width: 200px; height: auto;"/>
+            </div>
+        `;
+        gameOutput.innerHTML += madDadImage; // Add the image to the game output
+        enemy = enemies.find(e => e.name === outcome8.enemyName);
+        presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
+    }
+    break;
         case 'fight bosses':
             updateGameOutput('It is time to fight Zombie Elon Musk!!!');
            //Add Zombie Elon Image
