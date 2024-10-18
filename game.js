@@ -147,8 +147,8 @@ function presentNewOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoint
         [allOptions[i], allOptions[j]] = [allOptions[j], allOptions[i]];
     }
 
-    // Select the first 3 options
-    const selectedOptions = allOptions.slice(0, 3);
+    // Select the first 2 options
+    const selectedOptions = allOptions.slice(0, 2);
 
     let options = `<div><p>You awake from your slumber. Choose an action:</p>`;
     selectedOptions.forEach(option => {
