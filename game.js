@@ -479,7 +479,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
                 
                 const goldChangeMessage = goldChange > 0 
                     ? `You read a fantasic post from a popular influence. It inspires you to create a meme in the replies. The influencer loves it and sends you some crypto. You gain some gold. Current Gold: ${gold}/${maxGold}` 
-                    : `You read a post from the popular influencer. It inspires you to invest into a new project. Suddenly the project rugs and realize it was an impersonator. You lose some gold. Current Gold: ${gold}/${maxGold}`;
+                    : `You read a post from the popular influencer. It inspires you to invest into a new project. Suddenly the project rugs and you realize it was an impersonator. You lose some gold. Current Gold: ${gold}/${maxGold}`;
                 
                 updateGameOutput(goldChangeMessage);
                 addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
