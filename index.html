@@ -121,10 +121,26 @@
         });
 
         // Hide How to Play button when Scan Balances is clicked
-        document.getElementById('address-form').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent form submission to see the effect
-            document.getElementById('how-to-play-button').style.display = 'none';
+        //document.getElementById('address-form').addEventListener('submit', function(event) {
+            //event.preventDefault(); // Prevent form submission to see the effect
+            //document.getElementById('how-to-play-button').style.display = 'none';
             // Here you would typically handle the form submission
+
+            // Handle form submission
+        document.getElementById('address-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission to see the effect
+
+        // Hide instructions when "Scan Balances" is clicked
+        document.getElementById('instructions').style.display = 'none';
+
+        // Hide How to Play button
+        document.getElementById('how-to-play-button').style.display = 'none';
+
+        // Handle the address input
+        const address = document.getElementById('unisat-address').value;
+        document.getElementById('result').textContent = `Scanning balances for ${address}...`;
+        // Add your scanning logic here...
+        
         });
     </script>
 
