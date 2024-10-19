@@ -1587,7 +1587,7 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
 
     function winGame() {
         const gameOutput = document.getElementById('game-output');
-        updateGameOutput(`You win! You have defeated the final boss!`);
+        updateGameOutput(`You win! You have defeated the great evil in this universe. You travel back to Earth in Leonidas' rocket ship. On the way home he exchanges a galactic high-five. "The moon was your destiny soldier," he praises. "You have made the $DOG army proud!"`);
         // You could add any additional game-over logic here, like showing a restart button.
     }
 
