@@ -8,7 +8,7 @@ window.startGame = function(dogBalance, loboBalance) {
     const hasLobo = loboBalance > 1;
     let mana = level; // Initialize mana based on level
     let hitpoints = level*2; //Initialize hitpoints based on level times two
-    let gold = 19; //Initialize gold
+    let gold = 0; //Initialize gold
     const maxMana = 20; // Set maximum mana
     const maxHitpoints = 20; // Set maximum hitpoints
     const maxGold = 20; //Set maximum gold
@@ -147,8 +147,8 @@ function presentNewOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoint
         [allOptions[i], allOptions[j]] = [allOptions[j], allOptions[i]];
     }
 
-    // Select the first 3 options
-    const selectedOptions = allOptions.slice(0, 3);
+    // Select the first 2 options
+    const selectedOptions = allOptions.slice(0, 2);
 
     let options = `<div><p>You awake from your slumber. Choose an action:</p>`;
     selectedOptions.forEach(option => {
@@ -163,92 +163,171 @@ function presentSecondOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpo
     const gameOutput = document.getElementById('game-output');
     gameOutput.innerHTML = ''; // Clear previous output
 
-    const allOptions = [
-        { text: 'Log onto socials', action: 'log onto socials' },
-        { text: 'Begin coding a $DOG application', action: 'coding' },
-        { text: 'Block your ex from contacts', action: 'block your ex' },
-        { text: 'Take a walk', action: 'take a walk' },
-        { text: 'Make a $DOG influencer video', action: 'influencer video' },
-        { text: 'Go to the park', action: 'go to the park' },
-        { text: 'Quit your job', action: 'quit your job' },
-        { text: 'Play video games', action: 'play video games' }
-    ];
+    // Random events
+    const randomEventChance = Math.random();
+    if (randomEventChance < 0.05) {
+        displayRandomEvent("call", level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+    } else if (randomEventChance < 0.10) {
+        displayRandomEvent("knock", level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+    } else if (randomEventChance < 0.15) {
+        displayRandomEvent("text", level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+    } else if (randomEventChance < 0.20) {
+        displayRandomEvent("barking", level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+    } else {
+        // No random event, show normal options
+        const allOptions = [
+            { text: 'Log onto socials', action: 'log onto socials' },
+            { text: 'Begin coding a $DOG application', action: 'coding' },
+            { text: 'Block your ex from contacts', action: 'block your ex' },
+            { text: 'Take a walk', action: 'take a walk' },
+            { text: 'Make a $DOG influencer video', action: 'influencer video' },
+            { text: 'Go to the park', action: 'go to the park' },
+            { text: 'Quit your job', action: 'quit your job' },
+            { text: 'Play video games', action: 'play video games' }
+        ];
 
-    // Shuffle options
-    for (let i = allOptions.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [allOptions[i], allOptions[j]] = [allOptions[j], allOptions[i]];
-    }
+        // Shuffle options
+        for (let i = allOptions.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [allOptions[i], allOptions[j]] = [allOptions[j], allOptions[i]];
+        }
 
-    // Select the first 3 options
-    const selectedOptions = allOptions.slice(0, 3);
+        // Select the first 2 options
+        const selectedOptions = allOptions.slice(0, 2);
 
-    // Check if the player has enough gold and if Leonidas appears
-    if (gold >= 20 && Math.random() < 0.33) {
-        selectedOptions.push({
-            text: 'Fight the bosses with Leonidas\'s help',
-            action: 'fight bosses'
+        // Check if the player has enough gold and if Leonidas appears
+        if (gold >= 20 && Math.random() < 0.33) {
+            selectedOptions.push({
+                text: 'Fight the bosses with Leonidas\'s help',
+                action: 'fight bosses'
+            });
+        }
+
+        let options = `<div><p>What would you like to do next? Choose an action:</p>`;
+        selectedOptions.forEach(option => {
+            options += `<button onclick="handleNewChoice('${option.action}', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">${option.text}</button>`;
         });
+
+        options += `</div>`;
+        gameOutput.innerHTML += options;
+    }
+}
+
+// Helper function to display random event
+function displayRandomEvent(eventType, level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold) {
+    const gameOutput = document.getElementById('game-output');
+    let message = '';
+
+    switch (eventType) {
+        case 'call':
+            message = "You received a phone call. Do you want to answer?";
+            break;
+        case 'knock':
+            message = "You heard a knock on the door. Do you want to answer?";
+            break;
+        case 'text':
+            message = "You received a text message. Do you want to read it?";
+            break;
+        case 'barking':
+            message = "You hear barking outside. Do you want to check it out?";
+            break;
     }
 
-    let options = `<div><p>What would you like to do next? Choose an action:</p>`;
-    selectedOptions.forEach(option => {
-        options += `<button onclick="handleNewChoice('${option.action}', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">${option.text}</button>`;
-    });
+    gameOutput.innerHTML = `<p>${message}</p>
+                            <button onclick="handleRandomEvent('${eventType}', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Yes</button>
+                            <button onclick="presentSecondOptions(${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">No</button>`;
+}
 
-    options += `</div>`;
-    gameOutput.innerHTML += options;
+// Function to handle the random events
+function handleRandomEvent(eventType, level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold) {
+    const gameOutput = document.getElementById('game-output');
+
+    gameOutput.innerHTML = ''; // Clear the output
+    
+    let outcomeMessage = '';
+    let gain = 0; // To store the amount gained or lost
+
+    // Determine the outcome based on the event type
+    const diceRoll = Math.floor(Math.random() * 6) + 1; // Roll a dice (1-6)
+
+    switch (eventType) {
+        case 'call':
+            gain = (diceRoll === 6) ? 2 : -1; // Example outcome
+            gold += gain; // Adjust gold
+            outcomeMessage = `You answered the call! You ${gain > 0 ? 'gained' : 'lost'} ${Math.abs(gain)} gold.`;
+            break;
+        case 'knock':
+            gain = (diceRoll === 6) ? 2 : -1; // Example outcome
+            hitpoints += gain; // Adjust hitpoints
+            outcomeMessage = `You answered the door! You ${gain > 0 ? 'gained' : 'lost'} ${Math.abs(gain)} hitpoints.`;
+            break;
+        case 'text':
+            gain = (diceRoll === 6) ? 1 : -1; // Example outcome
+            mana += gain; // Adjust mana
+            outcomeMessage = `You read the text message! You ${gain > 0 ? 'gained' : 'lost'} ${Math.abs(gain)} mana.`;
+            break;
+        case 'barking':
+            gain = (diceRoll === 6) ? 1 : -1; // Example outcome
+            hitpoints += gain; // Adjust hitpoints
+            outcomeMessage = `You checked the barking outside! You ${gain > 0 ? 'gained' : 'lost'} ${Math.abs(gain)} hitpoints.`;
+            break;
+    }
+
+    gameOutput.innerHTML += `<p>${outcomeMessage}</p>`;
+    
+    // Display the continue button
+    gameOutput.innerHTML += `<button onclick="presentSecondOptions(${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Continue your adventure</button>`;
 }
 
 // Define an array of enemies
 const enemies = [
     { name: "FUDer", 
-        image: "https://github.com/88Csharp88/dog-text-adventure/blob/main/images/FUDer.png?raw=true",
-        deadImage: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/Dead%20Cat.png?raw=true"
+        image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/FUDer.jpg?raw=true",
+        deadImage: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/DeadFUDer.jpg?raw=true"
     },
     
     { name: "Gary Gensler", 
-         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/GaryGensler.jpeg?raw=true",
-        deadImage: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/DeadGensler.jpg?raw=true"
+         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/GaryGensler.jpg?raw=true",
+        deadImage: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/DeadGaryGensler.jpg?raw=true"
     },
     
     { name: "Your Ex", 
-         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/ex.jpg?raw=true",
-        deadImage: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/DeadEx.jpg?raw=true"
+         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/ex.jpg?raw=true",
+        deadImage: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/Deadex.jpg?raw=true"
     }, 
     
     { name: "Tax Collector", 
-         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/TaxCollector.jpeg?raw=true",
+         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/TaxCollector.jpg?raw=true",
         deadImage: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/DeadTaxCollector.jpg?raw=true"
     }, 
     
     { name: "Hacker", 
-     image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/Hacker.jpg?raw=true",
+     image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/Hacker.jpg?raw=true",
         deadImage: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/DeadHacker.jpg?raw=true"
     }, 
     
     { name: "Zombie Elon", 
-         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/ZombieElon.jpeg?raw=true",
+         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/ZombieElon.jpg?raw=true",
          deadImage: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/DeadZombieElon.jpg?raw=true"
     }, 
     
     { name: "Hater", 
-         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/Hater.jpg?raw=true",
+         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/Hater.jpg?raw=true",
         deadImage: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/DeadHater.jpg?raw=true"
     }, 
     
     { name: "Animal Control", 
-         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/AnimalControl.jpg?raw=true",
+         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/AnimalControl.jpg?raw=true",
         deadImage: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/DeadAnimalControl.jpg?raw=true"
     }, 
     
     { name: "Mad Dad", 
-         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/MadDad.jpg?raw=true",
+         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/MadDad.jpg?raw=true",
         deadImage: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/DeadMadDad.jpg?raw=true"
     },
     
     { name: "Toxic Neighbor", 
-         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/ToxicNeighbor.jpg?raw=true",
+         image: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/ToxicNeighbor.jpg?raw=true",
         deadImage: "https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/DeadToxicNeighbor.jpg?raw=true"
     } 
 ];
@@ -262,108 +341,910 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
     let enemy;
 
     switch (choice) {
-        case 'log onto socials':
-            updateGameOutput('You log onto socials and encounter a FUDer!');
-            // Add the FUDer image
-            const fuderImage = `
+        
+    case 'log onto socials':
+        // Define possible outcomes
+        const outcomes = [
+            {
+                message: 'You log onto socials and encounter a FUDer!',
+                enemyName: 'FUDer',
+                image: 'https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/FUDer.jpg?raw=true'
+            },
+            {
+                message: 'You receive a DM from a $DOG influencer!',
+                enemyName: null,
+                image: null
+            },
+            {
+                message: 'You read an interesting post by a $DOG influencer!',
+                enemyName: null,
+                image: null
+            }
+        ];
+
+        // Generate a random index
+        const randomIndex = Math.floor(Math.random() * outcomes.length);
+        const outcome = outcomes[randomIndex];
+
+        // Update game output with the selected outcome
+        updateGameOutput(outcome.message);
+
+        // If it's the DM from the influencer
+        if (outcome.message.includes('DM from a $DOG influencer')) {
+            const buttonContainer = document.getElementById('button-container');
+
+            // Create buttons for opening or ignoring the DM
+            const openDMButton = document.createElement('button');
+            openDMButton.textContent = "Open DM";
+            buttonContainer.appendChild(openDMButton);
+
+            const ignoreDMButton = document.createElement('button');
+            ignoreDMButton.textContent = "Ignore DM";
+            buttonContainer.appendChild(ignoreDMButton);
+
+            openDMButton.addEventListener('click', () => {
+                buttonContainer.removeChild(openDMButton);
+                buttonContainer.removeChild(ignoreDMButton); // Remove the ignore button
+
+                // 50/50 chance to increase or decrease mana
+                const manaChange = Math.random() < 0.5 ? 1 : -1; // 50% chance
+                mana = Math.min(Math.max(mana + manaChange, 0), maxMana); // Ensure mana stays within bounds
+                
+                const manaChangeMessage = manaChange > 0 
+                    ? `You gain 1 mana! Current Mana: ${mana}/${maxMana}` 
+                    : `You lose 1 mana! Current Mana: ${mana}/${maxMana}`;
+                
+                updateGameOutput(manaChangeMessage);
+                addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+            });
+
+            ignoreDMButton.addEventListener('click', () => {
+                buttonContainer.removeChild(openDMButton);
+                buttonContainer.removeChild(ignoreDMButton); // Remove the open button
+                updateGameOutput("You ignore the DM and continue your adventure.");
+                addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+            });
+        } 
+        
+        // If it's reading a post by the influencer
+        else if (outcome.message.includes('interesting post by a $DOG influencer')) {
+            const buttonContainer = document.getElementById('button-container');
+
+            // Create buttons for reading or ignoring the post
+            const readPostButton = document.createElement('button');
+            readPostButton.textContent = "Read Post";
+            buttonContainer.appendChild(readPostButton);
+
+            const ignorePostButton = document.createElement('button');
+            ignorePostButton.textContent = "Ignore Post";
+            buttonContainer.appendChild(ignorePostButton);
+
+            readPostButton.addEventListener('click', () => {
+                buttonContainer.removeChild(readPostButton);
+                buttonContainer.removeChild(ignorePostButton); // Remove the ignore button
+
+                // 50/50 chance to increase or decrease gold
+                const goldChange = Math.random() < 0.5 ? 1 : -1; // 50% chance
+                gold = Math.min(Math.max(gold + goldChange, 0), maxGold); // Ensure gold stays within bounds
+                
+                const goldChangeMessage = goldChange > 0 
+                    ? `You earn 1 gold! Current Gold: ${gold}/${maxGold}` 
+                    : `You lose 1 gold! Current Gold: ${gold}/${maxGold}`;
+                
+                updateGameOutput(goldChangeMessage);
+                addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+            });
+
+            ignorePostButton.addEventListener('click', () => {
+                buttonContainer.removeChild(readPostButton);
+                buttonContainer.removeChild(ignorePostButton); // Remove the read button
+                updateGameOutput("You ignore the post and continue your adventure.");
+                addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+            });
+        } 
+        
+        // Handle other outcomes (like encountering an enemy)
+        else if (outcome.enemyName) {
+            const enemyImage = `
                 <div>
-                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/FUDer.png?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
+                    <img src="${outcome.image}" alt="${outcome.enemyName}" style="width: 200px; height: auto;"/>
                 </div>
             `;
-            gameOutput.innerHTML += fuderImage; // Add the image to the game output
-            enemy = enemies.find(e => e.name === "FUDer");
+            gameOutput.innerHTML += enemyImage; // Add the image to the game output
+            enemy = enemies.find(e => e.name === outcome.enemyName);
             presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
-            break;
+        }
+        break;
         case 'coding':
-            updateGameOutput('You work on coding a $DOG application, but something takes control of your computer. You encounter a hacker!');
-            // Add Hacker Image
-             const HackerImage = `
-                <div>
-                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/Hacker.jpg?raw=true"/>
-                </div>
-            `;
-            gameOutput.innerHTML += HackerImage; // Add the image to the game output
-            enemy = enemies.find(e => e.name === "Hacker");
-            presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
-            break;
+    // Define possible outcomes
+    const codingOutcomes = [
+        {
+            message: 'You decide to continue coding for 2 more hours!',
+            effect: 'mana' // Indicates that this will affect mana
+        },
+        {
+            message: 'You try to compile your code!',
+            effect: 'hitpoints' // Indicates that this will affect hitpoints
+        },
+        {
+            message: 'You encounter a Hacker!',
+            effect: 'fight', // Indicates that this will trigger a fight
+            enemyName: 'Hacker',
+            image: 'https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/Hacker.jpg?raw=true'
+        }
+    ];
+
+    // Generate a random index
+    const randomIndex2 = Math.floor(Math.random() * codingOutcomes.length);
+    const outcome2 = codingOutcomes[randomIndex2];
+
+    // Update game output with the selected outcome
+    updateGameOutput(outcome2.message);
+
+    // If the outcome is to continue coding
+    if (outcome2.effect === 'mana') {
+        const buttonContainer = document.getElementById('button-container');
+
+        // Create buttons for continuing coding or ignoring
+        const continueCodingButton = document.createElement('button');
+        continueCodingButton.textContent = "Continue coding for 2 more hours";
+        buttonContainer.appendChild(continueCodingButton);
+
+        const ignoreCodingButton = document.createElement('button');
+        ignoreCodingButton.textContent = "Ignore and continue your adventure";
+        buttonContainer.appendChild(ignoreCodingButton);
+
+        continueCodingButton.addEventListener('click', () => {
+            buttonContainer.removeChild(continueCodingButton);
+            buttonContainer.removeChild(ignoreCodingButton); // Remove the ignore button
+
+            // 50/50 chance to increase or decrease mana
+            const manaChange = Math.random() < 0.5 ? 1 : -1; // 50% chance
+            mana = Math.min(Math.max(mana + manaChange, 0), maxMana); // Ensure mana stays within bounds
+            
+            const manaChangeMessage = manaChange > 0 
+                ? `You gain 1 mana! Current Mana: ${mana}/${maxMana}` 
+                : `You lose 1 mana! Current Mana: ${mana}/${maxMana}`;
+            
+            updateGameOutput(manaChangeMessage);
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+
+        ignoreCodingButton.addEventListener('click', () => {
+            buttonContainer.removeChild(continueCodingButton);
+            buttonContainer.removeChild(ignoreCodingButton); // Remove the continue button
+            updateGameOutput("You ignore the coding and continue your adventure.");
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+    } 
+    
+    // If the outcome is to try to compile code
+    else if (outcome2.effect === 'hitpoints') {
+        const buttonContainer = document.getElementById('button-container');
+
+        // Create buttons for compiling or ignoring
+        const compileButton = document.createElement('button');
+        compileButton.textContent = "Try to compile your code";
+        buttonContainer.appendChild(compileButton);
+
+        const ignoreCompileButton = document.createElement('button');
+        ignoreCompileButton.textContent = "Ignore and continue your adventure";
+        buttonContainer.appendChild(ignoreCompileButton);
+
+        compileButton.addEventListener('click', () => {
+            buttonContainer.removeChild(compileButton);
+            buttonContainer.removeChild(ignoreCompileButton); // Remove the ignore button
+
+            // 50/50 chance to increase or decrease hitpoints
+            const hitpointsChange = Math.random() < 0.5 ? 1 : -1; // 50% chance
+            hitpoints = Math.max(hitpoints + hitpointsChange, 0); // Ensure hitpoints stay above 0
+            
+            const hitpointsChangeMessage = hitpointsChange > 0 
+                ? `You gain 1 hitpoint! Current Hitpoints: ${hitpoints}/${maxHitpoints}` 
+                : `You lose 1 hitpoint! Current Hitpoints: ${hitpoints}/${maxHitpoints}`;
+            
+            updateGameOutput(hitpointsChangeMessage);
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+
+        ignoreCompileButton.addEventListener('click', () => {
+            buttonContainer.removeChild(compileButton);
+            buttonContainer.removeChild(ignoreCompileButton); // Remove the compile button
+            updateGameOutput("You ignore the compilation and continue your adventure.");
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+    } 
+    
+    // If the outcome is to fight the Hacker
+    else if (outcome2.effect === 'fight') {
+        const hackerImage = `
+            <div>
+                <img src="${outcome2.image}" alt="${outcome2.enemyName}" style="width: 200px; height: auto;"/>
+            </div>
+        `;
+        gameOutput.innerHTML += hackerImage; // Add the image to the game output
+        enemy = enemies.find(e => e.name === outcome2.enemyName);
+        presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
+    }
+    break;
         case 'block your ex':
-            updateGameOutput('You block your ex from contacts but she breaks into your house!');
-              // Add the Ex image
-            const ExImage = `
-                <div>
-                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/ex.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
-                </div>
-            `;
-            gameOutput.innerHTML += ExImage; // Add the image to the game output
-            enemy = enemies.find(e => e.name === "Your Ex");
-            presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
-            break;
+    // Define possible outcomes
+    const outcomes3 = [
+        {
+            message: "Your ex's mom calls you!",
+            effect: 'mana' // Indicates that this will affect mana
+        },
+        {
+            message: "There is a knock at your window!",
+            effect: 'gold' // Indicates that this will affect gold
+        },
+        {
+            message: "You encounter your ex!",
+            effect: 'fight', // Indicates that this will trigger a fight
+            enemyName: 'Your Ex',
+            image: 'https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/ex.jpg?raw=true'
+        }
+    ];
+
+    // Generate a random index
+    const randomIndex3 = Math.floor(Math.random() * outcomes3.length);
+    const outcome3 = outcomes3[randomIndex3];
+
+    // Update game output with the selected outcome
+    updateGameOutput(outcome3.message);
+
+    // If the outcome is your ex's mom calling
+    if (outcome3.effect === 'mana') {
+        const buttonContainer = document.getElementById('button-container');
+
+        // Create buttons for answering or ignoring
+        const answerCallButton = document.createElement('button');
+        answerCallButton.textContent = "Answer the call from your ex's mom";
+        buttonContainer.appendChild(answerCallButton);
+
+        const ignoreCallButton = document.createElement('button');
+        ignoreCallButton.textContent = "Ignore the call and continue your adventure";
+        buttonContainer.appendChild(ignoreCallButton);
+
+        answerCallButton.addEventListener('click', () => {
+            buttonContainer.removeChild(answerCallButton);
+            buttonContainer.removeChild(ignoreCallButton); // Remove the ignore button
+
+            // 50/50 chance to increase or decrease mana
+            const manaChange = Math.random() < 0.5 ? 1 : -1; // 50% chance
+            mana = Math.min(Math.max(mana + manaChange, 0), maxMana); // Ensure mana stays within bounds
+            
+            const manaChangeMessage = manaChange > 0 
+                ? `You gain 1 mana! Current Mana: ${mana}/${maxMana}` 
+                : `You lose 1 mana! Current Mana: ${mana}/${maxMana}`;
+            
+            updateGameOutput(manaChangeMessage);
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+
+        ignoreCallButton.addEventListener('click', () => {
+            buttonContainer.removeChild(answerCallButton);
+            buttonContainer.removeChild(ignoreCallButton); // Remove the answer button
+            updateGameOutput("You ignore the call and continue your adventure.");
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+    } 
+    
+    // If the outcome is the knock at your window
+    else if (outcome3.effect === 'gold') {
+        const buttonContainer = document.getElementById('button-container');
+
+        // Create buttons for checking the window or ignoring
+        const checkWindowButton = document.createElement('button');
+        checkWindowButton.textContent = "Check the window";
+        buttonContainer.appendChild(checkWindowButton);
+
+        const ignoreWindowButton = document.createElement('button');
+        ignoreWindowButton.textContent = "Ignore the knock and continue your adventure";
+        buttonContainer.appendChild(ignoreWindowButton);
+
+        checkWindowButton.addEventListener('click', () => {
+            buttonContainer.removeChild(checkWindowButton);
+            buttonContainer.removeChild(ignoreWindowButton); // Remove the ignore button
+
+            // 50/50 chance to increase or decrease gold
+            const goldChange = Math.random() < 0.5 ? 1 : -1; // 50% chance
+            gold = Math.min(Math.max(gold + goldChange, 0), maxGold); // Ensure gold stays within bounds
+            
+            const goldChangeMessage = goldChange > 0 
+                ? `You find 1 gold! Current Gold: ${gold}/${maxGold}` 
+                : `You lose 1 gold! Current Gold: ${gold}/${maxGold}`;
+            
+            updateGameOutput(goldChangeMessage);
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+
+        ignoreWindowButton.addEventListener('click', () => {
+            buttonContainer.removeChild(checkWindowButton);
+            buttonContainer.removeChild(ignoreWindowButton); // Remove the check button
+            updateGameOutput("You ignore the knock and continue your adventure.");
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+    } 
+    
+    // If the outcome is to fight your ex
+    else if (outcome3.effect === 'fight') {
+        const exImage = `
+            <div>
+                <img src="${outcome3.image}" alt="${outcome3.enemyName}" style="width: 200px; height: auto;"/>
+            </div>
+        `;
+        gameOutput.innerHTML += exImage; // Add the image to the game output
+        enemy = enemies.find(e => e.name === outcome3.enemyName);
+        presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
+    }
+    break;
         case 'take a walk':
-            updateGameOutput('You take a walk to clear your mind but you are interupted by your toxic neighbor!');
-            //Add Toxic Neighbor Image
-            const ToxicNeighborImage = `
-                <div>
-                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/ToxicNeighbor.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
-                </div>
-            `;
-            gameOutput.innerHTML += ToxicNeighborImage; // Add the image to the game output
-            enemy = enemies.find(e => e.name === "Toxic Neighbor");
-            presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
-            break;
+    // Define possible outcomes
+    const outcomes4 = [
+        {
+            message: "You enter the graveyard!",
+            effect: 'health' // Indicates that this will affect health
+        },
+        {
+            message: "You hang out at the gas station!",
+            effect: 'gold' // Indicates that this will affect gold
+        },
+        {
+            message: "You encounter the Toxic Neighbor!",
+            effect: 'fight', // Indicates that this will trigger a fight
+            enemyName: 'Toxic Neighbor',
+            image: 'https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/ToxicNeighbor.jpg?raw=true'
+        }
+    ];
+
+    // Generate a random index
+    const randomIndex4 = Math.floor(Math.random() * outcomes4.length);
+    const outcome4 = outcomes4[randomIndex4];
+
+    // Update game output with the selected outcome
+    updateGameOutput(outcome4.message);
+
+    // If the outcome is entering the graveyard
+    if (outcome4.effect === 'health') {
+        const buttonContainer = document.getElementById('button-container');
+
+        // Create buttons for exploring or ignoring
+        const exploreGraveyardButton = document.createElement('button');
+        exploreGraveyardButton.textContent = "Explore the graveyard";
+        buttonContainer.appendChild(exploreGraveyardButton);
+
+        const ignoreGraveyardButton = document.createElement('button');
+        ignoreGraveyardButton.textContent = "Ignore and continue your walk";
+        buttonContainer.appendChild(ignoreGraveyardButton);
+
+        exploreGraveyardButton.addEventListener('click', () => {
+            buttonContainer.removeChild(exploreGraveyardButton);
+            buttonContainer.removeChild(ignoreGraveyardButton); // Remove the ignore button
+
+            // 50/50 chance to increase or decrease health
+            const healthChange = Math.random() < 0.5 ? 1 : -1; // 50% chance
+            hitpoints = Math.max(hitpoints + healthChange, 0); // Ensure health stays above 0
+            
+            const healthChangeMessage = healthChange > 0 
+                ? `You gain 1 health point! Current Health: ${hitpoints}/${maxHitpoints}` 
+                : `You lose 1 health point! Current Health: ${hitpoints}/${maxHitpoints}`;
+            
+            updateGameOutput(healthChangeMessage);
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+
+        ignoreGraveyardButton.addEventListener('click', () => {
+            buttonContainer.removeChild(exploreGraveyardButton);
+            buttonContainer.removeChild(ignoreGraveyardButton); // Remove the explore button
+            updateGameOutput("You ignore the graveyard and continue your walk.");
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+    } 
+    
+    // If the outcome is hanging out at the gas station
+    else if (outcome4.effect === 'gold') {
+        const buttonContainer = document.getElementById('button-container');
+
+        // Create buttons for checking the gas station or ignoring
+        const checkGasStationButton = document.createElement('button');
+        checkGasStationButton.textContent = "Check the gas station";
+        buttonContainer.appendChild(checkGasStationButton);
+
+        const ignoreGasStationButton = document.createElement('button');
+        ignoreGasStationButton.textContent = "Ignore and continue your walk";
+        buttonContainer.appendChild(ignoreGasStationButton);
+
+        checkGasStationButton.addEventListener('click', () => {
+            buttonContainer.removeChild(checkGasStationButton);
+            buttonContainer.removeChild(ignoreGasStationButton); // Remove the ignore button
+
+            // 50/50 chance to increase or decrease gold
+            const goldChange = Math.random() < 0.5 ? 1 : -1; // 50% chance
+            gold = Math.min(Math.max(gold + goldChange, 0), maxGold); // Ensure gold stays within bounds
+            
+            const goldChangeMessage = goldChange > 0 
+                ? `You find 1 gold! Current Gold: ${gold}/${maxGold}` 
+                : `You lose 1 gold! Current Gold: ${gold}/${maxGold}`;
+            
+            updateGameOutput(goldChangeMessage);
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+
+        ignoreGasStationButton.addEventListener('click', () => {
+            buttonContainer.removeChild(checkGasStationButton);
+            buttonContainer.removeChild(ignoreGasStationButton); // Remove the check button
+            updateGameOutput("You ignore the gas station and continue your walk.");
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+    } 
+    
+    // If the outcome is to fight the Toxic Neighbor
+    else if (outcome4.effect === 'fight') {
+        const neighborImage = `
+            <div>
+                <img src="${outcome4.image}" alt="${outcome4.enemyName}" style="width: 200px; height: auto;"/>
+            </div>
+        `;
+        gameOutput.innerHTML += neighborImage; // Add the image to the game output
+        enemy = enemies.find(e => e.name === outcome4.enemyName);
+        presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
+    }
+    break;
         case 'influencer video':
-            updateGameOutput('You make a $DOG influencer video but encounter a Hater in the comment section!');
-           //Add Hater Image
-            const HaterImage = `
-                <div>
-                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/Hater.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
-                </div>
-            `;
-            gameOutput.innerHTML += HaterImage; // Add the image to the game output
-            enemy = enemies.find(e => e.name === "Hater");
-            presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
-            break;
+    // Define possible outcomes
+    const outcomes5 = [
+        {
+            message: "You enable advertisements for your video!",
+            effect: 'gold' // Indicates that this will affect gold
+        },
+        {
+            message: "Your computer glitches!",
+            effect: 'hitpoints' // Indicates that this will affect hitpoints
+        },
+        {
+            message: "You encounter a Hater in the comments!",
+            effect: 'fight', // Indicates that this will trigger a fight
+            enemyName: 'Hater',
+            image: 'https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/Hater.jpg?raw=true'
+        }
+    ];
+
+    // Generate a random index
+    const randomIndex5 = Math.floor(Math.random() * outcomes5.length);
+    const outcome5 = outcomes5[randomIndex5];
+
+    // Update game output with the selected outcome
+    updateGameOutput(outcome5.message);
+
+    // If the outcome is enabling advertisements
+    if (outcome5.effect === 'gold') {
+        const buttonContainer = document.getElementById('button-container');
+
+        // Create buttons for enabling or ignoring
+        const enableAdsButton = document.createElement('button');
+        enableAdsButton.textContent = "Enable advertisements for your video";
+        buttonContainer.appendChild(enableAdsButton);
+
+        const ignoreAdsButton = document.createElement('button');
+        ignoreAdsButton.textContent = "Ignore and continue your day";
+        buttonContainer.appendChild(ignoreAdsButton);
+
+        enableAdsButton.addEventListener('click', () => {
+            buttonContainer.removeChild(enableAdsButton);
+            buttonContainer.removeChild(ignoreAdsButton); // Remove the ignore button
+
+            // 50/50 chance to increase or decrease gold
+            const goldChange = Math.random() < 0.5 ? 1 : -1; // 50% chance
+            gold = Math.min(Math.max(gold + goldChange, 0), maxGold); // Ensure gold stays within bounds
+            
+            const goldChangeMessage = goldChange > 0 
+                ? `You earn 1 gold from advertisements! Current Gold: ${gold}/${maxGold}` 
+                : `You lose 1 gold from ad costs! Current Gold: ${gold}/${maxGold}`;
+            
+            updateGameOutput(goldChangeMessage);
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+
+        ignoreAdsButton.addEventListener('click', () => {
+            buttonContainer.removeChild(enableAdsButton);
+            buttonContainer.removeChild(ignoreAdsButton); // Remove the enable button
+            updateGameOutput("You ignore advertisements and continue your day.");
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+    } 
+    
+    // If the outcome is a computer glitch
+    else if (outcome5.effect === 'hitpoints') {
+        const buttonContainer = document.getElementById('button-container');
+
+        // Create buttons for troubleshooting or ignoring
+        const troubleshootButton = document.createElement('button');
+        troubleshootButton.textContent = "Troubleshoot your computer";
+        buttonContainer.appendChild(troubleshootButton);
+
+        const ignoreGlitchButton = document.createElement('button');
+        ignoreGlitchButton.textContent = "Ignore the glitch and continue your day";
+        buttonContainer.appendChild(ignoreGlitchButton);
+
+        troubleshootButton.addEventListener('click', () => {
+            buttonContainer.removeChild(troubleshootButton);
+            buttonContainer.removeChild(ignoreGlitchButton); // Remove the ignore button
+
+            // 50/50 chance to increase or decrease hitpoints
+            const hitpointsChange = Math.random() < 0.5 ? 1 : -1; // 50% chance
+            hitpoints = Math.max(hitpoints + hitpointsChange, 0); // Ensure hitpoints stay above 0
+            
+            const hitpointsChangeMessage = hitpointsChange > 0 
+                ? `You regain 1 hitpoint after troubleshooting! Current Hitpoints: ${hitpoints}/${maxHitpoints}` 
+                : `You lose 1 hitpoint due to the glitch! Current Hitpoints: ${hitpoints}/${maxHitpoints}`;
+            
+            updateGameOutput(hitpointsChangeMessage);
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+
+        ignoreGlitchButton.addEventListener('click', () => {
+            buttonContainer.removeChild(troubleshootButton);
+            buttonContainer.removeChild(ignoreGlitchButton); // Remove the troubleshoot button
+            updateGameOutput("You ignore the glitch and continue your day.");
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+    } 
+    
+    // If the outcome is to fight the Hater
+    else if (outcome5.effect === 'fight') {
+        const haterImage = `
+            <div>
+                <img src="${outcome5.image}" alt="${outcome5.enemyName}" style="width: 200px; height: auto;"/>
+            </div>
+        `;
+        gameOutput.innerHTML += haterImage; // Add the image to the game output
+        enemy = enemies.find(e => e.name === outcome5.enemyName);
+        presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
+    }
+    break;
         case 'go to the park':
-            updateGameOutput('You take a walk to the park but encounter animal control!');
-           //Add Hater Image
-            const AnimalControlImage = `
-                <div>
-                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/AnimalControl.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
-                </div>
-            `;
-            gameOutput.innerHTML += AnimalControlImage; // Add the image to the game output
-            enemy = enemies.find(e => e.name === "Animal Control");
-            presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
-            break;
+    // Define possible outcomes
+    const outcomes6 = [
+        {
+            message: "You drink from the public drinking fountain!",
+            effect: 'hitpoints' // Indicates that this will affect hitpoints
+        },
+        {
+            message: "You play a round of disc golf!",
+            effect: 'mana' // Indicates that this will affect mana
+        },
+        {
+            message: "You encounter Animal Control!",
+            effect: 'fight', // Indicates that this will trigger a fight
+            enemyName: 'Animal Control',
+            image: 'https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/AnimalControl.jpg?raw=true'
+        }
+    ];
+
+    // Generate a random index
+    const randomIndex6 = Math.floor(Math.random() * outcomes6.length);
+    const outcome6 = outcomes6[randomIndex6];
+
+    // Update game output with the selected outcome
+    updateGameOutput(outcome6.message);
+
+    // If the outcome is drinking from the fountain
+    if (outcome6.effect === 'hitpoints') {
+        const buttonContainer = document.getElementById('button-container');
+
+        // Create buttons for drinking or ignoring
+        const drinkFountainButton = document.createElement('button');
+        drinkFountainButton.textContent = "Drink from the public drinking fountain";
+        buttonContainer.appendChild(drinkFountainButton);
+
+        const ignoreFountainButton = document.createElement('button');
+        ignoreFountainButton.textContent = "Ignore and continue your park visit";
+        buttonContainer.appendChild(ignoreFountainButton);
+
+        drinkFountainButton.addEventListener('click', () => {
+            buttonContainer.removeChild(drinkFountainButton);
+            buttonContainer.removeChild(ignoreFountainButton); // Remove the ignore button
+
+            // 50/50 chance to increase or decrease hitpoints
+            const hitpointsChange = Math.random() < 0.5 ? 1 : -1; // 50% chance
+            hitpoints = Math.max(hitpoints + hitpointsChange, 0); // Ensure hitpoints stay above 0
+            
+            const hitpointsChangeMessage = hitpointsChange > 0 
+                ? `You gain 1 hitpoint from the fountain! Current Hitpoints: ${hitpoints}/${maxHitpoints}` 
+                : `You lose 1 hitpoint from the fountain's questionable water! Current Hitpoints: ${hitpoints}/${maxHitpoints}`;
+            
+            updateGameOutput(hitpointsChangeMessage);
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+
+        ignoreFountainButton.addEventListener('click', () => {
+            buttonContainer.removeChild(drinkFountainButton);
+            buttonContainer.removeChild(ignoreFountainButton); // Remove the drink button
+            updateGameOutput("You ignore the fountain and continue your park visit.");
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+    } 
+    
+    // If the outcome is playing disc golf
+    else if (outcome6.effect === 'mana') {
+        const buttonContainer = document.getElementById('button-container');
+
+        // Create buttons for playing or ignoring
+        const playDiscGolfButton = document.createElement('button');
+        playDiscGolfButton.textContent = "Play a round of disc golf";
+        buttonContainer.appendChild(playDiscGolfButton);
+
+        const ignoreDiscGolfButton = document.createElement('button');
+        ignoreDiscGolfButton.textContent = "Ignore and continue your park visit";
+        buttonContainer.appendChild(ignoreDiscGolfButton);
+
+        playDiscGolfButton.addEventListener('click', () => {
+            buttonContainer.removeChild(playDiscGolfButton);
+            buttonContainer.removeChild(ignoreDiscGolfButton); // Remove the ignore button
+
+            // 50/50 chance to increase or decrease mana
+            const manaChange = Math.random() < 0.5 ? 1 : -1; // 50% chance
+            mana = Math.min(Math.max(mana + manaChange, 0), maxMana); // Ensure mana stays within bounds
+            
+            const manaChangeMessage = manaChange > 0 
+                ? `You gain 1 mana from playing disc golf! Current Mana: ${mana}/${maxMana}` 
+                : `You lose 1 mana from a bad throw! Current Mana: ${mana}/${maxMana}`;
+            
+            updateGameOutput(manaChangeMessage);
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+
+        ignoreDiscGolfButton.addEventListener('click', () => {
+            buttonContainer.removeChild(playDiscGolfButton);
+            buttonContainer.removeChild(ignoreDiscGolfButton); // Remove the play button
+            updateGameOutput("You ignore disc golf and continue your park visit.");
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+    } 
+    
+    // If the outcome is to fight Animal Control
+    else if (outcome6.effect === 'fight') {
+        const animalControlImage = `
+            <div>
+                <img src="${outcome6.image}" alt="${outcome6.enemyName}" style="width: 200px; height: auto;"/>
+            </div>
+        `;
+        gameOutput.innerHTML += animalControlImage; // Add the image to the game output
+        enemy = enemies.find(e => e.name === outcome6.enemyName);
+        presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
+    }
+    break;
          case 'quit your job':
-            updateGameOutput('You quit your job but a tax collector shows up at your door!');
-           //Add Hater Image
-            const TaxCollectorImage = `
-                <div>
-                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/TaxCollector.jpeg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
-                </div>
-            `;
-            gameOutput.innerHTML += TaxCollectorImage; // Add the image to the game output
-            enemy = enemies.find(e => e.name === "Tax Collector");
-            presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
-            break;
+    // Define possible outcomes
+    const outcomes7 = [
+        {
+            message: "You apply for a new job!",
+            effect: 'gold' // Indicates that this will affect gold
+        },
+        {
+            message: "You invest your remaining savings in memecoins!",
+            effect: 'gold' // Indicates that this will also affect gold
+        },
+        {
+            message: "You encounter a Tax Collector at your door!",
+            effect: 'fight', // Indicates that this will trigger a fight
+            enemyName: 'Tax Collector',
+            image: 'https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/TaxCollector.jpg?raw=true'
+        }
+    ];
+
+    // Generate a random index
+    const randomIndex7 = Math.floor(Math.random() * outcomes7.length);
+    const outcome7 = outcomes7[randomIndex7];
+
+    // Update game output with the selected outcome
+    updateGameOutput(outcome7.message);
+
+    // If the outcome is applying for a new job
+    if (outcome7.effect === 'gold' && outcome7.message.includes("apply for a new job")) {
+        const buttonContainer = document.getElementById('button-container');
+
+        // Create buttons for applying or ignoring
+        const applyJobButton = document.createElement('button');
+        applyJobButton.textContent = "Apply for a new job";
+        buttonContainer.appendChild(applyJobButton);
+
+        const ignoreJobButton = document.createElement('button');
+        ignoreJobButton.textContent = "Ignore and relax";
+        buttonContainer.appendChild(ignoreJobButton);
+
+        applyJobButton.addEventListener('click', () => {
+            buttonContainer.removeChild(applyJobButton);
+            buttonContainer.removeChild(ignoreJobButton); // Remove the ignore button
+
+            // 50/50 chance to increase or decrease gold
+            const goldChange = Math.random() < 0.5 ? 1 : -1; // 50% chance
+            gold = Math.min(Math.max(gold + goldChange, 0), maxGold); // Ensure gold stays within bounds
+            
+            const goldChangeMessage = goldChange > 0 
+                ? `You earn 1 gold from your job application! Current Gold: ${gold}/${maxGold}` 
+                : `You lose 1 gold in application fees! Current Gold: ${gold}/${maxGold}`;
+            
+            updateGameOutput(goldChangeMessage);
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+
+        ignoreJobButton.addEventListener('click', () => {
+            buttonContainer.removeChild(applyJobButton);
+            buttonContainer.removeChild(ignoreJobButton); // Remove the apply button
+            updateGameOutput("You ignore job applications and just relax.");
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+    }
+
+    // If the outcome is investing in memecoins
+    else if (outcome7.effect === 'gold' && outcome7.message.includes("invest your remaining savings in memecoins")) {
+        const buttonContainer = document.getElementById('button-container');
+
+        // Create buttons for investing or ignoring
+        const investMemecoinsButton = document.createElement('button');
+        investMemecoinsButton.textContent = "Invest in memecoins";
+        buttonContainer.appendChild(investMemecoinsButton);
+
+        const ignoreMemecoinsButton = document.createElement('button');
+        ignoreMemecoinsButton.textContent = "Ignore and relax";
+        buttonContainer.appendChild(ignoreMemecoinsButton);
+
+        investMemecoinsButton.addEventListener('click', () => {
+            buttonContainer.removeChild(investMemecoinsButton);
+            buttonContainer.removeChild(ignoreMemecoinsButton); // Remove the ignore button
+
+            // 50/50 chance to increase or decrease gold
+            const goldChange = Math.random() < 0.5 ? 1 : -1; // 50% chance
+            gold = Math.min(Math.max(gold + goldChange, 0), maxGold); // Ensure gold stays within bounds
+            
+            const goldChangeMessage = goldChange > 0 
+                ? `You gain 1 gold from a successful memecoin investment! Current Gold: ${gold}/${maxGold}` 
+                : `You lose 1 gold due to a memecoin crash! Current Gold: ${gold}/${maxGold}`;
+            
+            updateGameOutput(goldChangeMessage);
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+
+        ignoreMemecoinsButton.addEventListener('click', () => {
+            buttonContainer.removeChild(investMemecoinsButton);
+            buttonContainer.removeChild(ignoreMemecoinsButton); // Remove the invest button
+            updateGameOutput("You ignore investing and just relax.");
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+    }
+
+    // If the outcome is to fight the Tax Collector
+    else if (outcome7.effect === 'fight') {
+        const taxCollectorImage = `
+            <div>
+                <img src="${outcome7.image}" alt="${outcome7.enemyName}" style="width: 200px; height: auto;"/>
+            </div>
+        `;
+        gameOutput.innerHTML += taxCollectorImage; // Add the image to the game output
+        enemy = enemies.find(e => e.name === outcome7.enemyName);
+        presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
+    }
+    break;
          case 'play video games':
-            updateGameOutput('You start playing video games but your Dad comes down stairs pissed!');
-           //Add Hater Image
-            const MadDadImage = `
-                <div>
-                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/MadDad.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
-                </div>
-            `;
-            gameOutput.innerHTML += MadDadImage; // Add the image to the game output
-            enemy = enemies.find(e => e.name === "Mad Dad");
-            presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
-            break;
+    // Define possible outcomes
+    const outcomes8 = [
+        {
+            message: "You play video games online!",
+            effect: 'gold' // Indicates that this will affect gold
+        },
+        {
+            message: "You plug in the retro console!",
+            effect: 'mana' // Indicates that this will affect mana
+        },
+        {
+            message: "Your Dad comes downstairs pissed!",
+            effect: 'fight', // Indicates that this will trigger a fight
+            enemyName: 'Mad Dad',
+            image: 'https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/MadDad.jpg?raw=true'
+        }
+    ];
+
+    // Generate a random index
+    const randomIndex8 = Math.floor(Math.random() * outcomes8.length);
+    const outcome8 = outcomes8[randomIndex8];
+
+    // Update game output with the selected outcome
+    updateGameOutput(outcome8.message);
+
+    // If the outcome is playing video games online
+    if (outcome8.effect === 'gold' && outcome8.message.includes("play video games online")) {
+        const buttonContainer = document.getElementById('button-container');
+
+        // Create buttons for playing online or ignoring
+        const playOnlineButton = document.createElement('button');
+        playOnlineButton.textContent = "Play video games online";
+        buttonContainer.appendChild(playOnlineButton);
+
+        const ignoreOnlineButton = document.createElement('button');
+        ignoreOnlineButton.textContent = "Ignore and do something else";
+        buttonContainer.appendChild(ignoreOnlineButton);
+
+        playOnlineButton.addEventListener('click', () => {
+            buttonContainer.removeChild(playOnlineButton);
+            buttonContainer.removeChild(ignoreOnlineButton); // Remove the ignore button
+
+            // 50/50 chance to increase or decrease gold
+            const goldChange = Math.random() < 0.5 ? 1 : -1; // 50% chance
+            gold = Math.min(Math.max(gold + goldChange, 0), maxGold); // Ensure gold stays within bounds
+            
+            const goldChangeMessage = goldChange > 0 
+                ? `You earn 1 gold from your gaming session! Current Gold: ${gold}/${maxGold}` 
+                : `You lose 1 gold due to in-game purchases! Current Gold: ${gold}/${maxGold}`;
+            
+            updateGameOutput(goldChangeMessage);
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+
+        ignoreOnlineButton.addEventListener('click', () => {
+            buttonContainer.removeChild(playOnlineButton);
+            buttonContainer.removeChild(ignoreOnlineButton); // Remove the play button
+            updateGameOutput("You ignore online games and find something else to do.");
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+    }
+
+    // If the outcome is plugging in the retro console
+    else if (outcome8.effect === 'mana' && outcome8.message.includes("plug in the retro console")) {
+        const buttonContainer = document.getElementById('button-container');
+
+        // Create buttons for plugging in or ignoring
+        const plugInButton = document.createElement('button');
+        plugInButton.textContent = "Plug in the retro console";
+        buttonContainer.appendChild(plugInButton);
+
+        const ignoreRetroButton = document.createElement('button');
+        ignoreRetroButton.textContent = "Ignore and do something else";
+        buttonContainer.appendChild(ignoreRetroButton);
+
+        plugInButton.addEventListener('click', () => {
+            buttonContainer.removeChild(plugInButton);
+            buttonContainer.removeChild(ignoreRetroButton); // Remove the ignore button
+
+            // 50/50 chance to increase or decrease mana
+            const manaChange = Math.random() < 0.5 ? 1 : -1; // 50% chance
+            mana = Math.min(Math.max(mana + manaChange, 0), maxMana); // Ensure mana stays within bounds
+            
+            const manaChangeMessage = manaChange > 0 
+                ? `You gain 1 mana from nostalgic gaming! Current Mana: ${mana}/${maxMana}` 
+                : `You lose 1 mana due to a frustrating game! Current Mana: ${mana}/${maxMana}`;
+            
+            updateGameOutput(manaChangeMessage);
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+
+        ignoreRetroButton.addEventListener('click', () => {
+            buttonContainer.removeChild(plugInButton);
+            buttonContainer.removeChild(ignoreRetroButton); // Remove the plug-in button
+            updateGameOutput("You ignore the retro console and find something else to do.");
+            addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+        });
+    }
+
+    // If the outcome is to fight Mad Dad
+    else if (outcome8.effect === 'fight') {
+        const madDadImage = `
+            <div>
+                <img src="${outcome8.image}" alt="${outcome8.enemyName}" style="width: 200px; height: auto;"/>
+            </div>
+        `;
+        gameOutput.innerHTML += madDadImage; // Add the image to the game output
+        enemy = enemies.find(e => e.name === outcome8.enemyName);
+        presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
+    }
+    break;
         case 'fight bosses':
             updateGameOutput('It is time to fight Zombie Elon Musk!!!');
            //Add Zombie Elon Image
             const ZombieElonImage = `
                 <div>
-                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/ZombieElon.jpeg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
+                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/ZombieElon.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
                 </div>
             `;
             gameOutput.innerHTML += ZombieElonImage; // Add the image to the game output
@@ -375,7 +1256,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
            //Add Gary Gensler Image
             const GaryGenslerImage = `
                 <div>
-                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2/images/GaryGensler.jpeg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
+                    <img src="https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/GaryGensler.jpg?raw=true" alt="FUDer" style="width: 200px; height: auto;"/>
                 </div>
             `;
             gameOutput.innerHTML += GaryGenslerImage; // Add the image to the game output
@@ -496,13 +1377,23 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
             updateGameOutput(`You earn 1 gold! Current Gold: ${gold}/${maxGold}`);
             }
 
-        // Check if the defeated enemy is Zombie Elon
+        //check to see if defeated enemy is Zombie Elon        
         if (enemy.name === 'Zombie Elon') {
+            updateGameOutput("You defeated Zombie Elon!"); // Show defeat message
+            const buttonContainer = document.getElementById('button-container');
+
+            // Create and show the fight button
+            const fightButton = document.createElement('button');
+            fightButton.textContent = "Fight Final Boss";
+            buttonContainer.appendChild(fightButton);
+                    
+            fightButton.addEventListener('click', () => {
+            buttonContainer.removeChild(fightButton); // Remove the button
             updateGameOutput("Prepare yourself! A new challenge awaits as you face Gary Gensler!");
-            // Redirect to the boss fight through handleNewChoice
             handleNewChoice('fight final boss', level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
-            return; // Exit the current function
-        }
+            });
+             return; // Exit the current function
+            }
 
         // Check if the defeated enemy is Gary Gensler
         if (enemy.name === 'Gary Gensler') {
@@ -515,7 +1406,7 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
         } else {
         updateGameOutput(`You lose the fight against ${enemy.name}...`);
 
-        // Display the dead dog image (player lost)
+        //Display the dead dog image (player lost)
         const deadDogImage = `
             <div>
                 <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/Dead%20Dog.png?raw=true" alt="Dead Dog" style="width: 200px; height: auto;"/>
@@ -559,6 +1450,7 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
                         <img src="${enemy.deadImage}" alt="Dead ${enemy.name}" style="width: 200px; height: auto;"/>
                     </div>
                 `;
+                const gameOutput = document.getElementById('game-output');
                 gameOutput.innerHTML += deadEnemyImage2;
 
                // Generate a random number between 0 and 1
@@ -579,9 +1471,19 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
 
                 // Check if the defeated enemy is Zombie Elon
                 if (enemy.name === 'Zombie Elon') {
+                    updateGameOutput("You defeated Zombie Elon!"); // Show defeat message
+                    const buttonContainer = document.getElementById('button-container');
+
+                    // Create and show the fight button
+                    const fightButton = document.createElement('button');
+                    fightButton.textContent = "Fight Final Boss";
+                    buttonContainer.appendChild(fightButton);
+                    
+                   fightButton.addEventListener('click', () => {
+                    buttonContainer.removeChild(fightButton); // Remove the button
                     updateGameOutput("Prepare yourself! A new challenge awaits as you face Gary Gensler!");
-                    // Redirect to the boss fight through handleNewChoice
                     handleNewChoice('fight final boss', level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
+                    });
                     return; // Exit the current function
                     }
 
@@ -638,5 +1540,3 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
         updateGameOutput(`You win! You have defeated the final boss!`);
         // You could add any additional game-over logic here, like showing a restart button.
     }
-
-
