@@ -621,15 +621,15 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
     // Define possible outcomes
     const outcomes3 = [
         {
-            message: "Your ex's mom calls you!",
+            message: "Your ex's mom calls you! Uuuhhhhghghgg... Do you want to deal with your ex-future mother-in-law?",
             effect: 'mana' // Indicates that this will affect mana
         },
         {
-            message: "There is a knock at your window!",
+            message: "*tap* *tap* *tap* What is that noise? *tap* *tap* *tap* Someone is at your window? Do you wish to check it out?",
             effect: 'gold' // Indicates that this will affect gold
         },
         {
-            message: "You encounter your ex!",
+            message: "You block your ex and begin to feel relaxed. *sniff* *sniff* What is that smell? You know that smell a mile away. Its her disgusting dollar store perfume... You puke in your mouth as your heart drops. You ex broke into your house!!!",
             effect: 'fight', // Indicates that this will trigger a fight
             enemyName: 'Your Ex',
             image: 'https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/ex.jpg?raw=true'
@@ -665,8 +665,8 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             mana = Math.min(Math.max(mana + manaChange, 0), maxMana); // Ensure mana stays within bounds
             
             const manaChangeMessage = manaChange > 0 
-                ? `You gain 1 mana! Current Mana: ${mana}/${maxMana}` 
-                : `You lose 1 mana! Current Mana: ${mana}/${maxMana}`;
+                ? `You ex's mom begins talking to you. She is surprisingly understanding. She tells you your ex has checked into the mental hospital and her mom apologizes for everything she has put you through. You feel recharged and gain some mana. Current Mana: ${mana}/${maxMana}` 
+                : `Your ex's mom begins screeching into the phone; matching the tone of her unmanagble daughter. She gives you a headache faster than you can hang up the phone. You lose some mana as you feel sorry for her poor husband. Current Mana: ${mana}/${maxMana}`;
             
             updateGameOutput(manaChangeMessage);
             addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
@@ -675,7 +675,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
         ignoreCallButton.addEventListener('click', () => {
             buttonContainer.removeChild(answerCallButton);
             buttonContainer.removeChild(ignoreCallButton); // Remove the answer button
-            updateGameOutput("You ignore the call and continue your adventure.");
+            updateGameOutput("You ignore the call and continue your adventure. Hopefully it was a good move, anon.");
             addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
         });
     } 
@@ -702,8 +702,8 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             gold = Math.min(Math.max(gold + goldChange, 0), maxGold); // Ensure gold stays within bounds
             
             const goldChangeMessage = goldChange > 0 
-                ? `You find 1 gold! Current Gold: ${gold}/${maxGold}` 
-                : `You lose 1 gold! Current Gold: ${gold}/${maxGold}`;
+                ? `You pull back the blinds and see your crazy ex. You call the police as she scatters into the dark ally next door. As she runs away you notice she drops some money. You walk outside cautiously and grab her cash. You gain some gold. Current Gold: ${gold}/${maxGold}` 
+                : `You pull back the curtains and you see your crazy ex with her face pressed up against the window. You realize that you can either take her out for pizza or she will try to kill you. You suffer through a dinner with her. You lose some gold. Current Gold: ${gold}/${maxGold}`;
             
             updateGameOutput(goldChangeMessage);
             addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
