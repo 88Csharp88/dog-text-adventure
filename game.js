@@ -1262,8 +1262,8 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             mana = Math.min(Math.max(mana + manaChange, 0), maxMana); // Ensure mana stays within bounds
             
             const manaChangeMessage = manaChange > 0 
-                ? `You have so much fun re-living your youth! You realize that others would like this and check the value of the cartridge. Wow! Its at a market top. You sell the cartridge and gain some gold. Current Mana: ${mana}/${maxMana}` 
-                : `You plug in your gaming console but it begins to smell like burning plastic. Nothing happens when you try to power it on. It gets hot. It smokes. Crap...you lose your console and lose some gold. Current Mana: ${mana}/${maxMana}`;
+                ? `You have so much fun re-living your youth! You realize that others would like this and check the value of the cartridge. You decide to keep the cartridge but you are thrilled witht he price. You gain some mana. Current Mana: ${mana}/${maxMana}` 
+                : `You plug in your gaming console but it begins to smell like burning plastic. Nothing happens when you try to power it on. It gets hot. It smokes. Crap...you lose your console and feel defeated. You lose some mana. Current Mana: ${mana}/${maxMana}`;
             
             updateGameOutput(manaChangeMessage);
             addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
