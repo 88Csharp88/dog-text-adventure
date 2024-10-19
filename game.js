@@ -396,17 +396,17 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
         // Define possible outcomes
         const outcomes = [
             {
-                message: 'You log onto socials and encounter a FUDer!',
+                message: 'You log onto socials. You begin shilling $DOG but come across a strange poster. You read their content and want to puke. You comment against their post to try to talk some sense into them. Oh crap! You just started a fight with a FUDer!!!',
                 enemyName: 'FUDer',
                 image: 'https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/FUDer.jpg?raw=true'
             },
             {
-                message: 'You receive a DM from a $DOG influencer!',
+                message: 'You start shilling $DOG and hear your DMs chime. Would you like to answer the DM?',
                 enemyName: null,
                 image: null
             },
             {
-                message: 'You read an interesting post by a $DOG influencer!',
+                message: 'You come across a post by another $DOG influencer. Would you like to read the post?',
                 enemyName: null,
                 image: null
             }
@@ -441,8 +441,8 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
                 mana = Math.min(Math.max(mana + manaChange, 0), maxMana); // Ensure mana stays within bounds
                 
                 const manaChangeMessage = manaChange > 0 
-                    ? `You gain 1 mana! Current Mana: ${mana}/${maxMana}` 
-                    : `You lose 1 mana! Current Mana: ${mana}/${maxMana}`;
+                    ? `You open up the DM and its just a chum telling you that you are doing a great job. You gain a follower which increases your mana. Current Mana: ${mana}/${maxMana}` 
+                    : `You open the DM and someone starts asking about your portfolio. Before you know it they are trying to get you to join their private shill group. You've wasted your time and lost mana. Current Mana: ${mana}/${maxMana}`;
                 
                 updateGameOutput(manaChangeMessage);
                 addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
@@ -451,7 +451,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             ignoreDMButton.addEventListener('click', () => {
                 buttonContainer.removeChild(openDMButton);
                 buttonContainer.removeChild(ignoreDMButton); // Remove the open button
-                updateGameOutput("You ignore the DM and continue your adventure.");
+                updateGameOutput("You ignore the DM and continue your adventure. You hope you made the right decision.");
                 addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
             });
         } 
@@ -478,8 +478,8 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
                 gold = Math.min(Math.max(gold + goldChange, 0), maxGold); // Ensure gold stays within bounds
                 
                 const goldChangeMessage = goldChange > 0 
-                    ? `You earn 1 gold! Current Gold: ${gold}/${maxGold}` 
-                    : `You lose 1 gold! Current Gold: ${gold}/${maxGold}`;
+                    ? `You read a fantasic post from a popular influence. It inspires you to create a meme in the replies. The influencer loves it and sends you some crypto. You gain some gold. Current Gold: ${gold}/${maxGold}` 
+                    : `You read a post from the popular influencer. It inspires you to invest into a new project. Suddenly the project rugs and realize it was an impersonator. You lose some gold. Current Gold: ${gold}/${maxGold}`;
                 
                 updateGameOutput(goldChangeMessage);
                 addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
@@ -488,7 +488,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             ignorePostButton.addEventListener('click', () => {
                 buttonContainer.removeChild(readPostButton);
                 buttonContainer.removeChild(ignorePostButton); // Remove the read button
-                updateGameOutput("You ignore the post and continue your adventure.");
+                updateGameOutput("You ignore the post and continue your adventure. Perhaps it was the right decision.");
                 addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
             });
         } 
