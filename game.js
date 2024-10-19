@@ -250,7 +250,7 @@ function handleRandomEvent(eventType, level, hasLobo, mana, maxMana, hitpoints, 
         call: {
             gain: [
                 "You accept the call and it is your scum bag friend. Lucky for you she decideds today is the day she will pay you back some gold she owes you.",
-                "You answer the call. It some guy that lives down the road. He saw your post about selling your old computer parts. You unload old parts on him for some gold."
+                "You answer the call. Its some guy that lives down the road. He saw your post about selling your old computer parts. You unload old parts on him for some gold."
             ],
             lose: [
                 "Crap! Its your credit card company. They tell you that you need to pony up now or they're going to destroy your life.",
