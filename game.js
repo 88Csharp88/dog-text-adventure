@@ -849,7 +849,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             effect: 'gold' // Indicates that this will affect gold
         },
         {
-            message: "You prepare to post your influencer video but your screen starts getting really screwy. Some of a gun. Your computer is glitching out.",
+            message: "You prepare to post your influencer video but your screen starts getting really screwy. Son of a gun. Your computer is glitching out.",
             effect: 'hitpoints' // Indicates that this will affect hitpoints
         },
         {
