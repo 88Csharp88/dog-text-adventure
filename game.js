@@ -845,7 +845,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
     // Define possible outcomes
     const outcomes5 = [
         {
-            message: "You debate on the pros and cons of encorporating advertisement for your video. What is your choice?",
+            message: "You debate on the pros and cons of incorporating advertisement for your video. What is your choice?",
             effect: 'gold' // Indicates that this will affect gold
         },
         {
