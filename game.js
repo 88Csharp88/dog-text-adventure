@@ -737,7 +737,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             effect: 'health' // Indicates that this will affect health
         },
         {
-            message: "You walk down to the local gas station. You sort of feeling like hanging out on the corner but you're feeling kind of blah. What do you decide?",
+            message: "You walk down to the local gas station. You sort of feel like hanging out on the corner but you feel kind of blah. What do you decide?",
             effect: 'gold' // Indicates that this will affect gold
         },
         {
