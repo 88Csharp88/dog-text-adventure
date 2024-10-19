@@ -1038,7 +1038,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             mana = Math.min(Math.max(mana + manaChange, 0), maxMana); // Ensure mana stays within bounds
             
             const manaChangeMessage = manaChange > 0 
-                ? `You stretch your arms out and throw your disc. Hole-in-one! You feeling fantastic about your throw and gain some mana. Current Mana: ${mana}/${maxMana}` 
+                ? `You stretch your arms out and throw your disc. Hole-in-one! You are feeling fantastic about your throw and gain some mana. Current Mana: ${mana}/${maxMana}` 
                 : `You get to hole three and can not stand yourself. You are throwing like garbage. You are playing like garbage. You feel frustrated and lose some mana. Current Mana: ${mana}/${maxMana}`;
             
             updateGameOutput(manaChangeMessage);
