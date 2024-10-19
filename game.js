@@ -927,7 +927,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             
             const hitpointsChangeMessage = hitpointsChange > 0 
                 ? `You get on your hands and knees and start wiggling chords around. Thankfully it was a simple fix. You press your connections further into your monitor and your screen is working perfectly... and what's this? Half of a burrito. Its only a few days old. You eat it and gain some hitpoints. Current Hitpoints: ${hitpoints}/${maxHitpoints}` 
-                : `You mess with your wires, your hardware and your software. You are getting no where. A rage starts to build inside of you! A flash of light crosses your mind and the next think you now your bloody fist has gone through the dry wall again. You are injured and lose some hitpoints. Current Hitpoints: ${hitpoints}/${maxHitpoints}`;
+                : `You mess with your wires, your hardware and your software. You are getting no where. A rage starts to build inside of you! A flash of light crosses your mind and the next thing you know your bloody fist has gone through the dry wall again. You are injured and lose some hitpoints. Current Hitpoints: ${hitpoints}/${maxHitpoints}`;
             
             updateGameOutput(hitpointsChangeMessage);
             addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
