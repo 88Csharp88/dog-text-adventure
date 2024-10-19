@@ -553,7 +553,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             mana = Math.min(Math.max(mana + manaChange, 0), maxMana); // Ensure mana stays within bounds
             
             const manaChangeMessage = manaChange > 0 
-                ? `You power through 2 more hours of coding. It was so work it. Your application is splendid. You feel accomplished and regain some mana. Current Mana: ${mana}/${maxMana}` 
+                ? `You power through 2 more hours of coding. It was so worth it. Your application is splendid. You feel accomplished and regain some mana. Current Mana: ${mana}/${maxMana}` 
                 : `You power through 2 more hours of coding. Your eyes hurt and the screen gets blurry. The lines of code start making no sense but you don't stop. Crap! You scramble to code so bad you have to delete everything. You rage quit and lose some mana. Current Mana: ${mana}/${maxMana}`;
             
             updateGameOutput(manaChangeMessage);
