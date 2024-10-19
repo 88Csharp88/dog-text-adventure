@@ -420,7 +420,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
         updateGameOutput(outcome.message);
 
         // If it's the DM from the influencer
-        if (outcome.message.includes('DM from a $DOG influencer')) {
+        if (outcome.message.includes('hear your DMs chime')) {
             const buttonContainer = document.getElementById('button-container');
 
             // Create buttons for opening or ignoring the DM
@@ -457,7 +457,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
         } 
         
         // If it's reading a post by the influencer
-        else if (outcome.message.includes('interesting post by a $DOG influencer')) {
+        else if (outcome.message.includes('by another $DOG influencer')) {
             const buttonContainer = document.getElementById('button-container');
 
             // Create buttons for reading or ignoring the post
