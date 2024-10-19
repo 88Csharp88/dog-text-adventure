@@ -509,15 +509,15 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
     // Define possible outcomes
     const codingOutcomes = [
         {
-            message: 'You decide to continue coding for 2 more hours!',
+            message: 'You code yourself into exhaustion but your application is not finished yet. What would you like to do?',
             effect: 'mana' // Indicates that this will affect mana
         },
         {
-            message: 'You try to compile your code!',
+            message: 'You finally finish the beta version of your application but feel uncertain about it. Do you want to try to compile your code?',
             effect: 'hitpoints' // Indicates that this will affect hitpoints
         },
         {
-            message: 'You encounter a Hacker!',
+            message: 'You get deep into coding. You are slamming drinks and mowing through fast food. Your room is hazy and begins to stink. Suddenly your cursor begins to move on its own... someone takes control of your computer remotely! You encounter a hacker!!!',
             effect: 'fight', // Indicates that this will trigger a fight
             enemyName: 'Hacker',
             image: 'https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/Hacker.jpg?raw=true'
@@ -553,8 +553,8 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             mana = Math.min(Math.max(mana + manaChange, 0), maxMana); // Ensure mana stays within bounds
             
             const manaChangeMessage = manaChange > 0 
-                ? `You gain 1 mana! Current Mana: ${mana}/${maxMana}` 
-                : `You lose 1 mana! Current Mana: ${mana}/${maxMana}`;
+                ? `You power through 2 more hours of coding. It was so work it. Your application is splendid. You feel accomplished and regain some mana. Current Mana: ${mana}/${maxMana}` 
+                : `You power through 2 more hours of coding. Your eyes hurt and the screen gets blurry. The lines of code start making no sense but you don't stop. Crap! You scramble to code so bad you have to delete everything. You rage quit and lose some mana. Current Mana: ${mana}/${maxMana}`;
             
             updateGameOutput(manaChangeMessage);
             addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
@@ -563,7 +563,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
         ignoreCodingButton.addEventListener('click', () => {
             buttonContainer.removeChild(continueCodingButton);
             buttonContainer.removeChild(ignoreCodingButton); // Remove the continue button
-            updateGameOutput("You ignore the coding and continue your adventure.");
+            updateGameOutput("You ignore the coding and continue your adventure. Perhaps a good choice... Perhaps not.");
             addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
         });
     } 
@@ -590,8 +590,8 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             hitpoints = Math.max(hitpoints + hitpointsChange, 0); // Ensure hitpoints stay above 0
             
             const hitpointsChangeMessage = hitpointsChange > 0 
-                ? `You gain 1 hitpoint! Current Hitpoints: ${hitpoints}/${maxHitpoints}` 
-                : `You lose 1 hitpoint! Current Hitpoints: ${hitpoints}/${maxHitpoints}`;
+                ? `You pray your application will work and begin the compilation. Thankfully it works! You immediately find a buyer and sell the code. You buy more fast food and gain some hit points. Current Hitpoints: ${hitpoints}/${maxHitpoints}` 
+                : `You hope for the best and begin the compilation. You smell something funny. You hear a grinding noise. Your desktop is overheating! You rip off the cover and sparks fly out of your machine. You are injured and lose some hitpoints. Current Hitpoints: ${hitpoints}/${maxHitpoints}`;
             
             updateGameOutput(hitpointsChangeMessage);
             addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
@@ -600,7 +600,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
         ignoreCompileButton.addEventListener('click', () => {
             buttonContainer.removeChild(compileButton);
             buttonContainer.removeChild(ignoreCompileButton); // Remove the compile button
-            updateGameOutput("You ignore the compilation and continue your adventure.");
+            updateGameOutput("You ignore the compilation and continue your adventure. Sometimes it is best to just walk away...");
             addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
         });
     } 
