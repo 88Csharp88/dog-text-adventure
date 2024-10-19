@@ -957,15 +957,15 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
     // Define possible outcomes
     const outcomes6 = [
         {
-            message: "You drink from the public drinking fountain!",
+            message: "You decide to walk to the park. This makes you thirsty. You notice a public water founting covered in used chewing gum and rust... but your thirsty. Do you take a drink?",
             effect: 'hitpoints' // Indicates that this will affect hitpoints
         },
         {
-            message: "You play a round of disc golf!",
+            message: "You decided to bring your disc with you. Do you fancy a round of disc golf?",
             effect: 'mana' // Indicates that this will affect mana
         },
         {
-            message: "You encounter Animal Control!",
+            message: "You hear clattering of chains and dogs barking. You look over your shoulder to see a working from animal control aggressively attempting to capture a poor dog. You can not stand for this kind of abuse! A rage comes over you and you approach the dog snatcher with ill intent!!!",
             effect: 'fight', // Indicates that this will trigger a fight
             enemyName: 'Animal Control',
             image: 'https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/AnimalControl.jpg?raw=true'
@@ -1001,8 +1001,8 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             hitpoints = Math.max(hitpoints + hitpointsChange, 0); // Ensure hitpoints stay above 0
             
             const hitpointsChangeMessage = hitpointsChange > 0 
-                ? `You gain 1 hitpoint from the fountain! Current Hitpoints: ${hitpoints}/${maxHitpoints}` 
-                : `You lose 1 hitpoint from the fountain's questionable water! Current Hitpoints: ${hitpoints}/${maxHitpoints}`;
+                ? `You decide to drink from the fountain. You are surprised by the crystal clear water as it quenches your thirst. You feel great and gain a hitpoint. Current Hitpoints: ${hitpoints}/${maxHitpoints}` 
+                : `You prepare for a refreshing drink but you are met with an off-color sludge that finds its way into your mouth. You vomit in the grass and lose a hitpoint. Current Hitpoints: ${hitpoints}/${maxHitpoints}`;
             
             updateGameOutput(hitpointsChangeMessage);
             addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
@@ -1011,7 +1011,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
         ignoreFountainButton.addEventListener('click', () => {
             buttonContainer.removeChild(drinkFountainButton);
             buttonContainer.removeChild(ignoreFountainButton); // Remove the drink button
-            updateGameOutput("You ignore the fountain and continue your park visit.");
+            updateGameOutput("You ignore the fountain and continue your park visit. You decide to let the next civilian try their luck.");
             addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
         });
     } 
@@ -1038,8 +1038,8 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             mana = Math.min(Math.max(mana + manaChange, 0), maxMana); // Ensure mana stays within bounds
             
             const manaChangeMessage = manaChange > 0 
-                ? `You gain 1 mana from playing disc golf! Current Mana: ${mana}/${maxMana}` 
-                : `You lose 1 mana from a bad throw! Current Mana: ${mana}/${maxMana}`;
+                ? `You stretch your arms out and throw your disc. Hole-in-one! You feeling fantastic about your throw and gain some mana. Current Mana: ${mana}/${maxMana}` 
+                : `You get to hole three and can not stand yourself. You are throwing like garbage. You are playing like garbage. You feel frustrated and lose some mana. Current Mana: ${mana}/${maxMana}`;
             
             updateGameOutput(manaChangeMessage);
             addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
@@ -1048,7 +1048,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
         ignoreDiscGolfButton.addEventListener('click', () => {
             buttonContainer.removeChild(playDiscGolfButton);
             buttonContainer.removeChild(ignoreDiscGolfButton); // Remove the play button
-            updateGameOutput("You ignore disc golf and continue your park visit.");
+            updateGameOutput("You ignore disc golf and continue your park visit. Maybe next time, anon.");
             addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
         });
     } 
@@ -1069,15 +1069,15 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
     // Define possible outcomes
     const outcomes7 = [
         {
-            message: "You apply for a new job!",
+            message: "You hate the trenches but you will need burritos and slushies to survive. Do you want to apply for a new job?",
             effect: 'gold' // Indicates that this will affect gold
         },
         {
-            message: "You invest your remaining savings in memecoins!",
+            message: "You log onto the dex screener and find something that might 100x over night. Do you decide to invest?",
             effect: 'gold' // Indicates that this will also affect gold
         },
         {
-            message: "You encounter a Tax Collector at your door!",
+            message: "You hear a scratching at your front door. Your curiosity gets the best of you. You open the front door and are greeted with a slimey, yellow smile. Its the tax man! He wants your house. You have no money... There is only one way out!",
             effect: 'fight', // Indicates that this will trigger a fight
             enemyName: 'Tax Collector',
             image: 'https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/TaxCollector.jpg?raw=true'
@@ -1113,8 +1113,8 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             gold = Math.min(Math.max(gold + goldChange, 0), maxGold); // Ensure gold stays within bounds
             
             const goldChangeMessage = goldChange > 0 
-                ? `You earn 1 gold from your job application! Current Gold: ${gold}/${maxGold}` 
-                : `You lose 1 gold in application fees! Current Gold: ${gold}/${maxGold}`;
+                ? `You find a quick cash paying job cutting grass for an old witch. You drink her nasty leomade after you clean up her yard. You gain some gold. Current Gold: ${gold}/${maxGold}` 
+                : `You end up signing up for some scam trying to fill out surveys on-line. You feel like an idiot loser as you lose some gold. Current Gold: ${gold}/${maxGold}`;
             
             updateGameOutput(goldChangeMessage);
             addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
@@ -1123,7 +1123,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
         ignoreJobButton.addEventListener('click', () => {
             buttonContainer.removeChild(applyJobButton);
             buttonContainer.removeChild(ignoreJobButton); // Remove the apply button
-            updateGameOutput("You ignore job applications and just relax.");
+            updateGameOutput("You ignore job applications and just relax. Damn The Man.");
             addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
         });
     }
@@ -1150,8 +1150,8 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             gold = Math.min(Math.max(gold + goldChange, 0), maxGold); // Ensure gold stays within bounds
             
             const goldChangeMessage = goldChange > 0 
-                ? `You gain 1 gold from a successful memecoin investment! Current Gold: ${gold}/${maxGold}` 
-                : `You lose 1 gold due to a memecoin crash! Current Gold: ${gold}/${maxGold}`;
+                ? `You ape the rest of your crypto into a memecoin. You paperhand at the first green candle just before it rugs. Well played, anon. You gain some gold. Current Gold: ${gold}/${maxGold}` 
+                : `You chip some crypto into this memecoin... just as it rugs. The dev deletes their social account. Its over. You lose some gold. Current Gold: ${gold}/${maxGold}`;
             
             updateGameOutput(goldChangeMessage);
             addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
@@ -1160,7 +1160,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
         ignoreMemecoinsButton.addEventListener('click', () => {
             buttonContainer.removeChild(investMemecoinsButton);
             buttonContainer.removeChild(ignoreMemecoinsButton); // Remove the invest button
-            updateGameOutput("You ignore investing and just relax.");
+            updateGameOutput("You ignore investing and just relax. There is always next time.");
             addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
         });
     }
@@ -1181,15 +1181,15 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
     // Define possible outcomes
     const outcomes8 = [
         {
-            message: "You play video games online!",
+            message: "You are indifferent on what you would like to play. Would you like to play games on the internet?",
             effect: 'gold' // Indicates that this will affect gold
         },
         {
-            message: "You plug in the retro console!",
+            message: "You look at your old gaming consoles and get a tingling feeling in your stomach as you remember all the good times you had. Do you wish to play a retro game?",
             effect: 'mana' // Indicates that this will affect mana
         },
         {
-            message: "Your Dad comes downstairs pissed!",
+            message: "You sink into your chair and you are nearing your high-score. This is it! You're going to do it... but what is that stomping noise? Oh no! Your Dad stumbles downstairs pissed that you are wasting your life! He raises his hand at you... here we go again D:",
             effect: 'fight', // Indicates that this will trigger a fight
             enemyName: 'Mad Dad',
             image: 'https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/MadDad.jpg?raw=true'
@@ -1225,8 +1225,8 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             gold = Math.min(Math.max(gold + goldChange, 0), maxGold); // Ensure gold stays within bounds
             
             const goldChangeMessage = goldChange > 0 
-                ? `You earn 1 gold from your gaming session! Current Gold: ${gold}/${maxGold}` 
-                : `You lose 1 gold due to in-game purchases! Current Gold: ${gold}/${maxGold}`;
+                ? `You play some games on-line and decide to go live on a streaming platform. You impress some rando with your skills and they donate a little cash. You earn some gold. Current Gold: ${gold}/${maxGold}` 
+                : `You play some games on-line with your friends but they are whooping your ass. You convince yourself to visit the in-game store to buy upgrades. You lose some gold. Current Gold: ${gold}/${maxGold}`;
             
             updateGameOutput(goldChangeMessage);
             addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
@@ -1262,8 +1262,8 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             mana = Math.min(Math.max(mana + manaChange, 0), maxMana); // Ensure mana stays within bounds
             
             const manaChangeMessage = manaChange > 0 
-                ? `You gain 1 mana from nostalgic gaming! Current Mana: ${mana}/${maxMana}` 
-                : `You lose 1 mana due to a frustrating game! Current Mana: ${mana}/${maxMana}`;
+                ? `You have so much fun re-living your youth! You realize that others would like this and check the value of the cartridge. Wow! Its at a market top. You sell the cartridge and gain some gold. Current Mana: ${mana}/${maxMana}` 
+                : `You plug in your gaming console but it begins to smell like burning plastic. Nothing happens when you try to power it on. It gets hot. It smokes. Crap...you lose your console and lose some gold. Current Mana: ${mana}/${maxMana}`;
             
             updateGameOutput(manaChangeMessage);
             addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
@@ -1272,7 +1272,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
         ignoreRetroButton.addEventListener('click', () => {
             buttonContainer.removeChild(plugInButton);
             buttonContainer.removeChild(ignoreRetroButton); // Remove the plug-in button
-            updateGameOutput("You ignore the retro console and find something else to do.");
+            updateGameOutput("You ignore the retro console and find something else to do. Probably no time for that anyway at this age.");
             addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
         });
     }
@@ -1290,7 +1290,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
     }
     break;
         case 'fight bosses':
-            updateGameOutput('It is time to fight Zombie Elon Musk!!!');
+            updateGameOutput('It is time to fight Zombie Elon!!!');
            //Add Zombie Elon Image
             const ZombieElonImage = `
                 <div>
