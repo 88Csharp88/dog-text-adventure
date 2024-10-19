@@ -1077,7 +1077,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             effect: 'gold' // Indicates that this will also affect gold
         },
         {
-            message: "You hear a scratching at your front door. Your curiosity gets the best of you. You open the front door and are greeted with a slimey, yellow smile. Its the tax man! He wants your house. You have no money... There is only one way out!",
+            message: "You hear a scratching at your front door. Your curiosity gets the best of you. You open the front door and are greeted with a slimey, yellow smile. Its the tax man! He wants your house. You don't have the money... There is only one way out!",
             effect: 'fight', // Indicates that this will trigger a fight
             enemyName: 'Tax Collector',
             image: 'https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/TaxCollector.jpg?raw=true'
