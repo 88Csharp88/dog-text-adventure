@@ -1290,7 +1290,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
     }
     break;
         case 'fight bosses':
-            updateGameOutput('Suddenly Leonidas appears in front of you. Leonidas speaks:"You are the chosen one. I have been watching you. I have been waiting for a soldier strong enough to collect 20 gold. There is a great evil that exists and it is on our moon. With your help we can exchange this 20 gold for enough rocket fuel to get to the moon. It is written in destiny that $DOG go to the moon. It is YOUR destiny!" You travel with Leonidas to gather rocket fuel and the two of you fly to the moon! Leonidas leads you out of the rocket ship. You hear a terrible, low moaning behind you. You turn around to see Zombie Elon shuffeling your way. His eyes are blood shot. He is thirsty for blood. Leonidas turns to you and says, "This is your time. This is your destiny. Fight, my soldier."');
+            updateGameOutput('Suddenly Leonidas appears in front of you. Leonidas speaks:"You are the chosen one. I have been watching you. I have been waiting for a soldier strong enough to collect 20 gold. There is a great evil that exists and it is on our moon. With your help we can exchange this 20 gold for enough rocket fuel to get to the moon. It is written in destiny that $DOG go to the moon. It is YOUR destiny!" You travel with Leonidas to gather rocket fuel and the two of you fly to the moon! Leonidas leads you out of the rocket ship. You hear a terrible, low moaning behind you. You turn around to see Zombie Elon shuffling your way. His eyes are blood shot. He is thirsty for blood. Leonidas turns to you and says, "This is your time. This is your destiny. Fight, my soldier."');
            //Add Zombie Elon Image
             const ZombieElonImage = `
                 <div>
@@ -1302,7 +1302,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
             break;
         case 'fight final boss':    
-             updateGameOutput('Leonidas looks at you as proud as can be as you stand over the corpse of Zombie Elon. "There is one final great evil on this rock," he states. Leonidas leads you to a dark cave. "It is time to enter this cave and face your destiny, soldier. You are the chosen one." You nod to Leonidas and walk cautiously into the cave. It is dark and dry. You hear heavy breathing and smell greed in the air. The sound grows closer and steps into the light! You find yourself face-to-face with the greatest evil in this univers. You find yoursel face-to-face with Gary Gensler! Prepare yourself!');
+             updateGameOutput('Leonidas looks at you as proud as can be as you stand over the corpse of Zombie Elon. "There is one final great evil on this rock," he states. Leonidas leads you to a dark cave. "It is time to enter this cave and face your destiny, soldier. You are the chosen one." You nod to Leonidas and walk cautiously into the cave. It is dark and dry. You hear heavy breathing and smell greed in the air. The sound grows closer and steps into the light! You find yourself face-to-face with the greatest evil in this universe. You find yourself face-to-face with Gary Gensler! Prepare to fight!');
            //Add Gary Gensler Image
             const GaryGenslerImage = `
                 <div>
@@ -1587,7 +1587,7 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
 
     function winGame() {
         const gameOutput = document.getElementById('game-output');
-        updateGameOutput(`You stand over the limp body of Gary Gensler and appreciate his greedy blood spilling from his corpse. You have defeated the greatest evil in this universe. Leonidas leads you back into the rocket ship where he has prepared a frozen pizza for you. You travel back to Earth in Leonidas' rocket ship and enjoy pizza and guitar riffs. Leonidas speaks, "Enjoy this party, my soldier. You deserve every slice of pizza." You and Leonida exchange a galactic high-five. "The moon was your destiny soldier," he praises. "You have made the $DOG army proud!" Leonidas turns up the guitar music as you both sail safely back to Earth. You win!!!`);
+        updateGameOutput(`You stand over the limp body of Gary Gensler and appreciate his greedy blood spilling from his corpse. You have defeated the greatest evil in this universe. Leonidas leads you back into the rocket ship where he has prepared a frozen pizza for you. You travel back to Earth in Leonidas' rocket ship and enjoy pizza and guitar riffs. Leonidas speaks, "Enjoy this party, my soldier. You deserve every slice of pizza on Earth." You and Leonidas exchange a galactic high-five. "The moon was your destiny, soldier" he praises. "You have made the $DOG army proud!" Leonidas turns up the guitar music as you both sail safely back to Earth. You win!!!`);
         // You could add any additional game-over logic here, like showing a restart button.
     }
 
