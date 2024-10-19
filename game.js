@@ -1302,7 +1302,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
             break;
         case 'fight final boss':    
-             updateGameOutput('Leonidas looks at you as proud as can be. "There is one final great evil on this rock," he states. Leonidas points to a dark cave. "Go in there and face your destiny, soldier. You are the one." You walk cautiously into the cave and find yourself face-to-face with the greatest evil in this univers. You find yoursel face-to-face with Gary Gensler! Prepare yourself!');
+             updateGameOutput('Leonidas looks at you as proud as can be as you stand over the corpse of Zombie Elon. "There is one final great evil on this rock," he states. Leonidas leads you to a dark cave. "It is time to enter this cave and face your destiny, soldier. You are the chosen one." You nod to Leonidas and walk cautiously into the cave. It is dark and dry. You hear heavy breathing and smell greed in the air. The sound grows closer and steps into the light! You find yourself face-to-face with the greatest evil in this univers. You find yoursel face-to-face with Gary Gensler! Prepare yourself!');
            //Add Gary Gensler Image
             const GaryGenslerImage = `
                 <div>
