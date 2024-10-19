@@ -1290,7 +1290,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
     }
     break;
         case 'fight bosses':
-            updateGameOutput('It is time to fight Zombie Elon!!!');
+            updateGameOutput('Suddenly Leonidas appears in front of you. Leonidas speaks:"You are the chosen one. I have been watching you. I have been waiting for a soldier to collect 20 gold. There is a great evil that has set up their base on our moon. Will you exchange this 20 gold for rocket fuel to get to the moon and fight this source of pure evil? IT IS YOUR DESTINY!" You travel with Leonidas to the moon and exit the rocket ship. You hear a low moaning behind you. You turn around to see Zombie Elon shuffeling your way. Leonidas turns to you and says, "This is your time. This is your destiny. Fight my soldier."');
            //Add Zombie Elon Image
             const ZombieElonImage = `
                 <div>
@@ -1302,7 +1302,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
             break;
         case 'fight final boss':    
-             updateGameOutput('It is time to fight Gary Gensler!!!');
+             updateGameOutput('Leonidas looks at your as proud as can be. "There is one final great evil on this rock," he states. Leonidas points your to a dark cave. "Go in there and face your destiny soldier. You are the one." You walk cautiously into the cave and find yourself face to face with the greatest evil in this univers. You find yoursel face to face with Gary Gensler! Prepare yourself!');
            //Add Gary Gensler Image
             const GaryGenslerImage = `
                 <div>
