@@ -6,14 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>$DOG Text Adventure</title>
 
-    <!-- Link to Google Fonts for retro game-style font -->
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
     <style>
         body {
-            background-color: #f7931a; /* Bitcoin Orange */
+            background-color: #f7931a;
             color: black;
-            font-family: 'Press Start 2P', cursive; /* Retro game-style font */
+            font-family: 'Press Start 2P', cursive;
             text-align: center;
             padding: 50px;
         }
@@ -46,8 +45,16 @@
             background-color: #333;
         }
 
-        #result {
+        #result, #instructions {
             margin-top: 20px;
+        }
+
+        #instructions {
+            display: none; /* Hidden by default */
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
         }
 
         img {
@@ -55,12 +62,17 @@
             width: 200px;
             height: auto;
         }
+
+        /* Style for the How to Play button */
+        #how-to-play-button {
+            width: auto; /* Allow the button to fit its content */
+            display: inline-block; /* Make it inline */
+        }
     </style>
 </head>
 <body>
     <h1>$DOG Text Adventure</h1>
     
-    <!-- Dog image placeholder, replace with actual mascot -->
     <img src="https://github.com/88Csharp88/dog-text-adventure/blob/main/images/Dog%20Text%20Adventure%20Mascot.jpg?raw=true" alt="Dog Mascot">
     
     <form id="address-form">
@@ -70,7 +82,6 @@
 
     <div id="result"></div>
     
-    <!-- Add the game output div here -->
     <div id="game-output"></div>
     <div id="button-container"></div>
 
@@ -108,5 +119,3 @@
     <script src="game.js"></script>
 </body>
 </html>
-
-
