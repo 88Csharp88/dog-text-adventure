@@ -1302,7 +1302,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             presentAttackOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold, enemy);
             break;
         case 'fight final boss':    
-             updateGameOutput('Leonidas looks at your as proud as can be. "There is one final great evil on this rock," he states. Leonidas points your to a dark cave. "Go in there and face your destiny soldier. You are the one." You walk cautiously into the cave and find yourself face to face with the greatest evil in this univers. You find yoursel face to face with Gary Gensler! Prepare yourself!');
+             updateGameOutput('Leonidas looks at you as proud as can be. "There is one final great evil on this rock," he states. Leonidas points to a dark cave. "Go in there and face your destiny, soldier. You are the one." You walk cautiously into the cave and find yourself face-to-face with the greatest evil in this univers. You find yoursel face-to-face with Gary Gensler! Prepare yourself!');
            //Add Gary Gensler Image
             const GaryGenslerImage = `
                 <div>
