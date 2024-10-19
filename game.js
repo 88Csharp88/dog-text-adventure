@@ -666,7 +666,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             
             const manaChangeMessage = manaChange > 0 
                 ? `You ex's mom begins talking to you. She is surprisingly understanding. She tells you your ex has checked into the mental hospital and her mom apologizes for everything she has put you through. You feel recharged and gain some mana. Current Mana: ${mana}/${maxMana}` 
-                : `Your ex's mom begins screeching into the phone; matching the tone of her unmanagble daughter. She gives you a headache faster than you can hang up the phone. You lose some mana as you feel sorry for her poor husband. Current Mana: ${mana}/${maxMana}`;
+                : `Your ex's mom begins screeching into the phone; matching the tone of her unmanageable daughter. She gives you a headache faster than you can hang up the phone. You lose some mana as you feel sorry for her poor husband. Current Mana: ${mana}/${maxMana}`;
             
             updateGameOutput(manaChangeMessage);
             addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
