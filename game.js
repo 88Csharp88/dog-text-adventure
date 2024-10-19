@@ -1246,7 +1246,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
 
         // Create buttons for plugging in or ignoring
         const plugInButton = document.createElement('button');
-        plugInButton.textContent = "Plug in the retro console";
+        plugInButton.textContent = "plug in the retro console";
         buttonContainer.appendChild(plugInButton);
 
         const ignoreRetroButton = document.createElement('button');
