@@ -74,6 +74,36 @@
     <div id="game-output"></div>
     <div id="button-container"></div>
 
+    <!-- How to Play button -->
+    <button id="how-to-play-button">How to Play</button>
+    
+    <!-- Instructions section -->
+    <div id="instructions">
+        <h2>How to Play</h2>
+        <p>Welcome to the $DOG Text Adventure! Here’s how to get started:</p>
+        <ul>
+            <li>Enter your Unisat Public Address in the input field.</li>
+            <li>Click "Scan Balances" to check your current balances.</li>
+            <li>Follow the prompts to embark on your adventure!</li>
+            <li>Make choices based on the game narrative.</li>
+        </ul>
+        <p>Have fun!</p>
+    </div>
+
+    <script>
+        // Show/Hide instructions
+        document.getElementById('how-to-play-button').addEventListener('click', function() {
+            const instructions = document.getElementById('instructions');
+            if (instructions.style.display === 'none' || instructions.style.display === '') {
+                instructions.style.display = 'block';
+                this.textContent = 'Hide Instructions'; // Change button text
+            } else {
+                instructions.style.display = 'none';
+                this.textContent = 'How to Play'; // Reset button text
+            }
+        });
+    </script>
+
     <script src="app.js"></script>
     <script src="game.js"></script>
 </body>
