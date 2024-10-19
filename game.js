@@ -733,7 +733,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
     // Define possible outcomes
     const outcomes4 = [
         {
-            message: "You walk until it become dark outside and find yourself outside of the graveyard. Something inside of you wants to walk in. Something inside of you wants to stay away. What will you do?",
+            message: "You walk until it become dark out and find yourself outside of the graveyard. Something inside of you wants to walk in. Something inside of you wants to stay away. What will you do?",
             effect: 'health' // Indicates that this will affect health
         },
         {
