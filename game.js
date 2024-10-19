@@ -262,33 +262,38 @@ function displayRandomEvent(eventType, level, hasLobo, mana, maxMana, hitpoints,
 function handleRandomEvent(eventType, level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold) {
     const gameOutput = document.getElementById('game-output');
     let outcomeMessage = '';
+    let gain = 0; // To store the amount gained or lost
 
     // Determine the outcome based on the event type
     const diceRoll = Math.floor(Math.random() * 6) + 1; // Roll a dice (1-6)
 
     switch (eventType) {
         case 'call':
-            outcomeMessage = "You answered the call!";
-            gold += (diceRoll === 6) ? 2 : -1; // Adjust gold based on roll
+            gain = (diceRoll === 6) ? 2 : -1; // Example outcome
+            gold += gain; // Adjust gold
+            outcomeMessage = `You answered the call! You ${gain > 0 ? 'gained' : 'lost'} ${Math.abs(gain)} gold.`;
             break;
         case 'knock':
-            outcomeMessage = "You answered the door!";
-            hitpoints += (diceRoll === 6) ? 2 : -1; // Adjust hitpoints based on roll
+            gain = (diceRoll === 6) ? 2 : -1; // Example outcome
+            hitpoints += gain; // Adjust hitpoints
+            outcomeMessage = `You answered the door! You ${gain > 0 ? 'gained' : 'lost'} ${Math.abs(gain)} hitpoints.`;
             break;
         case 'text':
-            outcomeMessage = "You read the text message!";
-            mana += (diceRoll === 6) ? 1 : -1; // Adjust mana based on roll
+            gain = (diceRoll === 6) ? 1 : -1; // Example outcome
+            mana += gain; // Adjust mana
+            outcomeMessage = `You read the text message! You ${gain > 0 ? 'gained' : 'lost'} ${Math.abs(gain)} mana.`;
             break;
         case 'barking':
-            outcomeMessage = "You checked the barking outside!";
-            hitpoints += (diceRoll === 6) ? 1 : -1; // Adjust hitpoints based on roll
+            gain = (diceRoll === 6) ? 1 : -1; // Example outcome
+            hitpoints += gain; // Adjust hitpoints
+            outcomeMessage = `You checked the barking outside! You ${gain > 0 ? 'gained' : 'lost'} ${Math.abs(gain)} hitpoints.`;
             break;
     }
 
-   // Display the outcome message and continue button
-    gameOutput.innerHTML += `<p>${outcomeMessage}</p>
-                             <button onclick="presentSecondOptions(${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Continue your adventure</button>`;
-
+    gameOutput.innerHTML += `<p>${outcomeMessage}</p>`;
+    
+    // Display the continue button
+    gameOutput.innerHTML += `<button onclick="presentSecondOptions(${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">Continue your adventure</button>`;
 }
 
 // Define an array of enemies
