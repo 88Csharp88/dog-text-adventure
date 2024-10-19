@@ -733,15 +733,15 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
     // Define possible outcomes
     const outcomes4 = [
         {
-            message: "You enter the graveyard!",
+            message: "You walk until it become dark outside and find yourself outside of the graveyard. Something inside of you wants to walk in. Something inside of you wants to stay away. What will you do?",
             effect: 'health' // Indicates that this will affect health
         },
         {
-            message: "You hang out at the gas station!",
+            message: "You walk down to the local gas station. You sort of feeling like hanging out on the corner but you're feeling kind of blah. What do you decide?",
             effect: 'gold' // Indicates that this will affect gold
         },
         {
-            message: "You encounter the Toxic Neighbor!",
+            message: "You take a walk and begin to feel relaxed.... maybe too relaxed. Suddenly you have to empty your bladder. You are not going to make it home before you have to piss. You begin urinating on a garage just as the home owner walks around the corner. They are NOT happy and approach you with a weapon!",
             effect: 'fight', // Indicates that this will trigger a fight
             enemyName: 'Toxic Neighbor',
             image: 'https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/ToxicNeighbor.jpg?raw=true'
@@ -777,8 +777,8 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             hitpoints = Math.max(hitpoints + healthChange, 0); // Ensure health stays above 0
             
             const healthChangeMessage = healthChange > 0 
-                ? `You gain 1 health point! Current Health: ${hitpoints}/${maxHitpoints}` 
-                : `You lose 1 health point! Current Health: ${hitpoints}/${maxHitpoints}`;
+                ? `You enter the grave yard and start kicking some rocks around. You read a few grave stones. You decide to sit in the grass. You look to your right... what is that? Some expired beef jerky still in the wrapper. You indulge and regain some health. Current Health: ${hitpoints}/${maxHitpoints}` 
+                : `You enter the grave yard and begin reading grave stones. You look up at the moon. Wow! Its so beautiful. Ow! Its so painful! What was that?! I rabid racoon has sliced at your leg before scuttling off into the woods. You lose some hitpoints. Current Health: ${hitpoints}/${maxHitpoints}`;
             
             updateGameOutput(healthChangeMessage);
             addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
@@ -787,7 +787,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
         ignoreGraveyardButton.addEventListener('click', () => {
             buttonContainer.removeChild(exploreGraveyardButton);
             buttonContainer.removeChild(ignoreGraveyardButton); // Remove the explore button
-            updateGameOutput("You ignore the graveyard and continue your walk.");
+            updateGameOutput("You ignore the graveyard and continue your walk. An eery haze falls on the hills.");
             addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
         });
     } 
@@ -814,8 +814,8 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             gold = Math.min(Math.max(gold + goldChange, 0), maxGold); // Ensure gold stays within bounds
             
             const goldChangeMessage = goldChange > 0 
-                ? `You find 1 gold! Current Gold: ${gold}/${maxGold}` 
-                : `You lose 1 gold! Current Gold: ${gold}/${maxGold}`;
+                ? `You decide to hang on the corner for a minute. You take a peak into the dumpster and see a pizza box. You retreive it and begin to exam it. Just then some guy approaches you and asks if you are selling the pizza. You sell him the dumpster pizza and gain some gold. Current Gold: ${gold}/${maxGold}` 
+                : `You hang out for a while and get really bored. You walk into the gas station and try to fill a slushie container. The slushie comes out funky as hell but the loser owner still charges you. You walk out of the gas station and throw the full slushie at a gas pump. You lose some gold. Current Gold: ${gold}/${maxGold}`;
             
             updateGameOutput(goldChangeMessage);
             addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
@@ -824,7 +824,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
         ignoreGasStationButton.addEventListener('click', () => {
             buttonContainer.removeChild(checkGasStationButton);
             buttonContainer.removeChild(ignoreGasStationButton); // Remove the check button
-            updateGameOutput("You ignore the gas station and continue your walk.");
+            updateGameOutput("You ignore the gas station and continue your walk. Hopefully you made the correct decision.");
             addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
         });
     } 
