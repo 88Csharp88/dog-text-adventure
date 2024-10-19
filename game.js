@@ -1587,7 +1587,7 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
 
     function winGame() {
         const gameOutput = document.getElementById('game-output');
-        updateGameOutput(`You win! You have defeated the great evil in this universe. You travel back to Earth in Leonidas' rocket ship. On the way home he exchanges a galactic high-five. "The moon was your destiny soldier," he praises. "You have made the $DOG army proud!"`);
+        updateGameOutput(`You stand over the limp body of Gary Gensler and appreciate his greedy blood spilling from his corpse. You have defeated the greatest evil in this universe. Leonidas leads you back into the rocket ship where he has prepared a frozen pizza for you. You travel back to Earth in Leonidas' rocket ship and enjoy pizza and guitar riffs. Leonidas speaks, "Enjoy this party, my soldier. You deserve every slice of pizza." You and Leonida exchange a galactic high-five. "The moon was your destiny soldier," he praises. "You have made the $DOG army proud!" Leonidas turns up the guitar music as you both sail safely back to Earth. You win!!!`);
         // You could add any additional game-over logic here, like showing a restart button.
     }
 
