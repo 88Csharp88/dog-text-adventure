@@ -1204,7 +1204,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
     updateGameOutput(outcome8.message);
 
     // If the outcome is playing video games online
-    if (outcome8.effect === 'gold' && outcome8.message.includes("play video games online")) {
+    if (outcome8.effect === 'gold' && outcome8.message.includes("play games on the internet")) {
         const buttonContainer = document.getElementById('button-container');
 
         // Create buttons for playing online or ignoring
