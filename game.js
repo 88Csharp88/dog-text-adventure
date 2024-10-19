@@ -150,7 +150,7 @@ function presentNewOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpoint
     // Select the first 2 options
     const selectedOptions = allOptions.slice(0, 2);
 
-    let options = `<div><p>You awake from your slumber. Choose an action:</p>`;
+    let options = `<div><p>You painfully open your eyes. Your neck and back are aching. You slowly realize you fell asleep in your computer chair and have drooled all over your keyboard. You are surrounded by empty cans and empty take out boxes. You rub your eyes and prepare to begin your day. What would you like to do next?:</p>`;
     selectedOptions.forEach(option => {
         options += `<button onclick="handleNewChoice('${option.action}', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">${option.text}</button>`;
     });
@@ -203,7 +203,7 @@ function presentSecondOptions(level, hasLobo, mana, maxMana, hitpoints, maxHitpo
             });
         }
 
-        let options = `<div><p>What would you like to do next? Choose an action:</p>`;
+        let options = `<div><p>What would you like to do next?:</p>`;
         selectedOptions.forEach(option => {
             options += `<button onclick="handleNewChoice('${option.action}', ${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">${option.text}</button>`;
         });
@@ -220,16 +220,16 @@ function displayRandomEvent(eventType, level, hasLobo, mana, maxMana, hitpoints,
 
     switch (eventType) {
         case 'call':
-            message = "You received a phone call. Do you want to answer?";
+            message = "You ring tone blasts in your ear startling you. You check your phone and realize it is from a random number. Do you want to answer?";
             break;
         case 'knock':
-            message = "You heard a knock on the door. Do you want to answer?";
+            message = "You hear a pounding on the back door. You are startled and annoyed. Do you want to answer the back door?";
             break;
         case 'text':
-            message = "You received a text message. Do you want to read it?";
+            message = "Your cell phone chimes loudly which upsets you. You received a text message from a random number. Do you care to read it?";
             break;
         case 'barking':
-            message = "You hear barking outside. Do you want to check it out?";
+            message = "You hear barking outside. Those barking dogs just won't quit. You are getting annoyed. Do you want to go check it out?";
             break;
     }
 
