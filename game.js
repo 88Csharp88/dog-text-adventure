@@ -845,15 +845,15 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
     // Define possible outcomes
     const outcomes5 = [
         {
-            message: "You enable advertisements for your video!",
+            message: "You debate on the pros and cons of encorporating advertisement for your video. What is your choice?",
             effect: 'gold' // Indicates that this will affect gold
         },
         {
-            message: "Your computer glitches!",
+            message: "You prepare to post your influencer video but your screen starts getting really screwy. Some of a gun. Your computer is glitching out.",
             effect: 'hitpoints' // Indicates that this will affect hitpoints
         },
         {
-            message: "You encounter a Hater in the comments!",
+            message: "You post your video and immediately get a reaction... ughgh.. but its a troll. The troll starts getting engagement. You furiously post back at the hater. Damn! They roped you in! You realize you're in a battle with a hater!!!",
             effect: 'fight', // Indicates that this will trigger a fight
             enemyName: 'Hater',
             image: 'https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/Hater.jpg?raw=true'
@@ -889,8 +889,8 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             gold = Math.min(Math.max(gold + goldChange, 0), maxGold); // Ensure gold stays within bounds
             
             const goldChangeMessage = goldChange > 0 
-                ? `You earn 1 gold from advertisements! Current Gold: ${gold}/${maxGold}` 
-                : `You lose 1 gold from ad costs! Current Gold: ${gold}/${maxGold}`;
+                ? `You decide to enable advertising for your video. Lucky for you it pays off. You get some engagement and a little bit of cash. Good job, anon. You gain some gold. Current Gold: ${gold}/${maxGold}` 
+                : `You decide to enable advertising which does not sit well with your viewers. You refresh your page and realize you lost some subscribers and potential income. You lost some gold. Current Gold: ${gold}/${maxGold}`;
             
             updateGameOutput(goldChangeMessage);
             addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
@@ -899,7 +899,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
         ignoreAdsButton.addEventListener('click', () => {
             buttonContainer.removeChild(enableAdsButton);
             buttonContainer.removeChild(ignoreAdsButton); // Remove the enable button
-            updateGameOutput("You ignore advertisements and continue your day.");
+            updateGameOutput("You ignore advertisements and continue your day. You feel indifferent from this decision.");
             addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
         });
     } 
@@ -926,8 +926,8 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             hitpoints = Math.max(hitpoints + hitpointsChange, 0); // Ensure hitpoints stay above 0
             
             const hitpointsChangeMessage = hitpointsChange > 0 
-                ? `You regain 1 hitpoint after troubleshooting! Current Hitpoints: ${hitpoints}/${maxHitpoints}` 
-                : `You lose 1 hitpoint due to the glitch! Current Hitpoints: ${hitpoints}/${maxHitpoints}`;
+                ? `You get on your hands and knees and start wiggling chords around. Thankfully it was a simple fix. You press your connections further into your monitor and your screen is working perfectly... and what's this? Half of a burrito. Its only a few days old. You eat it and gain some hitpoints. Current Hitpoints: ${hitpoints}/${maxHitpoints}` 
+                : `You mess with your wires, your hardware, your software. You are getting no where. A rage starts to build inside of you! A flash of light crosses your mind and the next think you now your bloody fist has gone through the dry wall again. You are injured and lose some hitpoints. Current Hitpoints: ${hitpoints}/${maxHitpoints}`;
             
             updateGameOutput(hitpointsChangeMessage);
             addContinueButton(level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold);
