@@ -957,7 +957,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
     // Define possible outcomes
     const outcomes6 = [
         {
-            message: "You decide to walk to the park. This makes you thirsty. You notice a public water founting covered in used chewing gum and rust... but your thirsty. Do you take a drink?",
+            message: "You decide to walk to the park. This makes you thirsty. You notice a public water founting covered in used chewing gum and rust... but you are thirsty. Do you take a drink?",
             effect: 'hitpoints' // Indicates that this will affect hitpoints
         },
         {
