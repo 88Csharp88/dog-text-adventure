@@ -1421,10 +1421,10 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
             updateGameOutput(`You regain 1 mana! Current Mana: ${mana}/${maxMana}`);
             }
 
-        // Add gold with a 70% chance
-        if (randomChance2 < 0.7) {
-            gold = Math.min(gold + 1, maxGold);
-            updateGameOutput(`You earn 1 gold! Current Gold: ${gold}/${maxGold}`);
+        // Add gold with a 80% chance
+        if (randomChance2 < 0.8) {
+            gold = Math.min(gold + 3, maxGold);
+            updateGameOutput(`You earn 3 gold! Current Gold: ${gold}/${maxGold}`);
             }
 
         //check to see if defeated enemy is Zombie Elon        
@@ -1513,10 +1513,10 @@ function simulateFight(level, attackModifier, hasLobo, mana, maxMana, hitpoints,
                     updateGameOutput(`You regain 1 mana! Current Mana: ${mana}/${maxMana}`);
                     }
 
-                // Add gold with a 70% chance
-                if (randomChance2 < 0.7) {
-                    gold = Math.min(gold + 1, maxGold);
-                    updateGameOutput(`You earn 1 gold! Current Gold: ${gold}/${maxGold}`);
+                // Add gold with a 80% chance
+                if (randomChance2 < 0.8) {
+                    gold = Math.min(gold + 3, maxGold);
+                    updateGameOutput(`You earn 3 gold! Current Gold: ${gold}/${maxGold}`);
                     }
 
                 // Check if the defeated enemy is Zombie Elon
