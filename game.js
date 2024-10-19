@@ -220,7 +220,7 @@ function displayRandomEvent(eventType, level, hasLobo, mana, maxMana, hitpoints,
 
     switch (eventType) {
         case 'call':
-            message = "You ring tone blasts in your ear startling you. You check your phone and realize it is from a random number. Do you want to answer?";
+            message = "Your ring tone blasts in your ear startling you. You check your phone and realize it is from a random number. Do you want to answer?";
             break;
         case 'knock':
             message = "You hear a pounding on the back door. You are startled and annoyed. Do you want to answer the back door?";
