@@ -1129,7 +1129,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
     }
 
     // If the outcome is investing in memecoins
-    else if (outcome7.effect === 'gold' && outcome7.message.includes("invest your remaining savings in memecoins")) {
+    else if (outcome7.effect === 'gold' && outcome7.message.includes("100x")) {
         const buttonContainer = document.getElementById('button-container');
 
         // Create buttons for investing or ignoring
