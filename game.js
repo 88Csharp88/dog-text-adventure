@@ -1290,7 +1290,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
     }
     break;
         case 'fight bosses':
-            updateGameOutput('Suddenly Leonidas appears in front of you. Leonidas speaks:"You are the chosen one. I have been watching you. I have been waiting for a soldier to collect 20 gold. There is a great evil that has set up their base on our moon. Will you exchange this 20 gold for rocket fuel to get to the moon and fight this source of pure evil? IT IS YOUR DESTINY!" You travel with Leonidas to the moon and exit the rocket ship. You hear a low moaning behind you. You turn around to see Zombie Elon shuffeling your way. Leonidas turns to you and says, "This is your time. This is your destiny. Fight, my soldier."');
+            updateGameOutput('Suddenly Leonidas appears in front of you. Leonidas speaks:"You are the chosen one. I have been watching you. I have been waiting for a soldier strong enough to collect 20 gold. There is a great evil that exists and it is on our moon. With your help we can exchange this 20 gold for enough rocket fuel to get to the moon. It is written in destiny that $DOG go to the moon. It is YOUR destiny!" You travel with Leonidas to gather rocket fuel and the two of you fly to the moon! Leonidas leads you out of the rocket ship. You hear a terrible, low moaning behind you. You turn around to see Zombie Elon shuffeling your way. His eyes are blood shot. He is thirsty for blood. Leonidas turns to you and says, "This is your time. This is your destiny. Fight, my soldier."');
            //Add Zombie Elon Image
             const ZombieElonImage = `
                 <div>
