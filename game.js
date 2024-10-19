@@ -386,7 +386,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
     const gameOutput = document.getElementById('game-output');
     gameOutput.innerHTML = ''; // Clear previous output
 
-    updateGameOutput(`You chose to ${choice}.`);
+    //updateGameOutput(`You chose to ${choice}.`);
 
     let enemy;
 
