@@ -1241,7 +1241,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
     }
 
     // If the outcome is plugging in the retro console
-    else if (outcome8.effect === 'mana' && outcome8.message.includes("plug in the retro console")) {
+    else if (outcome8.effect === 'mana' && outcome8.message.includes("retro game")) {
         const buttonContainer = document.getElementById('button-container');
 
         // Create buttons for plugging in or ignoring
