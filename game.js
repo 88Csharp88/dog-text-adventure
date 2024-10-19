@@ -965,7 +965,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             effect: 'mana' // Indicates that this will affect mana
         },
         {
-            message: "You hear clattering of chains and dogs barking. You look over your shoulder to see a working from animal control aggressively attempting to capture a poor dog. You can not stand for this kind of abuse! A rage comes over you and you approach the dog snatcher with ill intent!!!",
+            message: "You hear clattering of chains and dogs barking. You look over your shoulder to see a worker from animal control aggressively attempting to capture a poor dog. You can not stand for this kind of abuse! A rage comes over you and you approach the dog snatcher with ill intent!!!",
             effect: 'fight', // Indicates that this will trigger a fight
             enemyName: 'Animal Control',
             image: 'https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/AnimalControl.jpg?raw=true'
