@@ -629,7 +629,7 @@ function handleNewChoice(choice, level, hasLobo, mana, maxMana, hitpoints, maxHi
             effect: 'gold' // Indicates that this will affect gold
         },
         {
-            message: "You block your ex and begin to feel relaxed. *sniff* *sniff* What is that smell? You know that smell a mile away. Its her disgusting dollar store perfume... You puke in your mouth as your heart drops. You ex broke into your house!!!",
+            message: "You block your ex and begin to feel relaxed. *sniff* *sniff* What is that smell? You know that smell a mile away. Its her disgusting dollar store perfume... You puke in your mouth as your heart drops. Your ex broke into your house!!!",
             effect: 'fight', // Indicates that this will trigger a fight
             enemyName: 'Your Ex',
             image: 'https://github.com/88Csharp88/dog-text-adventure/blob/testing-game2-of-2/images/ex.jpg?raw=true'
