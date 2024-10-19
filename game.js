@@ -238,38 +238,84 @@ function displayRandomEvent(eventType, level, hasLobo, mana, maxMana, hitpoints,
                             <button onclick="presentSecondOptions(${level}, ${hasLobo}, ${mana}, ${maxMana}, ${hitpoints}, ${maxHitpoints}, ${gold}, ${maxGold})">No</button>`;
 }
 
-// Function to handle the random events
 function handleRandomEvent(eventType, level, hasLobo, mana, maxMana, hitpoints, maxHitpoints, gold, maxGold) {
     const gameOutput = document.getElementById('game-output');
-
     gameOutput.innerHTML = ''; // Clear the output
-    
+
     let outcomeMessage = '';
     let gain = 0; // To store the amount gained or lost
+
+    // Define messages for gains and losses
+    const messages = {
+        call: {
+            gain: [
+                "You accept the call and it is your scum bag friend. Lucky for you she decideds today is the day she will pay you back some gold she owes you.",
+                "You answer the call. It some guy that lives down the road. He saw your post about selling your old computer parts. You unload old parts on him for some gold."
+            ],
+            lose: [
+                "Crap! Its your credit card company. They tell you that you need to pony up now or they're going to destroy your life.",
+                "Damn... its your old friend. He needs some money and convinces you to give him some gold. At least you're a good friend."
+            ]
+        },
+        knock: {
+            gain: [
+                "Its your mad dad. He was locked out of the house. He was thankful that you helped him and gave you some stale bread.",
+                "Its a frantic pizza delivery lady. She explains she's been trying to deliver this pizza but no one is answering. She says its paid for. You take the pizza and run."
+            ],
+            lose: [
+                "Its one of your ex girlfriends. She starts yelling but you zone out. She smacks you across the head and gets in her boyfriends car and speeds away.",
+                "Its the jerk-off coach for the junior tackle football team. He's pissed that you burned him on social media. He kicks you in the shin and walks away to his trashy house."
+            ]
+        },
+        text: {
+            gain: [
+                "Its your old companion. She reminds you that you are wonderful no matter what people have to say about you. You feel inspired.",
+                "Its a debt collector but you convince them you will pay them back next week. You feel less stressed out."
+            ],
+            lose: [
+                "You open the text and it shorts your phone out. You spend a long time trying to get your phone to turn back on and become exhausted.",
+                "You open the text and see an unwanted image of someone's body parts. You feel sick!"
+            ]
+        },
+        barking: {
+            gain: [
+                "You walk outside and see two dogs fighting. You break up the fight and chase a stray dog away. The owner of the remaining dog is thankful and gives you a candy bar.",
+                "You walk outside and see two dogs that have a young kid pinned up against a brick wall. You chase the dogs away. The kid gives you his energy drink."
+            ],
+            lose: [
+                "As soon as you walk outside a dog bites you in the leg and runs away. WTF was that?!",
+                "You walk outside and see two dogs fighting. They stop fighting and chase you around the block. You jump a fence and land in a thorn bush."
+            ]
+        }
+    };
 
     // Determine the outcome based on the event type
     const diceRoll = Math.floor(Math.random() * 6) + 1; // Roll a dice (1-6)
 
     switch (eventType) {
         case 'call':
-            gain = (diceRoll === 6) ? 2 : -1; // Example outcome
+            gain = (diceRoll === 6) ? 2 : -1;
             gold += gain; // Adjust gold
-            outcomeMessage = `You answered the call! You ${gain > 0 ? 'gained' : 'lost'} ${Math.abs(gain)} gold.`;
+            outcomeMessage = gain > 0 ? messages.call.gain[Math.floor(Math.random() * messages.call.gain.length)] :
+                                         messages.call.lose[Math.floor(Math.random() * messages.call.lose.length)];
             break;
         case 'knock':
-            gain = (diceRoll === 6) ? 2 : -1; // Example outcome
+            gain = (diceRoll === 6) ? 2 : -1;
             hitpoints += gain; // Adjust hitpoints
-            outcomeMessage = `You answered the door! You ${gain > 0 ? 'gained' : 'lost'} ${Math.abs(gain)} hitpoints.`;
+            outcomeMessage = gain > 0 ? messages.knock.gain[Math.floor(Math.random() * messages.knock.gain.length)] :
+                                         messages.knock.lose[Math.floor(Math.random() * messages.knock.lose.length)];
             break;
         case 'text':
-            gain = (diceRoll === 6) ? 1 : -1; // Example outcome
+            gain = (diceRoll === 6) ? 1 : -1;
             mana += gain; // Adjust mana
-            outcomeMessage = `You read the text message! You ${gain > 0 ? 'gained' : 'lost'} ${Math.abs(gain)} mana.`;
+            outcomeMessage = gain > 0 ? messages.text.gain[Math.floor(Math.random() * messages.text.gain.length)] :
+                                         messages.text.lose[Math.floor(Math.random() * messages.text.lose.length)];
             break;
         case 'barking':
-            gain = (diceRoll === 6) ? 1 : -1; // Example outcome
+            gain = (diceRoll === 6) ? 1 : -1;
             hitpoints += gain; // Adjust hitpoints
-            outcomeMessage = `You checked the barking outside! You ${gain > 0 ? 'gained' : 'lost'} ${Math.abs(gain)} hitpoints.`;
+            outcomeMessage = gain > 0 ? messages.barking.gain[Math.floor(Math.random() * messages.barking.gain.length)] :
+                                         messages.barking.lose[Math.floor(Math.random() * messages.barking.lose.length)];
             break;
     }
 
