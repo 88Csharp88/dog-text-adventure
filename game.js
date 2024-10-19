@@ -298,24 +298,28 @@ function handleRandomEvent(eventType, level, hasLobo, mana, maxMana, hitpoints, 
             gold += gain; // Adjust gold
             outcomeMessage = gain > 0 ? messages.call.gain[Math.floor(Math.random() * messages.call.gain.length)] :
                                          messages.call.lose[Math.floor(Math.random() * messages.call.lose.length)];
+                        outcomeMessage += ` You ${gain > 0 ? 'gain' : 'lose'} ${Math.abs(gain)} gold. You now have ${gold} gold.`;
             break;
         case 'knock':
             gain = (diceRoll === 6) ? 2 : -1;
             hitpoints += gain; // Adjust hitpoints
             outcomeMessage = gain > 0 ? messages.knock.gain[Math.floor(Math.random() * messages.knock.gain.length)] :
                                          messages.knock.lose[Math.floor(Math.random() * messages.knock.lose.length)];
+                        outcomeMessage += ` You ${gain > 0 ? 'gain' : 'lose'} ${Math.abs(gain)} hitpoint${Math.abs(gain) !== 1 ? 's' : ''}. You now have ${hitpoints} hitpoints.`;
             break;
         case 'text':
             gain = (diceRoll === 6) ? 1 : -1;
             mana += gain; // Adjust mana
             outcomeMessage = gain > 0 ? messages.text.gain[Math.floor(Math.random() * messages.text.gain.length)] :
                                          messages.text.lose[Math.floor(Math.random() * messages.text.lose.length)];
+                        outcomeMessage += ` You ${gain > 0 ? 'gain' : 'lose'} ${Math.abs(gain)} mana. You now have ${mana} mana.`;
             break;
         case 'barking':
             gain = (diceRoll === 6) ? 1 : -1;
             hitpoints += gain; // Adjust hitpoints
             outcomeMessage = gain > 0 ? messages.barking.gain[Math.floor(Math.random() * messages.barking.gain.length)] :
                                          messages.barking.lose[Math.floor(Math.random() * messages.barking.lose.length)];
+                        outcomeMessage += ` You ${gain > 0 ? 'gain' : 'lose'} ${Math.abs(gain)} hitpoint${Math.abs(gain) !== 1 ? 's' : ''}. You now have ${hitpoints} hitpoints.`;
             break;
     }
 
