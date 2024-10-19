@@ -112,6 +112,10 @@
                 instructions.style.display = 'none';
                 this.textContent = 'How to Play'; // Reset button text
             }
+
+            // Hide How to Play button when Scan Balances is clicked
+            document.getElementById('address-form').addEventListener('submit', function() {
+            document.getElementById('how-to-play-button').style.display = 'none';
         });
     </script>
 
